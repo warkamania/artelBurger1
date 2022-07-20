@@ -2,7 +2,9 @@
   <q-page>
     <h5 class="textGradient12">главная страница</h5>
     <div class="row">
-      <div class="col-12">{{ Time }}</div>
+      <div class="col-12 textGradient12" style="font-size: 22px">
+        {{ Time }}
+      </div>
     </div>
     <div class="row">
       <div class="col-12">
@@ -40,7 +42,7 @@
 import { defineComponent } from "vue";
 import NewsPanel from "../components/NewsPanel.vue";
 import CardMenu from "../components/CardMenu.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 export default defineComponent({
   name: "IndexPage",
@@ -49,20 +51,26 @@ export default defineComponent({
     return {
       lorem: "Бургер",
       model: ref(null),
+      value: ref(""),
     };
+  },
+  mounted() {},
+  watch: {
+    toogleClick() {},
   },
   computed: {
     Time() {
       let date = new Date();
       let dateHours = date.getHours();
+      let day = "Доброе утро!";
       if (dateHours <= 11) {
-        const day = "Доброе утро!";
-      } else if (dateHours <= 12 || dateHours >= 17) {
-        const day = "Добрый день!";
+        day;
+      } else if (dateHours >= 12 || dateHours <= 17) {
+        day = "Добрый день!";
       } else {
-        const day = "Добрый вечер";
+        day = "Добрый вечер";
       }
-      return this.day;
+      return day;
     },
   },
   methods: {
