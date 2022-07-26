@@ -2,7 +2,7 @@
   <div class="q-pa-md row items-start q-gutter-md">
     <q-intersection v-for="index in 1" :key="index" once transition="scale">
       <q-card class="my-card bg-black text-white" @click="!dialog" v-model="id">
-        <q-card-section>
+        <q-card-section v-model="title">
           <q-responsive :ratio="1">
             <img src="burger.jpg" alt="" class="img" @click="dialog = true" />
           </q-responsive>
@@ -10,7 +10,7 @@
           <span class="span-burger">Бурый медведь</span>
           <br />
           <div class="fit row wrap justify-between">
-            <div class="col-6 price" style="overflow: auto">440 р</div>
+            <div class="col-6 price" style="overflow: auto">440 р{{ currency }}</div>
             <div class="col-6" style="overflow: auto">
               <q-btn flat icon="add_box" @click="persist"></q-btn>
             </div>
@@ -29,8 +29,8 @@ export default {
   setup() {
     return {
       dialog: ref(false),
-      id: ref(""),
-      title: ref(""),
+      id: ref(1),
+      title: ref("Бурый медведь"),
       price: ref(0),
       sum: ref(0),
       Card: ref([]),
@@ -51,7 +51,7 @@ export default {
       !this.dialog;
     },
     persist() {
-      this.Card.push(this.id, this.title);
+      this.Card.push({ id: this.id, title: this.title, price: this.price, });
       this.saveCard();
     },
     saveCard() {
@@ -73,9 +73,11 @@ export default {
   width: 500px;
   height: 500px;
 }
+
 .span-burger {
   font-size: 18px;
 }
+
 .price {
   color: red;
   font-size: 18px;

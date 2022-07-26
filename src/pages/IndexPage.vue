@@ -13,15 +13,10 @@
     </div>
     <div class="row">
       <div class="q-pa-md">
-        <q-btn-toggle
-          v-model="model"
-          text-color="white"
-          toggle-color="red"
-          :options="[
-            { label: 'Популярное', value: 'one' },
-            { label: 'Новинки', value: 'two' },
-          ]"
-        />
+        <q-btn-toggle v-model="toogle" text-color="white" toggle-color="red" :options="[
+          { label: 'Популярное', value: 'one' },
+          { label: 'Новинки', value: 'two' },
+        ]" />
       </div>
       <div class="col-6">
         <CardMenu />
@@ -42,7 +37,7 @@
 import { defineComponent } from "vue";
 import NewsPanel from "../components/NewsPanel.vue";
 import CardMenu from "../components/CardMenu.vue";
-import { ref, watch } from "vue";
+import { ref } from "vue";
 
 export default defineComponent({
   name: "IndexPage",
@@ -50,14 +45,12 @@ export default defineComponent({
   setup() {
     return {
       lorem: "Бургер",
-      model: ref(null),
+      toogle: ref("one"),
       value: ref(""),
     };
   },
-  mounted() {},
-  watch: {
-    toogleClick() {},
-  },
+  mounted() { },
+
   computed: {
     Time() {
       let date = new Date();
@@ -74,7 +67,7 @@ export default defineComponent({
     },
   },
   methods: {
-    dayTime() {},
+
   },
 });
 </script>

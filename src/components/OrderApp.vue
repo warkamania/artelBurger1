@@ -2,15 +2,7 @@
   <q-page>
     <div class="row">
       <div class="col-12">
-        <q-input
-          color="red"
-          dark
-          v-model="search"
-          filled
-          type="search"
-          hint="Поиск"
-          style="color: white"
-        >
+        <q-input color="red" dark v-model="searchQuery" filled type="search" hint="Поиск" style="color: white">
           <template v-slot:append>
             <q-icon name="search" style="color: white" />
           </template>
@@ -23,8 +15,7 @@
         <TabsApp />
       </div>
     </div>
-    <p>Моё имя <input v-model="id" /> и мне <input v-model="title" /> лет.</p>
-    <button @click="persist">Сохранить</button>
+
   </q-page>
 </template>
 
@@ -34,12 +25,14 @@ import TabsApp from "src/components/TabsApp.vue";
 export default {
   setup() {
     return {
-      search: ref(""),
+      searchQuery: ref(""),
       id: ref(""),
       title: ref(""),
       price: ref(0),
       sum: ref(0),
       Card: ref([]),
+      selectedSort: ref(""),
+
     };
   },
   mounted() {
@@ -51,19 +44,26 @@ export default {
       }
     }
   },
+  computed: {
+
+  },
   methods: {
     persist() {
-      this.Card.push(this.id, this.title);
+      this.Card.push({ id: this.id, title: this.title, price: this.price });
       this.saveCard();
     },
     saveCard() {
       const parsed = JSON.stringify(this.Card);
       localStorage.setItem("Card", parsed);
     },
+    Search() {
+
+    }
   },
 
   components: { TabsApp },
 };
 </script>
 
-<style></style>
+<style>
+</style>

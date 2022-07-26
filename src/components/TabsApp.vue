@@ -2,15 +2,8 @@
   <div class="q-pa-xs">
     <div class="q-gutter-y-xs">
       <q-card class="bg-black text-white">
-        <q-tabs
-          v-model="tab"
-          dense
-          class="text-grey bg-black"
-          active-color="red"
-          indicator-color="red"
-          align="justify"
-          narrow-indicator
-        >
+        <q-tabs v-model="tab" dense class="text-grey bg-black" active-color="red" indicator-color="red" align="justify"
+          narrow-indicator>
           <q-tab name="Burger" label="Бургеры" />
           <q-tab name="alarms" label="Горячие Закуску" />
           <q-tab name="movies" label="Салаты" />
@@ -84,7 +77,11 @@ export default {
   setup() {
     return {
       tab: ref("Burger"),
+      menu: ref([])
     };
+  },
+  async mounted() {
+
   },
   components: { CardMenuVue },
 };

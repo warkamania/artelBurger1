@@ -1,5 +1,7 @@
+import { createWebHashHistory } from "vue-router";
 const routes = [
   {
+    history: createWebHashHistory(),
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [

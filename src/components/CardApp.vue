@@ -7,12 +7,7 @@
             <div class="row">
               <div class="col-10 text-white text-h6">{{ index }}</div>
               <div col-2>
-                <q-btn
-                  flat
-                  icon="close"
-                  class="items-end"
-                  color="white"
-                ></q-btn>
+                <q-btn flat icon="close" class="items-end" color="white"></q-btn>
               </div>
             </div>
 
@@ -28,15 +23,7 @@
                   <q-btn flat icon="remove" color="white"></q-btn>
                 </div>
                 <div class="col-2">
-                  <q-input
-                    dense
-                    dark
-                    color="red"
-                    outlined
-                    v-model="text"
-                    label=""
-                    type="number"
-                  />
+                  <q-input dense dark color="red" outlined v-model="text" label="" type="number" />
                 </div>
                 <div class="col-2">
                   <q-btn flat icon="add" color="white"></q-btn>
@@ -72,55 +59,26 @@
         <div class="col-12">
           <q-card>
             <q-card-section class="bg-black">
-              <q-input
-                dark
-                standout
-                bottom-slots
-                v-model="text"
-                label="Адрес доставки"
-                counter
-                :readonly="readonly"
-                :disable="disable"
-                color="red"
-              >
+              <q-input dark standout bottom-slots v-model="adres" label="Адрес доставки" counter :readonly="readonly"
+                :disable="disable" color="red">
                 <template v-slot:prepend>
                   <q-icon name="place" />
                 </template>
                 <template v-slot:append>
-                  <q-icon
-                    name="close"
-                    @click="text = ''"
-                    class="cursor-pointer"
-                  />
+                  <q-icon name="close" @click="text = ''" class="cursor-pointer" />
                 </template>
               </q-input>
               <br />
-              <q-input
-                type="tel"
-                dark
-                standout
-                bottom-slots
-                v-model="text"
-                label="Номер телефона"
-                counter
-                :readonly="readonly"
-                :disable="disable"
-                color="red"
-              >
+              <q-input type="tel" dark standout bottom-slots v-model="tel" label="Номер телефона" counter
+                :readonly="readonly" :disable="disable" color="red">
                 <template v-slot:prepend>
                   <q-icon name="phone" />
                 </template>
               </q-input>
-              <q-select
-                dark
-                v-model="model"
-                :options="options"
-                label="Способ оплаты"
-                color="red"
-              />
+              <q-select dark v-model="payment" :options="options" label="Способ оплаты" color="red" />
               <br />
               <div class="fit row wrap justify-center items-end self-end">
-                <q-btn color="red" @click="OpdenOrder">Отправить</q-btn>
+                <q-btn color="red" @click="persist">Отправить</q-btn>
               </div>
             </q-card-section>
           </q-card>
@@ -132,11 +90,7 @@
         <div class="col-12">
           <q-card>
             <q-card-section class="bg-black">
-              <img
-                src="check_circle_outline_black_48dp.svg"
-                alt=""
-                class="fit row justify-center"
-              />
+              <img src="check_circle_outline_black_48dp.svg" alt="" class="fit row justify-center" />
               <h5 style="color: white">Ваш заказ №{{ NumberOrder }} принят</h5>
             </q-card-section>
           </q-card>
@@ -155,17 +109,43 @@ export default {
 
     return {
       alert: ref(false),
-      model: ref(null),
+      payment: ref(""),
       options: ["Онлайн", "Картой при получении", "Наличными при получении"],
       Order: ref(false),
+      tel: ref(""),
+      adres: ref(""),
+      menu: ref([])
+
     };
   },
+  async mounted() {
+    if (localStorage.getItem("Card")) {
+      try {
+        this.Card = JSON.parse(localStorage.getItem("Card"));
+      } catch (e) {
+        localStorage.removeItem("Card");
+      }
+    }
+    this.menu = await this.$store.dispatch('fetchMenu')
+    //const categoires = await this.$store.dispatch('fetchMenu')
+
+  },
   methods: {
-    CounterPlus() {},
-    CounterMinus() {},
+    CounterPlus() { },
+    CounterMinus() { },
     OpdenOrder() {
+
+    },
+    persist() {
+      this.Card.push({ tel: this.tel, adres: this.adres, payment: this.payment });
+      this.saveCard();
       this.Order = true;
       this.alert = false;
+    },
+    saveCard() {
+      const parsed = JSON.stringify(this.Card);
+      localStorage.setItem("Card", parsed);
+
     },
   },
 };
@@ -180,11 +160,13 @@ export default {
   color: red;
   font-size: 25px;
 }
+
 .textGradient12 {
   background-image: linear-gradient(to right, #553c9a 12%, #ee4b2b);
   color: transparent;
   background-clip: text;
 }
+
 img {
   width: 90px;
   height: 100px;
