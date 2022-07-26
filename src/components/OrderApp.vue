@@ -2,7 +2,7 @@
   <q-page>
     <div class="row">
       <div class="col-12">
-        <q-input color="red" dark v-model="searchQuery" filled type="search" hint="Поиск" style="color: white">
+        <q-input color="red" dark v-model="searchQuery" filled type="search" style="color: white" placeholder="Поиск">
           <template v-slot:append>
             <q-icon name="search" style="color: white" />
           </template>
@@ -32,6 +32,7 @@ export default {
       sum: ref(0),
       Card: ref([]),
       selectedSort: ref(""),
+      Menus: ref([]),
 
     };
   },
@@ -45,6 +46,12 @@ export default {
     }
   },
   computed: {
+    sortedMenus() {
+      return [...this.Menus].sort((Menu1, Menu2) => Menu1[this.selectedSort]?.localeCompare(Menu2[this.selectedSort]))
+    },
+    sortedAndSearchedMenus() {
+      return this.sortedMenus.filter(Menu => Menu.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
+    }
 
   },
   methods: {
@@ -56,9 +63,7 @@ export default {
       const parsed = JSON.stringify(this.Card);
       localStorage.setItem("Card", parsed);
     },
-    Search() {
 
-    }
   },
 
   components: { TabsApp },
