@@ -6,7 +6,7 @@ export default {
     async createNemu({ dispatch, commit }, menu) {
       try {
         const uid = await dispatch("getUid");
-        return await firebase.database().ref(`/users/${uid}/Menus`).push(menu);
+        return await firebase.database().ref(`/Burger/`).push(menu);
       } catch (e) {
         commit("setError", e);
         throw e;
@@ -16,7 +16,7 @@ export default {
       try {
         const uid = await dispatch("getUid");
         const records =
-          (await firebase.database().ref(`/Burger`).once("value")).val() || {};
+          (await firebase.database().ref(`/Burger/`).once("value")).val() || {};
         return Object.keys(records).map((key) => ({
           ...records[key],
           id: key,

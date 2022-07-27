@@ -36,13 +36,14 @@ export default {
 
     };
   },
-  mounted() {
+  async mounted() {
     if (localStorage.getItem("Card")) {
       try {
         this.Card = JSON.parse(localStorage.getItem("Card"));
       } catch (e) {
         localStorage.removeItem("Card");
       }
+      this.Menus = await this.$store.dispatch('fetchMenu')
     }
   },
   computed: {

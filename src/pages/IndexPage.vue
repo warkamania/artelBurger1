@@ -16,6 +16,7 @@
         <q-btn-toggle v-model="toogle" text-color="white" toggle-color="red" :options="[
           { label: 'Популярное', value: 'one' },
           { label: 'Новинки', value: 'two' },
+          { label: 'Избранные', value: 'three' },
         ]" />
       </div>
       <div class="col-6">

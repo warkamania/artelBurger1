@@ -5,23 +5,12 @@
         <br />
         <div class="row">
           <div class="col-12 row wrap justify-center">
-            <img
-              src="logo.png"
-              alt="logo"
-              @click="clickHome"
-              style="overflow: auto"
-            />
+            <img src="logo.png" alt="logo" @click="clickHome" style="overflow: auto" />
           </div>
         </div>
         <div class="row wrap justify-end items-end content-end">
           <div class="col-2">
-            <q-btn
-              size="md"
-              flat
-              icon="shopping_bag"
-              to="CardApp"
-              style="overflow: auto"
-            >
+            <q-btn size="md" flat icon="shopping_bag" to="CardApp" style="overflow: auto">
               <q-badge color="red" floating rounded>2</q-badge>
             </q-btn>
           </div>

@@ -2,6 +2,7 @@
   <div class="q-pa-md row items-start q-gutter-md">
     <q-intersection v-for="index in 1" :key="index" once transition="scale">
       <q-card class="my-card bg-black text-white" @click="!dialog" v-model="id">
+        <q-btn flat icon="star_border " class="fit row wrap justify-end items-end content-end"></q-btn>
         <q-card-section v-model="title">
           <q-responsive :ratio="1">
             <img src="burger.jpg" alt="" class="img" @click="dialog = true" />
@@ -25,18 +26,21 @@
 <script>
 import DialogAppVue from "./DialogApp.vue";
 import { ref } from "vue";
+import { v4 as uuidv4 } from "uuid";
 export default {
   setup() {
     return {
       dialog: ref(false),
-      id: ref(1),
+      id: ref(null),
       title: ref("Бурый медведь"),
       price: ref(0),
       sum: ref(0),
       Card: ref([]),
+      Menus: ref([])
+
     };
   },
-  mounted() {
+  async mounted() {
     if (localStorage.getItem("Card")) {
       try {
         this.Card = JSON.parse(localStorage.getItem("Card"));
@@ -44,6 +48,7 @@ export default {
         localStorage.removeItem("Card");
       }
     }
+
   },
 
   methods: {
@@ -51,6 +56,7 @@ export default {
       !this.dialog;
     },
     persist() {
+      this.id = uuidv4();
       this.Card.push({ id: this.id, title: this.title, price: this.price, });
       this.saveCard();
     },

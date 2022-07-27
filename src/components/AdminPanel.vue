@@ -29,10 +29,10 @@
       </div>
       <div class="row justify-between q-pa-md">
         <div class="col-4">
-          <q-btn color="white" text-color="black" label=" Сохранить" class="fit" @click="saveMenu" />
+          <q-btn color="green" text-color="white" label=" Сохранить" class="fit" @click="saveMenu" />
         </div>
         <div class="col-4">
-          <q-btn color="white" text-color="black" label="Удалить" class="fit" />
+          <q-btn color="red" text-color="white" label="Удалить" class="fit" />
         </div>
       </div>
     </q-splitter>
@@ -56,10 +56,10 @@
     </div>
     <div class="row justify-between q-pa-md">
       <div class="col-4">
-        <q-btn color="white" text-color="black" label=" Сохранить" class="fit" @click="saveNews" />
+        <q-btn color="green" text-color="white" label=" Сохранить" class="fit" @click="saveNews" />
       </div>
       <div class="col-4">
-        <q-btn color="white" text-color="black" label="Удалить" class="fit" />
+        <q-btn color="red" text-color="white" label="Удалить" class="fit" />
       </div>
     </div>
     <div class="row q-pa-md">
@@ -78,14 +78,21 @@
             file = val[0];
           }
         " filled type="file" hint="Картинка" />
+        <br />
+        <q-input v-model="name" label="Промокод" bg-color="white" color="red" />
+        <br />
+        <q-input v-model="price" label="Процент скидки" icon="currency_ruble" color="red" bg-color="white" type="number"
+          filled />
+        <br />
+        <q-input v-model="price" label="Действителен до: " color="red" bg-color="white" type="date" filled />
       </div>
     </div>
     <div class="row justify-between q-pa-md">
       <div class="col-4">
-        <q-btn color="white" text-color="black" label=" Сохранить" class="fit" @click="savePromotion" />
+        <q-btn color="green" text-color="white" label=" Сохранить" class="fit" @click="savePromotion" />
       </div>
       <div class="col-4">
-        <q-btn color="white" text-color="black" label="Удалить" class="fit" />
+        <q-btn color="red" text-color="white" label="Удалить" class="fit" />
       </div>
     </div>
   </q-page>
@@ -108,6 +115,8 @@ export default {
       editor: ref(""),
       img: ref(null),
       splitterModel: ref(50),
+      promocod: ref(""),
+      date: ref(null),
     };
   },
   methods: {
