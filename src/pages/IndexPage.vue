@@ -20,17 +20,19 @@
         ]" />
       </div>
       <div class="col-6">
-        <CardMenu />
+        <CardMenu @click="openDialog" />
       </div>
       <div class="col-6">
-        <CardMenu />
+        <CardMenu @click="openDialog" />
       </div>
     </div>
     <div class="row">
-      <div class="col-4"></div>
-      <div class="col-4"></div>
-      <div class="col-4"></div>
+      <div class="col-12">
+        <DialogApp v-show="!Dialog" />
+      </div>
+
     </div>
+
   </q-page>
 </template>
 
@@ -39,15 +41,17 @@ import { defineComponent } from "vue";
 import NewsPanel from "../components/NewsPanel.vue";
 import CardMenu from "../components/CardMenu.vue";
 import { ref } from "vue";
+import DialogApp from "src/components/DialogApp.vue";
 
 export default defineComponent({
   name: "IndexPage",
-  components: { NewsPanel, CardMenu },
+  components: { NewsPanel, CardMenu, DialogApp },
   setup() {
     return {
       lorem: "Бургер",
       toogle: ref("one"),
       value: ref(""),
+      Dialog: ref(false)
     };
   },
   mounted() {
@@ -70,7 +74,9 @@ export default defineComponent({
     },
   },
   methods: {
-
+    openDialog() {
+      this.Dialog = !this.Dialog
+    }
   },
 });
 </script>

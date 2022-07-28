@@ -23,6 +23,7 @@ export default {
           img: key,
           price: key,
           title: key,
+          structure: key,
         }));
       } catch (e) {
         commit("setError", e);

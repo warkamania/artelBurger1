@@ -2,10 +2,13 @@
   <div class="q-pa-md row items-start q-gutter-md">
     <q-intersection v-for="index in 1" :key="index" once transition="scale">
       <q-card class="my-card bg-black text-white" @click="!dialog" v-model="id">
-        <q-btn flat icon="star_border " class="fit row wrap justify-end items-end content-end"></q-btn>
+        <q-btn v-show="!star" @click="stars" flat icon="star_border "
+          class="fit row wrap justify-end items-end content-end"></q-btn>
+        <q-btn v-show="star" @click="stars" flat icon="star " class="fit row wrap justify-end items-end content-end">
+        </q-btn>
         <q-card-section v-model="title">
           <q-responsive :ratio="1">
-            <img src="burger.jpg" alt="" class="img" @click="dialog = true" />
+            <img src="burger.jpg" alt="" class="img" @click="OpenDialog" />
           </q-responsive>
 
           <span class="span-burger">Бурый медведь</span>
@@ -20,11 +23,28 @@
       </q-card>
     </q-intersection>
   </div>
-  <DialogAppVue v-show="!dialog" />
+  <div class="q-pa-md q-gutter-sm ">
+    <q-dialog bg-white v-model="alert">
+      <q-card class="bg-black">
+        <q-card-section bg-white>
+          <div class="text-h6 textGradient18">Состав</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none textGradient18">
+          Черная булочка, котлета из мраморной говядины, сыр Чеддер, микс салата, перец болгарский, огурец свежий,
+          спелый томат, огурец маринованный, бекон, соус фирменный BBQ, сырный соус, кунжутный соус.
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="red" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+  </div>
 </template>
 
 <script>
-import DialogAppVue from "./DialogApp.vue";
+//import DialogAppVue from "./DialogApp.vue";
 import { ref } from "vue";
 import { v4 as uuidv4 } from "uuid";
 export default {
@@ -36,7 +56,11 @@ export default {
       price: ref(0),
       sum: ref(0),
       Card: ref([]),
-      Menus: ref([])
+      Menus: ref([]),
+      star: ref(false),
+      alert: ref(false),
+      idfavourites: ref([])
+
 
     };
   },
@@ -53,7 +77,7 @@ export default {
 
   methods: {
     OpenDialog() {
-      !this.dialog;
+      this.alert = !this.alert
     },
     persist() {
       this.id = uuidv4();
@@ -64,8 +88,17 @@ export default {
       const parsed = JSON.stringify(this.Card);
       localStorage.setItem("Card", parsed);
     },
+    stars() {
+      this.star = !this.star
+      this.idfavourites = { id: this.id }
+
+
+    },
+
+
+
   },
-  components: { DialogAppVue },
+  components: {},
 };
 </script>
 
@@ -87,5 +120,11 @@ export default {
 .price {
   color: red;
   font-size: 18px;
+}
+
+.textGradient18 {
+  background-image: linear-gradient(to right, #553c9a 18%, #ee4b2b);
+  color: transparent;
+  background-clip: text;
 }
 </style>

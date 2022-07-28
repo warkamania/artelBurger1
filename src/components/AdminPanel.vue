@@ -3,7 +3,7 @@
     <q-splitter v-model="splitterModel" horizontal>
       <div class="row q-pa-md">
         <div class="col-12">
-          <q-btn color="white" text-color="black" label=" Меню" class="fit" />
+          <q-btn color="white" text-color="black" label=" Меню" class="fit" @click.stop />
         </div>
         <div class="q-pa-md col-12" style="max-width: 300px">
           <div class="">
@@ -19,6 +19,12 @@
           <br />
           <q-input v-model="price" label="Цена" icon="currency_ruble" color="red" bg-color="white" type="number" filled
             style="max-width: 200px" />
+          <br />
+          <div class="q-gutter-sm">
+            <q-editor v-model="editor" flat placeholder="СОСТАВ" :definitions="{
+              bold: { label: 'Bold', icon: null, tip: 'My bold tooltip' },
+            }" />
+          </div>
           <br />
         </div>
         <q-input color="red" bg-color="white" @update:model-value="
@@ -81,8 +87,8 @@
         <br />
         <q-input v-model="name" label="Промокод" bg-color="white" color="red" />
         <br />
-        <q-input v-model="price" label="Процент скидки" icon="currency_ruble" color="red" bg-color="white" type="number"
-          filled />
+        <q-input v-model="price" Placeholder="Процент скидки" icon="currency_ruble" color="red" bg-color="white"
+          type="number" filled />
         <br />
         <q-input v-model="price" label="Действителен до: " color="red" bg-color="white" type="date" filled />
       </div>

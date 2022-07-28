@@ -23,7 +23,7 @@
                   <q-btn flat icon="remove" color="white"></q-btn>
                 </div>
                 <div class="col-2">
-                  <q-input dense dark color="red" outlined v-model="text" label="" type="number" />
+                  <q-input dense dark color="red" outlined v-model="quantity" label="" type="number" />
                 </div>
                 <div class="col-2">
                   <q-btn flat icon="add" color="white"></q-btn>
@@ -114,7 +114,8 @@ export default {
       Order: ref(false),
       tel: ref(""),
       adres: ref(""),
-      menu: ref([])
+      menu: ref([]),
+      quantity: ref(Number)
 
     };
   },
@@ -137,7 +138,7 @@ export default {
 
     },
     persist() {
-      this.Card.push({ tel: this.tel, adres: this.adres, payment: this.payment });
+      this.Card.push({ tel: this.tel, adres: this.adres, payment: this.payment, quantity: this.quantity });
       this.saveCard();
       this.Order = true;
       this.alert = false;

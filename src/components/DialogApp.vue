@@ -1,12 +1,12 @@
 <template>
-  <div class="q-pa-md q-gutter-sm">
-    <q-dialog>
-      <q-card bg-white>
+  <div class="q-pa-md q-gutter-sm ">
+    <q-dialog bg-white v-model="alert">
+      <q-card class="bg-white">
         <q-card-section bg-white>
           <div class="text-h6">Alert</div>
         </q-card-section>
 
-        <q-card-section class="q-pt-none">
+        <q-card-section class="q-pt-none text-white" style="color: white">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
           repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
           perferendis totam, ea at omnis vel numquam exercitationem aut, natus
@@ -32,3 +32,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+bgr {
+  background: white;
+}
+</style>
