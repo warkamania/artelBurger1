@@ -142,12 +142,20 @@ export default {
       this.saveCard();
       this.Order = true;
       this.alert = false;
+      setTimeout(() => {
+        this.deleteCard()
+      }, 5000);
+
     },
     saveCard() {
       const parsed = JSON.stringify(this.Card);
       localStorage.setItem("Card", parsed);
 
     },
+    deleteCard() {
+      const parsed = JSON.stringify(this.Card)
+      localStorage.clear("Card", parsed)
+    }
   },
 };
 </script>
