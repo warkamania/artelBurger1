@@ -91,7 +91,8 @@
           <q-card>
             <q-card-section class="bg-black">
               <img src="check_circle_outline_black_48dp.svg" alt="" class="fit row justify-center" />
-              <h5 style="color: white">Ваш заказ №{{ NumberOrder }} принят</h5>
+              <h5 style="color: white">Ваш заказ №{{ numberOrder }} принят</h5>
+              {{ numberOrder }}
             </q-card-section>
           </q-card>
         </div>
@@ -115,7 +116,9 @@ export default {
       tel: ref(""),
       adres: ref(""),
       menu: ref([]),
-      quantity: ref(Number)
+      quantity: ref(Number),
+      number: ref(0),
+
 
     };
   },
@@ -131,6 +134,14 @@ export default {
     //const categoires = await this.$store.dispatch('fetchMenu')
 
   },
+  computed: {
+    numberOrder() {
+
+      const numb = this.number + 1
+
+      return numb
+    }
+  },
   methods: {
     CounterPlus() { },
     CounterMinus() { },
@@ -138,13 +149,13 @@ export default {
 
     },
     persist() {
-      this.Card.push({ tel: this.tel, adres: this.adres, payment: this.payment, quantity: this.quantity });
+      this.Card.push({ tel: this.tel, adres: this.adres, payment: this.payment, quantity: this.quantity, numberOrder: this.numberOrder });
       this.saveCard();
       this.Order = true;
       this.alert = false;
       setTimeout(() => {
         this.deleteCard()
-      }, 5000);
+      }, 10000);
 
     },
     saveCard() {
