@@ -1,10 +1,9 @@
-import Vue from "vue";
 import firebase from "firebase/app";
 import { initializeApp } from "firebase/app";
-import App from "./App.vue";
+import App from "../App.vue";
 import "firebase/auth";
 import "firebase/database";
-Vue.config.productionTip = false;
+
 const firebaseConfig = {
   apiKey: "AIzaSyAdNAnCas-BuRdLEZhG1mq2wzR9DSnT8Yk",
   authDomain: "artelburger-240ca.firebaseapp.com",
@@ -17,18 +16,13 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const apps = initializeApp(firebaseConfig);
-const analytics = getAnalytics(apps);
+firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth(apps);
-
-let app;
-firebase.auth().onAuthStateChanged(() => {
-  if (!app) {
-    app = new Vue({
-      router,
-      store,
-      render: (h) => h(App),
-    }).$mount("#app");
-  }
-});
+firebase.getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      unsubscribe();
+      resolve(user);
+    }, reject);
+  });
+};

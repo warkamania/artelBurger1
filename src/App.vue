@@ -4,11 +4,12 @@
 
 <script>
 import { defineComponent } from "vue";
-import firebase from "firebase/compat/app";
-import { initializeApp } from "firebase/app";
+
+//import { initializeApp } from "firebase/app";
 
 import "firebase/auth";
 import "firebase/database";
+
 export default defineComponent({
   name: "App",
 
@@ -25,7 +26,7 @@ export default defineComponent({
     };
 
     // Initialize Firebase
-    const apps = initializeApp(firebaseConfig);
+
 
 
 

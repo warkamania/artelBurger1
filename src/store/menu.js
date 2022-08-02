@@ -1,5 +1,5 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/database";
+import firebase from "firebase/app";
+import "firebase/database";
 
 export default {
   actions: {
@@ -14,7 +14,7 @@ export default {
     },
     async fetchMenu({ dispatch, commit }) {
       try {
-        const uid = await dispatch("getUid");
+        //const uid = await dispatch("getUid");
         const records =
           (await firebase.database().ref(`/Burger/`).once("value")).val() || {};
         return Object.keys(records).map((key) => ({

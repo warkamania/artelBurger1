@@ -1,37 +1,45 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
 
 export default {
   actions: {
-    async login({ dispatch, commit }, { email, password }) {
-      try {
-        await firebase.auth().signInWithEmailAndPassword(email, password);
-      } catch (e) {
-        commit("setError", e);
-        throw e;
-      }
-    },
-    async register({ dispatch, commit }, { email, password, name }) {
-      try {
-        await firebase.auth().createUserWithEmailAndPassword(email, password);
-        const uid = await dispatch("getUid");
-        await firebase.database().ref(`/users/${uid}/info`).set({
-          bonus: 20,
-          name,
+    login(email, password) {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          this.$q.notify({ message: "Sign In Success." });
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      } catch (e) {
-        commit("setError", e);
-        throw e;
-      }
+    },
+    register(email, password) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((auth) => {
+          this.$q.notify({ message: "Sign In Success." });
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     getUid() {
       const user = firebase.auth().currentUser;
       return user ? user.uid : null;
     },
-    async longout({ commit }) {
-      await firebase.auth().signOut();
-      commit("clearInfo");
+    logout() {
+      firebase.auth().signOut();
+      this.$router
+        .push("/")
+        .then(() => {
+          this.$q.notify({ message: "Sign Out Success." });
+        })
+        .catch((error) => console.log("error", error));
     },
   },
 };

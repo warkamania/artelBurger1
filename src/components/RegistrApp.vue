@@ -42,9 +42,9 @@ export default {
   setup() {
     const $q = useQuasar();
 
-    const name = ref("");
-    const email = ref("");
-    const password = ref("");
+    const name = ref(null);
+    const email = ref(null);
+    const password = ref(null);
     const accept = ref(false);
 
     return {
@@ -59,7 +59,7 @@ export default {
       const formData = {
         email: this.email,
         password: this.password,
-        name: this.name,
+
       };
       try {
         await this.$store.dispatch("register", formData);
