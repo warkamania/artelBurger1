@@ -43,7 +43,7 @@ export default {
       } catch (e) {
         localStorage.removeItem("Card");
       }
-      this.Menus = await this.$store.dispatch('fetchMenu')
+      this.Menus = await this.$store.dispatch('fetchMenuById')
     }
   },
   computed: {

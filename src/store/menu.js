@@ -16,7 +16,7 @@ export default {
       try {
         //const uid = await dispatch("getUid");
         const records =
-          (await firebase.database().ref(`/Burger/`).once("value")).val() || {};
+          (await firebase.database().ref(`Burger/`).once("value")).val() || {};
         return Object.keys(records).map((key) => ({
           ...records[key],
           id: key,
@@ -34,14 +34,8 @@ export default {
       try {
         const uid = await dispatch("getUid");
         const record =
-          (
-            await firebase
-              .database()
-              .ref(`/users/${uid}/Menus`)
-              .child(id)
-              .once("value")
-          ).val() || {};
-        return { ...record, id };
+          (await firebase.database().ref(`Burger/`).once("value")).val() || {};
+        return { ...record, id, title, price, structure, img };
       } catch (e) {
         commit("setError", e);
         throw e;

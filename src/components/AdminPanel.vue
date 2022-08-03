@@ -170,6 +170,24 @@ export default {
       }
       console.log("Акция сохранена сохранена ");
     },
+    addMenus() {
+      let newBurger = {
+        // id: this.notes.length + 1,
+        Burger: this.menu
+      };
+      // this.notes.unshift(newNote);
+
+      db.collection("Burger")
+        .add(newBurger)
+        .then(docRef => {
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(error => {
+          console.error("Ошибка добавления: ", error);
+        });
+
+      this.newBurgerContent = "";
+    },
   },
   removeMenu() { },
   removeNews() { },

@@ -1,8 +1,7 @@
 import firebase from "firebase/app";
-import { initializeApp } from "firebase/app";
-import App from "../App.vue";
 import "firebase/auth";
 import "firebase/database";
+import "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAdNAnCas-BuRdLEZhG1mq2wzR9DSnT8Yk",
@@ -26,3 +25,7 @@ firebase.getCurrentUser = () => {
     }, reject);
   });
 };
+let db = firebase.firestore();
+const database = firebase.database;
+export { firebaseConfig, database };
+export default db;

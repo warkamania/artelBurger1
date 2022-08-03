@@ -42,6 +42,7 @@ import NewsPanel from "../components/NewsPanel.vue";
 import CardMenu from "../components/CardMenu.vue";
 import { ref } from "vue";
 import DialogApp from "src/components/DialogApp.vue";
+import db from 'src/boot/firebase';
 
 export default defineComponent({
   name: "IndexPage",
@@ -51,10 +52,28 @@ export default defineComponent({
       lorem: "Бургер",
       toogle: ref("one"),
       value: ref(""),
-      Dialog: ref(false)
+      Dialog: ref(false),
+      menus: ref([])
     };
   },
   mounted() {
+    db.collection("Burger").onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+
+        const burgerChange = change.doc.data();
+
+        if (change.type === "added") {
+          console.log("New burger: ", burgerChange);
+          this.menus.unshift(burgerChange);
+        }
+        if (change.type === "modified") {
+          console.log("Modified burger: ", burgerChange);
+        }
+        if (change.type === "removed") {
+          console.log("Removed burger: ", burgerChange);
+        }
+      });
+    });
 
   },
 
