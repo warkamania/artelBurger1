@@ -22,6 +22,7 @@
 <script>
 import { ref } from "vue";
 import TabsApp from "src/components/TabsApp.vue";
+import db from 'src/boot/firebase';
 export default {
   setup() {
     return {
@@ -32,7 +33,7 @@ export default {
       sum: ref(0),
       Card: ref([]),
       selectedSort: ref(""),
-      Menus: ref([]),
+      menus: ref([]),
 
     };
   },
@@ -43,15 +44,31 @@ export default {
       } catch (e) {
         localStorage.removeItem("Card");
       }
-      this.Menus = await this.$store.dispatch('fetchMenuById')
+      db.collection("Burger").onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+
+          const burgerChange = change.doc.data();
+
+          if (change.type === "added") {
+            console.log("New burger: ", burgerChange);
+            this.menus.unshift(burgerChange);
+          }
+          if (change.type === "modified") {
+            console.log("Modified burger: ", burgerChange);
+          }
+          if (change.type === "removed") {
+            console.log("Removed burger: ", burgerChange);
+          }
+        });
+      });
     }
   },
   computed: {
     sortedMenus() {
-      return [...this.Menus].sort((Menu1, Menu2) => Menu1[this.selectedSort]?.localeCompare(Menu2[this.selectedSort]))
+      return [...this.menus].sort((menu1, menu2) => menu1[this.selectedSort]?.localeCompare(menu2[this.selectedSort]))
     },
     sortedAndSearchedMenus() {
-      return this.sortedMenus.filter(Menu => Menu.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
+      return this.sortedMenus.filter(menu => menu.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
     }
 
   },

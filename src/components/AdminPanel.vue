@@ -21,7 +21,7 @@
             style="max-width: 200px" />
           <br />
           <div class="q-gutter-sm">
-            <q-editor v-model="editor" flat placeholder="СОСТАВ" :definitions="{
+            <q-editor v-model="structure" flat placeholder="СОСТАВ" :definitions="{
               bold: { label: 'Bold', icon: null, tip: 'My bold tooltip' },
             }" />
           </div>
@@ -35,7 +35,7 @@
       </div>
       <div class="row justify-between q-pa-md">
         <div class="col-4">
-          <q-btn color="green" text-color="white" label=" Сохранить" class="fit" @click="saveMenu" />
+          <q-btn color="green" text-color="white" label=" Сохранить" class="fit" @click="addMenus" />
         </div>
         <div class="col-4">
           <q-btn color="red" text-color="white" label="Удалить" class="fit" />
@@ -48,7 +48,7 @@
       </div>
       <div class="q-pa-md" style="max-width: 300px">
         <div class="q-gutter-sm">
-          <q-editor v-model="editor" :definitions="{
+          <q-editor v-model="textNews" :definitions="{
             bold: { label: 'Bold', icon: null, tip: 'My bold tooltip' },
           }" />
         </div>
@@ -57,7 +57,7 @@
           (val) => {
             file = val[0];
           }
-        " filled type="file" hint="Картинка" />
+        " filled type="file" hint="Картинка" v-model="imgNews" />
       </div>
     </div>
     <div class="row justify-between q-pa-md">
@@ -74,7 +74,7 @@
       </div>
       <div class="q-pa-md" style="max-width: 300px">
         <div class="q-gutter-sm">
-          <q-editor v-model="editor" :definitions="{
+          <q-editor v-model="textPromotion" :definitions="{
             bold: { label: 'Bold', icon: null, tip: 'My bold tooltip' },
           }" />
         </div>
@@ -83,14 +83,14 @@
           (val) => {
             file = val[0];
           }
-        " filled type="file" hint="Картинка" />
+        " filled type="file" hint="Картинка" v-model="imgPromo" />
         <br />
-        <q-input v-model="name" label="Промокод" bg-color="white" color="red" />
+        <q-input v-model="promocod" label="Промокод" bg-color="white" color="red" />
         <br />
-        <q-input v-model="price" Placeholder="Процент скидки" icon="currency_ruble" color="red" bg-color="white"
+        <q-input v-model="percent" Placeholder="Процент скидки" icon="currency_ruble" color="red" bg-color="white"
           type="number" filled />
         <br />
-        <q-input v-model="price" label="Действителен до: " color="red" bg-color="white" type="date" filled />
+        <q-input v-model="date" label="Действителен до: " color="red" bg-color="white" type="date" filled />
       </div>
     </div>
     <div class="row justify-between q-pa-md">
@@ -106,76 +106,88 @@
 
 <script>
 import { ref } from "vue";
+import db from 'src/boot/firebase';
 export default {
   setup() {
     return {
+
       model: ref(null),
-      name: ref(null),
       price: ref(null),
-      position: ref(null),
+      title: ref(""),
       options: [],
       menu: ref(null),
       news: ref(null),
       promotion: ref(null),
       Category: ref(null),
-      editor: ref(""),
       img: ref(null),
       splitterModel: ref(50),
       promocod: ref(""),
       date: ref(null),
+      structure: ref(''),
+      textNews: ref(""),
+      imgNews: ref(null),
+      textPromotion: ref(""),
+      imgPromo: ref(null),
+      percent: ref("")
+
     };
   },
   methods: {
-    async saveMenu() {
-      const formData = {
-        price: this.price,
-        name: this.name,
-        Category: this.Category,
-        position: this.position,
-        img: this.img,
+
+    saveNews() {
+      let newNews = {
+        textNews: this.textNews,
+        imgNews: this.imgNews,
       };
-      try {
-        await this.$store.dispatch("createNemu", formData);
 
-      } catch (e) {
-        throw e;
-      }
-      console.log("Позиция сохранена ");
-    },
-    async saveNews() {
-      const formData = {
-        editor: this.editor,
-        img: this.img,
 
-      };
-      try {
-        await this.$store.dispatch("createNews", formData);
+      db.collection("News")
+        .add(newNews)
+        .then(docRef => {
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(error => {
+          console.error("Ошибка добавления: ", error);
+        });
 
-      } catch (e) {
-        throw e;
-      }
+      this.newNewsContent = "";
       console.log("Новость сохранена ");
     },
-    async savePromotion() {
-      const formData = {
-        editor: this.editor,
-        img: this.img,
+    savePromotion() {
+      let newPromotion = {
+        textPromotion: this.textPromotion,
+        imgPromo: this.imgPromo,
+        promocod: this.promocod,
+        percent: this.percent,
+        date: this.date,
 
       };
-      try {
-        await this.$store.dispatch("createPromotion", formData);
 
-      } catch (e) {
-        throw e;
-      }
-      console.log("Акция сохранена сохранена ");
+
+      db.collection("Promotion")
+        .add(newPromotion)
+        .then(docRef => {
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(error => {
+          console.error("Ошибка добавления: ", error);
+        });
+
+      this.newPromotionContent = "";
+      console.log("Промоакция сохранена ");
     },
     addMenus() {
+      const formData = {
+      }
       let newBurger = {
-        // id: this.notes.length + 1,
-        Burger: this.menu
+
+        Category: this.Category,
+        img: this.img,
+        price: this.price,
+        structure: this.structure,
+        title: this.title,
       };
-      // this.notes.unshift(newNote);
+
 
       db.collection("Burger")
         .add(newBurger)
@@ -187,11 +199,26 @@ export default {
         });
 
       this.newBurgerContent = "";
+      console.log("Позиция сохранена ");
     },
   },
-  removeMenu() { },
+  removeMenu() {
+
+  },
   removeNews() { },
-  removePromotion() { }
+  removePromotion() { },
+  deleteMenu(noteContent) {
+    let menuId = noteContent.id;
+    db.collection("Burger")
+      .doc(menuId)
+      .delete()
+      .then(() => {
+        console.log("Document successfully deleted!");
+      })
+      .catch(error => {
+        console.error("Error removing document: ", error);
+      });
+  }
 }
 
 

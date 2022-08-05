@@ -86,7 +86,7 @@ export default defineComponent({
         day;
       } else if (dateHours >= 12 || dateHours <= 17) {
         day = "Добрый день!";
-      } else {
+      } else if (dateHours >= 18) {
         day = "Добрый вечер";
       }
       return day;

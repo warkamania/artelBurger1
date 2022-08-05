@@ -78,7 +78,7 @@
               <q-select dark v-model="payment" :options="options" label="Способ оплаты" color="red" />
               <br />
               <div class="fit row wrap justify-center items-end self-end">
-                <q-btn color="red" @click="persist">Отправить</q-btn>
+                <q-btn color="red" @click="addCard">Отправить</q-btn>
               </div>
             </q-card-section>
           </q-card>
@@ -104,6 +104,7 @@
 <script>
 import { ref } from "vue";
 import { useQuasar } from "quasar";
+import db from 'src/boot/firebase';
 export default {
   setup() {
     const $q = useQuasar();
@@ -116,8 +117,10 @@ export default {
       tel: ref(""),
       adres: ref(""),
       menu: ref([]),
-      quantity: ref(Number),
+      count: ref(null),
       number: ref(0),
+      title: ref(""),
+      price: ref(null)
 
 
     };
@@ -137,7 +140,7 @@ export default {
   computed: {
     numberOrder() {
 
-      const numb = this.number + 1
+      const numb = this.number.length + 1
 
       return numb
     }
@@ -151,8 +154,7 @@ export default {
     persist() {
       this.Card.push({ tel: this.tel, adres: this.adres, payment: this.payment, quantity: this.quantity, numberOrder: this.numberOrder });
       this.saveCard();
-      this.Order = true;
-      this.alert = false;
+
       setTimeout(() => {
         this.deleteCard()
       }, 10000);
@@ -166,7 +168,35 @@ export default {
     deleteCard() {
       const parsed = JSON.stringify(this.Card)
       localStorage.clear("Card", parsed)
-    }
+    },
+    addCard() {
+
+      let newCurd = {
+        adres: this.adres,
+        count: this.count,
+        options: this.options,
+        price: this.price,
+        tel: this.tel,
+        title: this.title,
+      };
+
+
+      db.collection("Card")
+        .add(newCurd)
+        .then(docRef => {
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(error => {
+          console.error("Ошибка добавления: ", error);
+        });
+
+
+      this.newCurdContent = "";
+      console.log("Корзина  сохранена ");
+      this.Order = true;
+      this.alert = false;
+    },
+
   },
 };
 </script>

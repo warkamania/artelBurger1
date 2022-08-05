@@ -1,15 +1,7 @@
 <template>
   <div class="q-pa-md">
-    <q-carousel
-      v-model="slide"
-      swipeable
-      animated
-      :navigation-position="navPos"
-      navigation
-      padding
-      height="200px"
-      class="bg-white text-black rounded-borders"
-    >
+    <q-carousel v-model="slide" swipeable animated :navigation-position="navPos" navigation padding height="200px"
+      class="bg-white text-black rounded-borders">
       <q-carousel-slide name="style" class="column no-wrap flex-center">
         <q-icon name="style" size="56px" />
         <div class="q-mt-md text-center">
@@ -40,7 +32,7 @@
 
 <script>
 import { ref } from "vue";
-
+import db from 'src/boot/firebase';
 export default {
   props: {
     textt: String,
@@ -52,7 +44,29 @@ export default {
 
       slide: ref("style"),
       lorem: "НОВОСТИ",
+      News: ref([])
     };
+
+  },
+  mounted() {
+    db.collection("News").onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+
+        const burgerChange = change.doc.data();
+
+        if (change.type === "added") {
+          console.log("New News: ", burgerChange);
+          this.News.unshift(burgerChange);
+        }
+        if (change.type === "modified") {
+          console.log("Modified News: ", burgerChange);
+        }
+        if (change.type === "removed") {
+          console.log("Removed News: ", burgerChange);
+        }
+      });
+    });
+
   },
 };
 </script>
