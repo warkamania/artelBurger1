@@ -15,7 +15,7 @@
             <q-select v-model="position" :options="options" label="Позиция меню" bg-color="white" color="red" />
           </div>
           <br />
-          <q-input v-model="name" label="Наименование" bg-color="white" color="red" />
+          <q-input v-model="title" label="Наименование" bg-color="white" color="red" />
           <br />
           <q-input v-model="price" label="Цена" icon="currency_ruble" color="red" bg-color="white" type="number" filled
             style="max-width: 200px" />
@@ -31,7 +31,7 @@
           (val) => {
             file = val[0];
           }
-        " filled type="file" hint="Фотография блюда" />
+        " filled id="fileItem" type="file" Placeholder="Фотография блюда" v-model="img" />
       </div>
       <div class="row justify-between q-pa-md">
         <div class="col-4">
@@ -107,6 +107,7 @@
 <script>
 import { ref } from "vue";
 import db from 'src/boot/firebase';
+import { Base64 } from 'js-base64';
 export default {
   setup() {
     return {
@@ -119,7 +120,7 @@ export default {
       news: ref(null),
       promotion: ref(null),
       Category: ref(null),
-      img: ref(null),
+      img: ref(Blob),
       splitterModel: ref(50),
       promocod: ref(""),
       date: ref(null),
@@ -128,7 +129,8 @@ export default {
       imgNews: ref(null),
       textPromotion: ref(""),
       imgPromo: ref(null),
-      percent: ref("")
+      percent: ref(""),
+      imgbase64: ref(null),
 
     };
   },
@@ -182,7 +184,7 @@ export default {
       let newBurger = {
 
         Category: this.Category,
-        img: this.img,
+        //img: this.img,
         price: this.price,
         structure: this.structure,
         title: this.title,
@@ -200,11 +202,11 @@ export default {
 
       this.newBurgerContent = "";
       console.log("Позиция сохранена ");
+      const file = document.getElementById('fileItem').files[0]
+      this.imgbase64 = Base64.encode(file);
     },
   },
-  removeMenu() {
 
-  },
   removeNews() { },
   removePromotion() { },
   deleteMenu(noteContent) {
@@ -218,6 +220,11 @@ export default {
       .catch(error => {
         console.error("Error removing document: ", error);
       });
+
+  },
+  imgToBase64() {
+    var file = document.getElementById('fileItem').files[0]
+    this.imgbase64 = Base64.encode(file);
   }
 }
 
