@@ -120,7 +120,7 @@ export default {
       news: ref(null),
       promotion: ref(null),
       Category: ref(null),
-      img: ref(Blob),
+      img: ref(null),
       splitterModel: ref(50),
       promocod: ref(""),
       date: ref(null),
@@ -130,7 +130,7 @@ export default {
       textPromotion: ref(""),
       imgPromo: ref(null),
       percent: ref(""),
-      imgbase64: ref(null),
+      imgbase64: ref(""),
 
     };
   },
@@ -202,8 +202,14 @@ export default {
 
       this.newBurgerContent = "";
       console.log("Позиция сохранена ");
-      const file = document.getElementById('fileItem').files[0]
-      this.imgbase64 = Base64.encode(file);
+      const blob = new Blob([this.img], { type: "image/png" })
+      const reader = new FileReader()
+      reader.readAsDataURL(blob)
+      reader.onload = () => {
+        this.imgbase64 = reader.result
+      }
+
+
     },
   },
 
@@ -223,7 +229,7 @@ export default {
 
   },
   imgToBase64() {
-    var file = document.getElementById('fileItem').files[0]
+    var file = document.getElementById('fileItem').querySelector("fileItem").files[0]
     this.imgbase64 = Base64.encode(file);
   }
 }
