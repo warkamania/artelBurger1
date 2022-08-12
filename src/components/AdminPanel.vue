@@ -38,7 +38,7 @@
           <q-btn color="green" text-color="white" label=" Сохранить" class="fit" @click="addMenus" />
         </div>
         <div class="col-4">
-          <q-btn color="red" text-color="white" label="Удалить" class="fit" />
+          <q-btn color="red" text-color="white" label="Удалить" class="fit" @click="deleteMenu" />
         </div>
       </div>
     </q-splitter>
@@ -215,8 +215,9 @@ export default {
 
   removeNews() { },
   removePromotion() { },
-  deleteMenu(noteContent) {
-    let menuId = noteContent.id;
+  deleteMenu() {
+    console.log("Клик!!");
+    //let menuId = MenuContent.id;
     db.collection("Burger")
       .doc(menuId)
       .delete()
@@ -226,6 +227,7 @@ export default {
       .catch(error => {
         console.error("Error removing document: ", error);
       });
+
 
   },
   imgToBase64() {
