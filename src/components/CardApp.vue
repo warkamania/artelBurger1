@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="q-pa-md row items-start">
-      <div class="col-12">
+      <div class="col-12" id="id">
         <q-intersection v-for="index in 2" :key="index" once transition="scale">
           <q-card class="my-card bg-black">
             <div class="row">
@@ -120,7 +120,8 @@ export default {
       count: ref(null),
       number: ref(0),
       title: ref(""),
-      price: ref(null)
+      price: ref(null),
+      id: ref(null),
 
 
     };

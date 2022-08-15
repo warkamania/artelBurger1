@@ -77,11 +77,28 @@ export default {
   setup() {
     return {
       tab: ref("Burger"),
-      menu: ref([])
+      menu: ref([]),
+
     };
   },
   async mounted() {
+    db.collection("Burger").onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
 
+        const burgerChange = change.doc.data();
+
+        if (change.type === "added") {
+          console.log("New burger: ", burgerChange);
+          this.menus.unshift(burgerChange);
+        }
+        if (change.type === "modified") {
+          console.log("Modified burger: ", burgerChange);
+        }
+        if (change.type === "removed") {
+          console.log("Removed burger: ", burgerChange);
+        }
+      });
+    });
   },
   components: { CardMenuVue },
 };

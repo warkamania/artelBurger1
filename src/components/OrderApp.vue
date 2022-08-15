@@ -15,7 +15,7 @@
         <TabsApp />
       </div>
     </div>
-
+    <div style="color: white"></div>
   </q-page>
 </template>
 
@@ -23,6 +23,7 @@
 import { ref } from "vue";
 import TabsApp from "src/components/TabsApp.vue";
 import db from 'src/boot/firebase';
+import _ from "lodash"
 export default {
   setup() {
     return {
@@ -44,24 +45,24 @@ export default {
       } catch (e) {
         localStorage.removeItem("Card");
       }
-      db.collection("Burger").onSnapshot(snapshot => {
-        snapshot.docChanges().forEach(change => {
-
-          const burgerChange = change.doc.data();
-
-          if (change.type === "added") {
-            console.log("New burger: ", burgerChange);
-            this.menus.unshift(burgerChange);
-          }
-          if (change.type === "modified") {
-            console.log("Modified burger: ", burgerChange);
-          }
-          if (change.type === "removed") {
-            console.log("Removed burger: ", burgerChange);
-          }
-        });
-      });
     }
+    db.collection("Burger").onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+
+        const burgerChange = change.doc.data();
+
+        if (change.type === "added") {
+          console.log("New burger: ", burgerChange);
+          this.menus.unshift(burgerChange);
+        }
+        if (change.type === "modified") {
+          console.log("Modified burger: ", burgerChange);
+        }
+        if (change.type === "removed") {
+          console.log("Removed burger: ", burgerChange);
+        }
+      });
+    });
   },
   computed: {
     sortedMenus() {
@@ -69,7 +70,31 @@ export default {
     },
     sortedAndSearchedMenus() {
       return this.sortedMenus.filter(menu => menu.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
+    },
+    parseTitle() {
+      return _.map(this.menus, 'title')
+    },
+    parsePrice() {
+      return _.map(this.menus, 'price')
+
+    },
+    parseStructure() {
+      return _.map(this.menus, 'strucrure')
+
+    },
+    parseImg() {
+      return _.map(this.menus, 'img')
+
+    },
+    parseCategory() {
+      return _.map(this.menus, 'Category')
+
+    },
+    parsedUidDoc() {
+      return _.map(this.menus, 'UidDoc')
     }
+
+
 
   },
   methods: {
@@ -81,6 +106,10 @@ export default {
       const parsed = JSON.stringify(this.Card);
       localStorage.setItem("Card", parsed);
     },
+    parsedMenus() {
+
+
+    }
 
   },
 
