@@ -12,10 +12,11 @@
     <br />
     <div class="row">
       <div class="col-12">
-        <TabsApp />
+        <TabsApp :title="parseTitle" :price="parsePrice" :Img="parseImg" :Structure="parseStructure"
+          :Category="parseCategory" />
       </div>
     </div>
-    <div style="color: white"></div>
+    <div style="color: white">{{ getId("XEYz2aMTo22Yc1Xb23V0") }}</div>
   </q-page>
 </template>
 
@@ -30,11 +31,14 @@ export default {
       searchQuery: ref(""),
       id: ref(""),
       title: ref(""),
-      price: ref(0),
+      price: ref(""),
       sum: ref(0),
       Card: ref([]),
       selectedSort: ref(""),
       menus: ref([]),
+      img: ref(""),
+      Category: ref(null),
+      Structure: ref(""),
 
     };
   },
@@ -73,13 +77,14 @@ export default {
     },
     parseTitle() {
       return _.map(this.menus, 'title')
+
     },
     parsePrice() {
       return _.map(this.menus, 'price')
 
     },
     parseStructure() {
-      return _.map(this.menus, 'strucrure')
+      return _.map(this.menus, 'structure')
 
     },
     parseImg() {
@@ -106,9 +111,8 @@ export default {
       const parsed = JSON.stringify(this.Card);
       localStorage.setItem("Card", parsed);
     },
-    parsedMenus() {
-
-
+    getId(id) {
+      return db.collection('Burger').doc(id).get()
     }
 
   },

@@ -63,7 +63,9 @@
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </q-tab-panel>
         </q-tab-panels>
+        <div style="color: white;"></div>
       </q-card>
+
     </div>
   </div>
 </template>
@@ -74,6 +76,13 @@ import { ref } from "vue";
 import CardMenuVue from "./CardMenu.vue";
 
 export default {
+  props: {
+    title: String,
+    price: String,
+    Structure: String,
+    Category: String,
+    Img: String,
+  },
   setup() {
     return {
       tab: ref("Burger"),
