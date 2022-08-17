@@ -3,11 +3,11 @@
     <div class="q-pa-md row items-start">
       <div class="col-12" id="id">
         <q-intersection v-for="index in 2" :key="index" once transition="scale">
-          <q-card class="my-card bg-black">
+          <q-card class="my-card bg-black" v-show="Open">
             <div class="row">
               <div class="col-10 text-white text-h6">{{ index }}</div>
               <div col-2>
-                <q-btn flat icon="close" class="items-end" color="white"></q-btn>
+                <q-btn flat icon="close" class="items-end" color="white" @click="Close"></q-btn>
               </div>
             </div>
 
@@ -23,7 +23,8 @@
                   <q-btn flat icon="remove" color="white"></q-btn>
                 </div>
                 <div class="col-2">
-                  <q-input dense dark color="red" outlined v-model="quantity" label="" type="number" />
+                  <q-input dense dark color="red" outlined v-model="quantity" label="" type="number"
+                    class="fit row wrap justify-center" />
                 </div>
                 <div class="col-2">
                   <q-btn flat icon="add" color="white"></q-btn>
@@ -122,6 +123,9 @@ export default {
       title: ref(""),
       price: ref(null),
       id: ref(null),
+      quantity: ref(1),
+      Open: ref(true),
+
 
 
     };
@@ -147,6 +151,9 @@ export default {
     }
   },
   methods: {
+    Close() {
+      this.Open = false
+    },
     CounterPlus() { },
     CounterMinus() { },
     OpdenOrder() {

@@ -45,6 +45,7 @@ import DialogApp from "src/components/DialogApp.vue";
 import db from 'src/boot/firebase';
 
 export default defineComponent({
+
   name: "IndexPage",
   components: { NewsPanel, CardMenu, DialogApp },
   setup() {
@@ -90,6 +91,26 @@ export default defineComponent({
         day = "Добрый вечер";
       }
       return day;
+    },
+    parseTitle() {
+      return _.map(this.menus, 'title')
+
+    },
+    parsePrice() {
+      return _.map(this.menus, 'price')
+
+    },
+    parseStructure() {
+      return _.map(this.menus, 'structure')
+
+    },
+    parseImg() {
+      return _.map(this.menus, 'img')
+
+    },
+    parseCategory() {
+      return _.map(this.menus, 'Category')
+
     },
   },
   methods: {

@@ -16,7 +16,7 @@
           :Category="parseCategory" />
       </div>
     </div>
-    <div style="color: white">{{ getId("XEYz2aMTo22Yc1Xb23V0") }}</div>
+    <div style="color: white"></div>
   </q-page>
 </template>
 

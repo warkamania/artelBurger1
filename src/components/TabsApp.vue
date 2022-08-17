@@ -21,10 +21,12 @@
           <q-tab-panel name="Burger">
             <div class="row">
               <div class="col-6">
-                <CardMenuVue />
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  :index="1" />
               </div>
               <div class="col-6">
-                <CardMenuVue />
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  index="0" />
               </div>
             </div>
           </q-tab-panel>

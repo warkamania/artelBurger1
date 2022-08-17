@@ -6,15 +6,15 @@
           class="fit row wrap justify-end items-end content-end"></q-btn>
         <q-btn v-show="star" @click="stars" flat icon="star " class="fit row wrap justify-end items-end content-end">
         </q-btn>
-        <q-card-section v-model="title">
+        <q-card-section>
           <q-responsive :ratio="1">
-            <img src="burger.jpg" alt="" class="img" @click="OpenDialog" />
+            <img :src="Img[index]" alt="" class="img" @click="OpenDialog" />
           </q-responsive>
 
-          <span class="span-burger">Бурый медведь</span>
+          <span class="span-burger">{{ title[index] }}</span>
           <br />
           <div class="fit row wrap justify-between">
-            <div class="col-6 price" style="overflow: auto">440 р{{ currency }}</div>
+            <div class="col-6 price" style="overflow: auto">{{ price[index] }} Р</div>
             <div class="col-6" style="overflow: auto">
               <q-btn flat icon="add_box" @click="persist"></q-btn>
             </div>
@@ -25,14 +25,13 @@
   </div>
   <div class="q-pa-md q-gutter-sm ">
     <q-dialog bg-white v-model="alert">
-      <q-card class="bg-black">
+      <q-card class="bg-white">
         <q-card-section bg-white>
           <div class="text-h6 textGradient18">Состав</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none textGradient18">
-          Черная булочка, котлета из мраморной говядины, сыр Чеддер, микс салата, перец болгарский, огурец свежий,
-          спелый томат, огурец маринованный, бекон, соус фирменный BBQ, сырный соус, кунжутный соус.
+          {{ Structure[index] }}
         </q-card-section>
 
         <q-card-actions align="right">
@@ -48,12 +47,19 @@
 import { ref } from "vue";
 import { v4 as uuidv4 } from "uuid";
 export default {
+  props: {
+    title: String,
+    price: String,
+    Structure: String,
+    Category: String,
+    Img: String,
+    index: Number,
+  },
   setup() {
     return {
       dialog: ref(false),
       id: ref(null),
-      title: ref("Бурый медведь"),
-      price: ref(0),
+
       sum: ref(0),
       Card: ref([]),
       Menus: ref([]),
@@ -94,6 +100,7 @@ export default {
 
 
     },
+
 
 
 
