@@ -1,6 +1,5 @@
 <template>
   <q-page>
-    <h5 class="textGradient12">главная страница</h5>
     <div class="row">
       <div class="col-12 textGradient12" style="font-size: 22px">
         {{ Time }}
@@ -8,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <NewsPanel textt="НОВОСТИ" />
+        <NewsPanel :textt="newsText" :img="newsImg" :index="1" />
       </div>
     </div>
     <div class="row">
@@ -20,10 +19,12 @@
         ]" />
       </div>
       <div class="col-6">
-        <CardMenu @click="openDialog" />
+        <CardMenu @click="openDialog" :title="parseTitle" :price="parsePrice" :Img="parseImg"
+          :Structure="parseStructure" :Category="parseCategory" :index="1" />
       </div>
       <div class="col-6">
-        <CardMenu @click="openDialog" />
+        <CardMenu @click="openDialog" :title="parseTitle" :price="parsePrice" :Img="parseImg"
+          :Structure="parseStructure" :Category="parseCategory" :index="2" />
       </div>
     </div>
     <div class="row">
@@ -43,7 +44,7 @@ import CardMenu from "../components/CardMenu.vue";
 import { ref } from "vue";
 import DialogApp from "src/components/DialogApp.vue";
 import db from 'src/boot/firebase';
-
+import _ from "lodash"
 export default defineComponent({
 
   name: "IndexPage",
@@ -54,7 +55,8 @@ export default defineComponent({
       toogle: ref("one"),
       value: ref(""),
       Dialog: ref(false),
-      menus: ref([])
+      menus: ref([]),
+      News: ref([])
     };
   },
   mounted() {
@@ -72,6 +74,23 @@ export default defineComponent({
         }
         if (change.type === "removed") {
           console.log("Removed burger: ", burgerChange);
+        }
+      });
+    });
+    db.collection("News").onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+
+        const newsChange = change.doc.data();
+
+        if (change.type === "added") {
+          console.log("New News: ", newsChange);
+          this.News.unshift(newsChange);
+        }
+        if (change.type === "modified") {
+          console.log("Modified News: ", newsChange);
+        }
+        if (change.type === "removed") {
+          console.log("Removed News: ", newsChange);
         }
       });
     });
@@ -112,6 +131,12 @@ export default defineComponent({
       return _.map(this.menus, 'Category')
 
     },
+    newsText() {
+      return _.map(this.News, 'textNews')
+    },
+    newsImg() {
+      return _.map(this.News, 'img')
+    }
   },
   methods: {
     openDialog() {

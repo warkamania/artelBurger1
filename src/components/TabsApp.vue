@@ -26,43 +26,43 @@
               </div>
               <div class="col-6">
                 <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
-                  index="0" />
+                  index="2" />
               </div>
             </div>
           </q-tab-panel>
 
           <q-tab-panel name="alarms">
-            <div class="text-h6">Alarms</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="text-h6">Горячие Закуску</div>
+            Горячие Закуску
           </q-tab-panel>
 
           <q-tab-panel name="movies">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="text-h6">Салаты</div>
+            Салаты
           </q-tab-panel>
           <q-tab-panel name="movies1">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="text-h6">Первые Блюда"</div>
+            Первые Блюда"
           </q-tab-panel>
           <q-tab-panel name="movies3">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="text-h6">Горячие Блюда</div>
+            Горячие Блюда
           </q-tab-panel>
           <q-tab-panel name="movies4">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="text-h6">Десерты</div>
+            Десерты
           </q-tab-panel>
           <q-tab-panel name="movies5">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="text-h6">Фирменные лимонады</div>
+            Фирменные лимонады
           </q-tab-panel>
           <q-tab-panel name="movies6">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="text-h6">Паста</div>
+            Паста
           </q-tab-panel>
           <q-tab-panel name="movies7">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="text-h6">Сендвичи</div>
+            Сендвичи
           </q-tab-panel>
         </q-tab-panels>
         <div style="color: white;"></div>

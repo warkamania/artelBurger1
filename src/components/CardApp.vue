@@ -181,7 +181,7 @@ export default {
 
       let newCurd = {
         adres: this.adres,
-        count: this.count,
+        count: this.quantity,
         options: this.options,
         price: this.price,
         tel: this.tel,

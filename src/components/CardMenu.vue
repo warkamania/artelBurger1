@@ -1,27 +1,27 @@
 <template>
   <div class="q-pa-md row items-start q-gutter-md">
-    <q-intersection v-for="index in 1" :key="index" once transition="scale">
-      <q-card class="my-card bg-black text-white" @click="!dialog" v-model="id">
-        <q-btn v-show="!star" @click="stars" flat icon="star_border "
-          class="fit row wrap justify-end items-end content-end"></q-btn>
-        <q-btn v-show="star" @click="stars" flat icon="star " class="fit row wrap justify-end items-end content-end">
-        </q-btn>
-        <q-card-section>
-          <q-responsive :ratio="1">
-            <img :src="Img[index]" alt="" class="img" @click="OpenDialog" />
-          </q-responsive>
+    <!-- <q-intersection v-for="index in 2" :key="index" once transition="scale"> -->
+    <q-card class="my-card bg-black text-white" @click="!dialog" v-model="id">
+      <q-btn v-show="!star" @click="stars" flat icon="star_border "
+        class="fit row wrap justify-end items-end content-end"></q-btn>
+      <q-btn v-show="star" @click="stars" flat icon="star " class="fit row wrap justify-end items-end content-end">
+      </q-btn>
+      <q-card-section>
+        <q-responsive :ratio="1">
+          <img :src="Img[index]" alt="" class="img" @click="OpenDialog" />
+        </q-responsive>
 
-          <span class="span-burger">{{ title[index] }}</span>
-          <br />
-          <div class="fit row wrap justify-between">
-            <div class="col-6 price" style="overflow: auto">{{ price[index] }} Р</div>
-            <div class="col-6" style="overflow: auto">
-              <q-btn flat icon="add_box" @click="persist"></q-btn>
-            </div>
+        <span class="span-burger">{{ title[index] }}</span>
+        <br />
+        <div class="fit row wrap justify-between">
+          <div class="col-6 price" style="overflow: auto">{{ price[index] }} Р</div>
+          <div class="col-6" style="overflow: auto">
+            <q-btn flat icon="add_box" @click="persist"></q-btn>
           </div>
-        </q-card-section>
-      </q-card>
-    </q-intersection>
+        </div>
+      </q-card-section>
+    </q-card>
+    <!-- </q-intersection> -->
   </div>
   <div class="q-pa-md q-gutter-sm ">
     <q-dialog bg-white v-model="alert">

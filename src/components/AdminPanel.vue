@@ -7,7 +7,7 @@
         </div>
         <div class="q-pa-md col-12" style="max-width: 300px">
           <div class="">
-            <q-select v-model="Category" :options="options" label="Категории" bg-color="white" color="red" />
+            <q-input v-model="Category" label="Категории" bg-color="white" color="red" />
           </div>
         </div>
         <div class="q-pa-md col-12" style="max-width: 300px">
@@ -119,7 +119,7 @@ export default {
       menu: ref(null),
       news: ref(null),
       promotion: ref(null),
-      Category: ref(null),
+      Category: ref(""),
       img: ref(null),
       splitterModel: ref(50),
       promocod: ref(""),

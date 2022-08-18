@@ -19,7 +19,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <NewsPanel textt="АКЦИИ" />
+        <NewsPanel :textt="parseTitle" :index="0" />
       </div>
     </div>
     <div class="row">
@@ -34,6 +34,7 @@
 import { ref } from "vue";
 import NewsPanel from "./NewsPanel.vue";
 import db from 'src/boot/firebase';
+import _ from "lodash"
 export default {
   setup() {
     return {
@@ -60,6 +61,12 @@ export default {
       });
     });
 
+  },
+  computed: {
+    parseTitle() {
+      return _.map(this.promo, 'textPromotion')
+
+    },
   },
   components: { NewsPanel },
 };

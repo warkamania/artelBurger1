@@ -5,25 +5,25 @@
       <q-carousel-slide name="style" class="column no-wrap flex-center">
         <q-icon name="style" size="56px" />
         <div class="q-mt-md text-center">
-          {{ textt }}
+          {{ textt[index] }}
         </div>
       </q-carousel-slide>
       <q-carousel-slide name="tv" class="column no-wrap flex-center">
         <q-icon name="live_tv" size="56px" />
         <div class="q-mt-md text-center">
-          {{ textt }}
+          {{ textt[0] }}
         </div>
       </q-carousel-slide>
       <q-carousel-slide name="layers" class="column no-wrap flex-center">
         <q-icon name="layers" size="56px" />
         <div class="q-mt-md text-center">
-          {{ textt }}
+          {{ textt[2] }}
         </div>
       </q-carousel-slide>
       <q-carousel-slide name="map" class="column no-wrap flex-center">
         <q-icon name="terrain" size="56px" />
         <div class="q-mt-md text-center">
-          {{ textt }}
+          {{ textt[3] }}
         </div>
       </q-carousel-slide>
     </q-carousel>
@@ -36,6 +36,8 @@ import db from 'src/boot/firebase';
 export default {
   props: {
     textt: String,
+    img: String,
+    index: Number,
   },
   setup() {
     return {
