@@ -97,6 +97,15 @@ export default {
     },
     parsedUidDoc() {
       return _.map(this.menus, 'UidDoc')
+    },
+    parsedBurgerNew() {
+      return _.map(this.menus, 'burgerNew')
+    },
+    parsedBurgerPop() {
+      return _.map(this.menus, 'burgerPop')
+    },
+    filterCategory() {
+      return _.filter(this.menus, { "Category": "Category" })
     }
 
 

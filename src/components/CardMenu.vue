@@ -54,12 +54,12 @@ export default {
     Category: String,
     Img: String,
     index: Number,
+    toogle: String,
   },
   setup() {
     return {
       dialog: ref(false),
       id: ref(null),
-
       sum: ref(0),
       Card: ref([]),
       Menus: ref([]),
@@ -87,7 +87,7 @@ export default {
     },
     persist() {
       this.id = uuidv4();
-      this.Card.push({ id: this.id, title: this.title, price: this.price, });
+      this.Card.push({ id: this.id, title: this.title[this.index], price: this.price[this.index], });
       this.saveCard();
     },
     saveCard() {

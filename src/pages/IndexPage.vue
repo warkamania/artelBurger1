@@ -20,11 +20,11 @@
       </div>
       <div class="col-6">
         <CardMenu @click="openDialog" :title="parseTitle" :price="parsePrice" :Img="parseImg"
-          :Structure="parseStructure" :Category="parseCategory" :index="1" />
+          :Structure="parseStructure" :Category="parseCategory" :index="1" :toogle="toogle" />
       </div>
       <div class="col-6">
         <CardMenu @click="openDialog" :title="parseTitle" :price="parsePrice" :Img="parseImg"
-          :Structure="parseStructure" :Category="parseCategory" :index="2" />
+          :Structure="parseStructure" :Category="parseCategory" :index="2" :toogle="toogle" />
       </div>
     </div>
     <div class="row">

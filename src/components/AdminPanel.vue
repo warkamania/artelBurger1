@@ -41,12 +41,24 @@
           <q-btn color="red" text-color="white" label="Удалить" class="fit" @click="deleteMenu" />
         </div>
       </div>
+      <div class="row">
+        <div class="col-6">
+          <q-checkbox v-model="burgerNew" label="Новый " dark color="green" style="color:white" />
+        </div>
+        <div class="col-6">
+          <q-checkbox v-model="burgerPop" label="Популярный" dark color="green" style="color:white" />
+        </div>
+      </div>
     </q-splitter>
     <div class="row q-pa-md">
       <div class="col-12">
         <q-btn color="white" text-color="black" label="Новости" class="fit" />
       </div>
       <div class="q-pa-md" style="max-width: 300px">
+        <div class="">
+          <q-select v-model="position" :options="options" label="Новость" bg-color="white" color="red" />
+        </div>
+        <br />
         <div class="q-gutter-sm">
           <q-editor v-model="textNews" :definitions="{
             bold: { label: 'Bold', icon: null, tip: 'My bold tooltip' },
@@ -73,6 +85,10 @@
         <q-btn color="white" text-color="black" label="Акции" class="fit" />
       </div>
       <div class="q-pa-md" style="max-width: 300px">
+        <div class="">
+          <q-select v-model="position" :options="options" label="Акция" bg-color="white" color="red" />
+        </div>
+        <br />
         <div class="q-gutter-sm">
           <q-editor v-model="textPromotion" :definitions="{
             bold: { label: 'Bold', icon: null, tip: 'My bold tooltip' },
@@ -131,6 +147,8 @@ export default {
       imgPromo: ref(null),
       percent: ref(""),
       imgbase64: ref(""),
+      burgerNew: ref(false),
+      burgerPop: ref(false),
 
     };
   },
@@ -163,6 +181,7 @@ export default {
         percent: this.percent,
         date: this.date,
 
+
       };
 
 
@@ -188,6 +207,10 @@ export default {
         price: this.price,
         structure: this.structure,
         title: this.title,
+        burgerPop: this.burgerPop,
+        burgerNew: this.burgerNew,
+
+
       };
 
 

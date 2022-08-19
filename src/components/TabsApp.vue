@@ -89,6 +89,7 @@ export default {
     return {
       tab: ref("Burger"),
       menu: ref([]),
+      CategoryClick: ref(""),
 
     };
   },
@@ -110,6 +111,11 @@ export default {
         }
       });
     });
+  },
+  watch: {
+    CategoryClick() {
+
+    }
   },
   components: { CardMenuVue },
 };
