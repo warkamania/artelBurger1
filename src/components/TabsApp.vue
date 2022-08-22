@@ -5,20 +5,20 @@
         <q-tabs v-model="tab" dense class="text-grey bg-black" active-color="red" indicator-color="red" align="justify"
           narrow-indicator>
           <q-tab name="Burger" label="Бургеры" />
-          <q-tab name="alarms" label="Горячие Закуску" />
-          <q-tab name="movies" label="Салаты" />
-          <q-tab name="movies1" label="Первые Блюда" />
-          <q-tab name="movies3" label="Горячие Блюда" />
-          <q-tab name="movies4" label="Десерты" />
-          <q-tab name="movies5" label="Фирменные лимонады" />
-          <q-tab name="movies6" label="Паста" />
-          <q-tab name="movies7" label="Сендвичи" />
+          <q-tab name="snacks" label="Горячие Закуску" />
+          <q-tab name="salads" label="Салаты" />
+          <q-tab name="first" label="Первые Блюда" />
+          <q-tab name="hot" label="Горячие Блюда" />
+          <q-tab name="desserts" label="Десерты" />
+          <q-tab name="Lemonades" label="Фирменные лимонады" />
+          <q-tab name="Pasta" label="Паста" />
+          <q-tab name="sandwiches" label="Сендвичи" />
         </q-tabs>
 
         <q-separator />
 
         <q-tab-panels v-model="tab" animated class="bg-black text-white">
-          <q-tab-panel name="Burger">
+          <q-tab-panel name="Burger" id="burger">
             <div class="row">
               <div class="col-6">
                 <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
@@ -31,36 +31,36 @@
             </div>
           </q-tab-panel>
 
-          <q-tab-panel name="alarms">
+          <q-tab-panel name="snacks" id="snacks">
             <div class="text-h6">Горячие Закуску</div>
             Горячие Закуску
           </q-tab-panel>
 
-          <q-tab-panel name="movies">
+          <q-tab-panel name="salads">
             <div class="text-h6">Салаты</div>
             Салаты
           </q-tab-panel>
-          <q-tab-panel name="movies1">
+          <q-tab-panel name="first">
             <div class="text-h6">Первые Блюда"</div>
             Первые Блюда"
           </q-tab-panel>
-          <q-tab-panel name="movies3">
+          <q-tab-panel name="hot">
             <div class="text-h6">Горячие Блюда</div>
             Горячие Блюда
           </q-tab-panel>
-          <q-tab-panel name="movies4">
+          <q-tab-panel name="desserts">
             <div class="text-h6">Десерты</div>
             Десерты
           </q-tab-panel>
-          <q-tab-panel name="movies5">
+          <q-tab-panel name="Lemonades">
             <div class="text-h6">Фирменные лимонады</div>
             Фирменные лимонады
           </q-tab-panel>
-          <q-tab-panel name="movies6">
+          <q-tab-panel name="Pasta">
             <div class="text-h6">Паста</div>
             Паста
           </q-tab-panel>
-          <q-tab-panel name="movies7">
+          <q-tab-panel name="sandwiches">
             <div class="text-h6">Сендвичи</div>
             Сендвичи
           </q-tab-panel>
@@ -74,7 +74,7 @@
 
 <script>
 import { ref } from "vue";
-
+import _ from "lodash"
 import CardMenuVue from "./CardMenu.vue";
 
 export default {
@@ -111,6 +111,11 @@ export default {
         }
       });
     });
+  },
+  computed: {
+    filterBurger() {
+      return _.map(this.Category, "Бургер")
+    }
   },
   watch: {
     CategoryClick() {
