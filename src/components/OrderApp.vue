@@ -106,7 +106,14 @@ export default {
     },
     filterCategory() {
       return _.filter(this.menus, { "Category": "Category" })
-    }
+    },
+    filterBurger() {
+      return _.find(this.menus, ['Category', "Бургер"])
+    },
+    filterSnacks() {
+      return _.find(this.menus, ['Category', "Закуски"])
+    },
+
 
 
 

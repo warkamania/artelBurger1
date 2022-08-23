@@ -5,7 +5,7 @@
         <br />
         <div class="row">
           <div class="col-12 row wrap justify-center">
-            <img src="logo.png" alt="logo" @click="clickHome" style="overflow: auto width: 140px; height: 140px" />
+            <img src="logo.png" alt="logo" @click="clickHome" style="overflow: auto width: 140px; height: 120px" />
           </div>
         </div>
         <div class="row wrap justify-end items-end content-end">

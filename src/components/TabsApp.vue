@@ -21,12 +21,12 @@
           <q-tab-panel name="Burger" id="burger">
             <div class="row">
               <div class="col-6">
-                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                   :index="1" />
               </div>
               <div class="col-6">
-                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
-                  index="2" />
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="2" />
               </div>
             </div>
           </q-tab-panel>
@@ -76,7 +76,7 @@
 import { ref } from "vue";
 import _ from "lodash"
 import CardMenuVue from "./CardMenu.vue";
-
+import db from 'src/boot/firebase';
 export default {
   props: {
     title: String,
@@ -88,7 +88,7 @@ export default {
   setup() {
     return {
       tab: ref("Burger"),
-      menu: ref([]),
+      menus: ref([]),
       CategoryClick: ref(""),
 
     };
@@ -105,17 +105,45 @@ export default {
         }
         if (change.type === "modified") {
           console.log("Modified burger: ", burgerChange);
+          this.menus.unshift(burgerChange);
         }
         if (change.type === "removed") {
           console.log("Removed burger: ", burgerChange);
+          this.menus.unshift(burgerChange);
         }
       });
     });
   },
   computed: {
+
+    filtersalads() {
+      return _.find(this.menus, ["Category", "Салаты"])
+    },
+    filterfirst() {
+      return _.find(this.menus, ["Category", "Первые Блюда"])
+    },
+    filterhot() {
+      return _.find(this.menus, ["Category", "Горячие Блюда"])
+    },
+    filterdesserts() {
+      return _.find(this.menus, ["Category", "десерты"])
+    },
+    filterLemonades() {
+      return _.find(this.menus, ["Category", "Лемонады"])
+    },
+    filterPasta() {
+      return _.find(this.menus, ["Category", "Паста"])
+    },
+    filtersandwiches() {
+      return _.find(this.menus, ["Category", "Сендвичи"])
+    },
     filterBurger() {
-      return _.map(this.Category, "Бургер")
-    }
+      return _.find(this.menus, ['Category', "Бургер"])
+    },
+    filterSnacks() {
+      return _.find(this.menus, ['Category', "Закуски"])
+    },
+
   },
   watch: {
     CategoryClick() {
