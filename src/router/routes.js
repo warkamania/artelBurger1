@@ -19,6 +19,7 @@ const routes = [
       },
       { path: "CardApp", component: () => import("components/CardApp") },
       { path: "AdminPanel", component: () => import("components/AdminPanel") },
+      { path: "OrderList", component: () => import("components/OrderList") },
     ],
   },
 

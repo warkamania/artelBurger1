@@ -4,21 +4,21 @@
       <q-card class="bg-black text-white">
         <q-tabs v-model="tab" dense class="text-grey bg-black" active-color="red" indicator-color="red" align="justify"
           narrow-indicator>
-          <q-tab name="Burger" label="Бургеры" />
-          <q-tab name="snacks" label="Горячие Закуску" />
-          <q-tab name="salads" label="Салаты" />
-          <q-tab name="first" label="Первые Блюда" />
-          <q-tab name="hot" label="Горячие Блюда" />
-          <q-tab name="desserts" label="Десерты" />
-          <q-tab name="Lemonades" label="Фирменные лимонады" />
-          <q-tab name="Pasta" label="Паста" />
-          <q-tab name="sandwiches" label="Сендвичи" />
+          <q-tab name="Бургер" label="Бургеры" />
+          <q-tab name="Горячие Закуски" label="Горячие Закуски" />
+          <q-tab name="Салаты" label="Салаты" />
+          <q-tab name="Первые Блюда" label="Первые Блюда" />
+          <q-tab name="Горячие Блюда" label="Горячие Блюда" />
+          <q-tab name="Десерты" label="Десерты" />
+          <q-tab name="Фирменные лимонады" label="Фирменные лимонады" />
+          <q-tab name="Паста" label="Паста" />
+          <q-tab name="Сендвичи" label="Сендвичи" />
         </q-tabs>
 
         <q-separator />
 
         <q-tab-panels v-model="tab" animated class="bg-black text-white">
-          <q-tab-panel name="Burger" id="burger">
+          <q-tab-panel name="Бургер" id="burger">
             <div class="row">
               <div class="col-6">
                 <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
@@ -31,36 +31,36 @@
             </div>
           </q-tab-panel>
 
-          <q-tab-panel name="snacks" id="snacks">
+          <q-tab-panel name="Горячие Закуски" id="snacks">
             <div class="text-h6">Горячие Закуску</div>
             Горячие Закуску
           </q-tab-panel>
 
-          <q-tab-panel name="salads">
+          <q-tab-panel name="Салаты">
             <div class="text-h6">Салаты</div>
             Салаты
           </q-tab-panel>
-          <q-tab-panel name="first">
+          <q-tab-panel name="Первые Блюда">
             <div class="text-h6">Первые Блюда"</div>
             Первые Блюда"
           </q-tab-panel>
-          <q-tab-panel name="hot">
+          <q-tab-panel name="Горячие Блюда">
             <div class="text-h6">Горячие Блюда</div>
             Горячие Блюда
           </q-tab-panel>
-          <q-tab-panel name="desserts">
+          <q-tab-panel name="Десерты">
             <div class="text-h6">Десерты</div>
             Десерты
           </q-tab-panel>
-          <q-tab-panel name="Lemonades">
+          <q-tab-panel name="Фирменные лимонады">
             <div class="text-h6">Фирменные лимонады</div>
             Фирменные лимонады
           </q-tab-panel>
-          <q-tab-panel name="Pasta">
+          <q-tab-panel name="Паста">
             <div class="text-h6">Паста</div>
             Паста
           </q-tab-panel>
-          <q-tab-panel name="sandwiches">
+          <q-tab-panel name="Сендвичи">
             <div class="text-h6">Сендвичи</div>
             Сендвичи
           </q-tab-panel>
@@ -87,7 +87,7 @@ export default {
   },
   setup() {
     return {
-      tab: ref("Burger"),
+      tab: ref("Бургер"),
       menus: ref([]),
       CategoryClick: ref(""),
 
@@ -116,33 +116,11 @@ export default {
   },
   computed: {
 
-    filtersalads() {
-      return _.find(this.menus, ["Category", "Салаты"])
-    },
-    filterfirst() {
-      return _.find(this.menus, ["Category", "Первые Блюда"])
-    },
-    filterhot() {
-      return _.find(this.menus, ["Category", "Горячие Блюда"])
-    },
-    filterdesserts() {
-      return _.find(this.menus, ["Category", "десерты"])
-    },
-    filterLemonades() {
-      return _.find(this.menus, ["Category", "Лемонады"])
-    },
-    filterPasta() {
-      return _.find(this.menus, ["Category", "Паста"])
-    },
-    filtersandwiches() {
-      return _.find(this.menus, ["Category", "Сендвичи"])
-    },
+
     filterBurger() {
-      return _.find(this.menus, ['Category', "Бургер"])
+      return _.find(this.menus, ['Category', this.tab])
     },
-    filterSnacks() {
-      return _.find(this.menus, ['Category', "Закуски"])
-    },
+
 
   },
   watch: {
