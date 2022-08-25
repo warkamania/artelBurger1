@@ -16,7 +16,8 @@
         <div class="fit row wrap justify-between">
           <div class="col-6 price" style="overflow: auto">{{ price[index] }} Р</div>
           <div class="col-6" style="overflow: auto">
-            <q-btn flat icon="add_box" @click="persist"></q-btn>
+            <q-btn flat icon="add_box" @click="persist" v-show="!add"></q-btn>
+            <q-btn flat icon="done" v-show="add" color="green"></q-btn>
           </div>
         </div>
       </q-card-section>
@@ -65,7 +66,8 @@ export default {
       Menus: ref([]),
       star: ref(false),
       alert: ref(false),
-      idfavourites: ref([])
+      idfavourites: ref([]),
+      add: ref(false),
 
 
     };
@@ -86,6 +88,7 @@ export default {
       this.alert = !this.alert
     },
     persist() {
+      this.add = true
       this.id = uuidv4();
       this.Card.push({ id: this.id, title: this.title[this.index], price: this.price[this.index], });
       this.saveCard();

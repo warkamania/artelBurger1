@@ -16,7 +16,7 @@
                 <div class="col-4">
                   <img src="burger.jpg" class="" alt="" />
                 </div>
-                <div class="col-8 text-white text-h6">Бурый медведь</div>
+                <div class="col-8 text-white text-h6">{{ parseTitle }}</div>
               </div>
               <div class="row">
                 <div class="col-2">
@@ -30,7 +30,7 @@
                   <q-btn flat icon="add" color="white"></q-btn>
                 </div>
                 <div class="col-3 text-white text-h6">Цена:</div>
-                <div class="col-3 price">440 р</div>
+                <div class="col-3 price">{{ parsePrice }} р</div>
               </div>
             </q-card-section>
           </q-card>
@@ -42,7 +42,7 @@
       <div class="col-9" style="color: white; font-size: 25px">
         Стоимость заказ:
       </div>
-      <div class="col-3 price">880 р</div>
+      <div class="col-3 price">{{ parsePrice + parsePrice }} р</div>
     </div>
     <div class="fit row wrap items-end content-end justify-end">
       <div class="col-9 textGradient12" style="font-size: 22px">
@@ -125,7 +125,7 @@ export default {
       id: ref(null),
       quantity: ref(1),
       Open: ref(true),
-
+      Card: ref([]),
 
 
     };
@@ -148,7 +148,13 @@ export default {
       const numb = this.number.length + 1
 
       return numb
-    }
+    },
+    parseTitle() {
+      return this.Card.length > 0 ? this.Card[0].title : "";
+    },
+    parsePrice() {
+      return Math.floor(this.Card.length > 0 ? this.Card[0].price : "");
+    },
   },
   methods: {
     Close() {
