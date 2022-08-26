@@ -46,7 +46,7 @@
     </div>
     <div class="fit row wrap items-end content-end justify-end">
       <div class="col-9 textGradient12" style="font-size: 22px">
-        начислим бонусов:
+        начислим бонусов:{{ DataNow }}
       </div>
       <div class="col-3 textGradient12" style="font-size: 22px">+ 10</div>
     </div>
@@ -55,6 +55,7 @@
     <div class="fit row wrap justify-center items-end self-end">
       <q-btn color="red" @click="alert = true">Оформить заказ</q-btn>
     </div>
+
     <q-dialog v-model="alert">
       <div class="row">
         <div class="col-12">
@@ -93,7 +94,7 @@
             <q-card-section class="bg-black">
               <img src="check_circle_outline_black_48dp.svg" alt="" class="fit row justify-center" />
               <h5 style="color: white">Ваш заказ №{{ numberOrder }} принят</h5>
-              {{ numberOrder }}
+
             </q-card-section>
           </q-card>
         </div>
@@ -126,6 +127,7 @@ export default {
       quantity: ref(1),
       Open: ref(true),
       Card: ref([]),
+      date: ref(Date),
 
 
     };
@@ -155,6 +157,9 @@ export default {
     parsePrice() {
       return Math.floor(this.Card.length > 0 ? this.Card[0].price : "");
     },
+    DataNow() {
+      return new Date().toLocaleString("ru-RU", { timeZone: 'Europe/Moscow' });
+    }
   },
   methods: {
     Close() {
@@ -192,6 +197,7 @@ export default {
         price: this.price,
         tel: this.tel,
         title: this.title,
+        date: this.DataNow
       };
 
 
@@ -210,6 +216,7 @@ export default {
       this.Order = true;
       this.alert = false;
     },
+
 
   },
 };

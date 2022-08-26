@@ -21,14 +21,26 @@
                     <div class="col-6">Способ оплаты:{{ Options }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
-                        <q-btn color="yellow" text-color="black" v-show="!accept" @click="acceptt">Принят</q-btn>
-
-                    </div>
-                    <div class="col-6">
-                        <q-btn color="green" v-show="accept && !sent" @click="sentt">Отправлен</q-btn>
-                    </div>
+                    Дата и время заказ: {{ datee }}
                 </div>
+
+                <div class=" row">
+                    <q-stepper v-model="step" ref="stepper" color="red" animated>
+                        <q-step :name="1" title="Принято" icon="settings" :done="step > 1" done-color="green" />
+                        <q-step :name="2" title="Готовится" icon="create_new_folder" :done="step > 2"
+                            done-color="green" />
+                        <q-step :name="3" title="Отправлен" icon="add_comment" done-color="green" />
+                        <template v-slot:navigation>
+                            <q-stepper-navigation>
+                                <q-btn @click="$refs.stepper.next()" color="red"
+                                    :label="step === 3 ? 'Финиш' : 'Следующий'" />
+                                <q-btn v-if="step > 1" flat color="red" @click="$refs.stepper.previous()" label="Назад"
+                                    class="q-ml-sm" />
+                            </q-stepper-navigation>
+                        </template>
+                    </q-stepper>
+                </div>
+
             </q-card-section>
         </q-card>
     </q-page>
@@ -43,7 +55,9 @@ export default {
         return {
             list: ref([]),
             accept: ref(false),
-            sent: ref(false)
+            sent: ref(false),
+            step: ref(),
+            date: ref(Date)
         }
     },
     async mounted() {
@@ -86,6 +100,9 @@ export default {
         Options() {
             return _.flatten(this.list.length > 0 ? this.list[0].options : "");
         },
+        datee() {
+            return this.list.length > 0 ? this.list[0].date : "";
+        }
 
     },
     methods: {
