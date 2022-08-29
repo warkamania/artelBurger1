@@ -23,22 +23,26 @@
                 <div class="row">
                     Дата и время заказ: {{ datee }}
                 </div>
+                <br />
+                {{ number() }}
+                <div class=" fit row wrap justify-start items-start content-start">
+                    <div class="col-12" style="">
+                        <q-stepper v-model="step" ref="stepper" color="red" animated contracted swipeable>
+                            <q-step :name="1" title="Принято" icon="receipt" :done="step > 1" done-color="green" />
+                            <q-step :name="2" title="Готовится" icon="outdoor_grill" :done="step > 2"
+                                done-color="green" />
+                            <q-step :name="3" title="Отправлен" icon="delivery_dining" done-color="green" />
+                            <template v-slot:navigation>
+                                <q-stepper-navigation>
+                                    <q-btn @click="$refs.stepper.next()" color="red"
+                                        :label="step === 3 ? 'Финиш' : 'Следующий'" />
+                                    <q-btn v-if="step > 1" flat color="red" @click="$refs.stepper.previous()"
+                                        label="Назад" class="q-ml-sm" />
+                                </q-stepper-navigation>
+                            </template>
+                        </q-stepper>
+                    </div>
 
-                <div class=" row">
-                    <q-stepper v-model="step" ref="stepper" color="red" animated>
-                        <q-step :name="1" title="Принято" icon="settings" :done="step > 1" done-color="green" />
-                        <q-step :name="2" title="Готовится" icon="create_new_folder" :done="step > 2"
-                            done-color="green" />
-                        <q-step :name="3" title="Отправлен" icon="add_comment" done-color="green" />
-                        <template v-slot:navigation>
-                            <q-stepper-navigation>
-                                <q-btn @click="$refs.stepper.next()" color="red"
-                                    :label="step === 3 ? 'Финиш' : 'Следующий'" />
-                                <q-btn v-if="step > 1" flat color="red" @click="$refs.stepper.previous()" label="Назад"
-                                    class="q-ml-sm" />
-                            </q-stepper-navigation>
-                        </template>
-                    </q-stepper>
                 </div>
 
             </q-card-section>
@@ -102,7 +106,9 @@ export default {
         },
         datee() {
             return this.list.length > 0 ? this.list[0].date : "";
-        }
+        },
+
+
 
     },
     methods: {
@@ -111,6 +117,11 @@ export default {
         },
         sentt() {
             this.sent = true;
+        },
+        number() {
+            this.list.forEach((el, index) => {
+                return this.list[index + 1]
+            })
         }
 
     }

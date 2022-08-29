@@ -46,9 +46,9 @@
     </div>
     <div class="fit row wrap items-end content-end justify-end">
       <div class="col-9 textGradient12" style="font-size: 22px">
-        начислим бонусов:{{ DataNow }}
+        начислим бонусов:
       </div>
-      <div class="col-3 textGradient12" style="font-size: 22px">+ 10</div>
+      <div class="col-3 textGradient12" style="font-size: 22px">+ {{ Bonus }}</div>
     </div>
     <br />
 
@@ -130,6 +130,7 @@ export default {
       date: ref(Date),
 
 
+
     };
   },
   async mounted() {
@@ -159,6 +160,9 @@ export default {
     },
     DataNow() {
       return new Date().toLocaleString("ru-RU", { timeZone: 'Europe/Moscow' });
+    },
+    Bonus() {
+      return this.parsePrice * 0.03
     }
   },
   methods: {
