@@ -9,22 +9,22 @@
                     Номер заказа:
                 </div>
                 <div class="row">
-                    <div class="col-6" style="color: black">Наименование: {{ Title }}</div>
-                    <div class="col-6">Колличество: {{ Count }}</div>
+                    <div class="col-6" style="color: black">Наименование: {{  Title  }}</div>
+                    <div class="col-6">Колличество: {{  Count  }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-6">Адрес:{{ Adres }}</div>
-                    <div class="col-6">Телефон:{{ Telephone }}</div>
+                    <div class="col-6">Адрес:{{  Adres  }}</div>
+                    <div class="col-6">Телефон:{{  Telephone  }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-6">Сумма:{{ Price }}</div>
-                    <div class="col-6">Способ оплаты:{{ Options }}</div>
+                    <div class="col-6">Сумма:{{  Price  }}</div>
+                    <div class="col-6">Способ оплаты:{{  Options  }}</div>
                 </div>
                 <div class="row">
-                    Дата и время заказ: {{ datee }}
+                    Дата и время заказ: {{  datee  }}
                 </div>
                 <br />
-                {{ number() }}
+                {{  number()  }}
                 <div class=" fit row wrap justify-start items-start content-start">
                     <div class="col-12" style="">
                         <q-stepper v-model="step" ref="stepper" color="red" animated contracted swipeable>
@@ -102,7 +102,7 @@ export default {
             return this.list.length > 0 ? this.list[0].price : "";
         },
         Options() {
-            return _.flatten(this.list.length > 0 ? this.list[0].options : "");
+            return this.list.length > 0 ? this.list[0].payment : "";
         },
         datee() {
             return this.list.length > 0 ? this.list[0].date : "";
