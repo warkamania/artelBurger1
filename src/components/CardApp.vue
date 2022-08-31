@@ -7,7 +7,7 @@
             <div class="row">
               <div class="col-10 text-white text-h6">{{  index  }}</div>
               <div col-2>
-                <q-btn flat icon="close" class="items-end" color="white" @click="Close"></q-btn>
+                <q-btn flat icon="close" class="items-end" color="white" @click="deleteCard"></q-btn>
               </div>
             </div>
 
@@ -145,6 +145,15 @@ export default {
     //const categoires = await this.$store.dispatch('fetchMenu')
 
   },
+  updated() {
+    if (localStorage.getItem("Card")) {
+      try {
+        this.Card = JSON.parse(localStorage.getItem("Card"));
+      } catch (e) {
+        localStorage.removeItem("Card");
+      }
+    }
+  },
   computed: {
     numberOrder() {
 
@@ -190,10 +199,13 @@ export default {
       const parsed = JSON.stringify(this.Card);
       localStorage.setItem("Card", parsed);
 
+
     },
     deleteCard() {
       const parsed = JSON.stringify(this.Card)
       localStorage.clear("Card", parsed)
+      this.Card = []
+      this.Open = false
     },
     addCard() {
 
