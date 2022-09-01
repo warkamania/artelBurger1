@@ -152,7 +152,7 @@ export default defineComponent({
 </style>
 <style>
 .textGradient12 {
-  background-image: linear-gradient(to right, #553c9a 12%, #ee4b2b);
+  background-image: linear-gradient(to right, #553c9a 8%, #ee4b2b);
   color: transparent;
   background-clip: text;
 }

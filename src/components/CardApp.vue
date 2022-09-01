@@ -5,7 +5,7 @@
         <q-intersection v-for="index in Card.length" :key="index" once transition="scale">
           <q-card class="my-card bg-black" v-show="Open">
             <div class="row">
-              <div class="col-10 text-white text-h6">{{  index  }}</div>
+              <div class="col-10 text-white text-h6">{{ index }}</div>
               <div col-2>
                 <q-btn flat icon="close" class="items-end" color="white" @click="deleteCard"></q-btn>
               </div>
@@ -16,21 +16,21 @@
                 <div class="col-4">
                   <img :src="parseImg" class="" alt="" />
                 </div>
-                <div class="col-8 text-white text-h6">{{  parseTitle  }}</div>
+                <div class="col-8 text-white text-h6">{{ parseTitle }}</div>
               </div>
               <div class="row">
                 <div class="col-2">
-                  <q-btn flat icon="remove" color="white"></q-btn>
+                  <q-btn flat icon="remove" color="white" @click="CounterMinus"></q-btn>
                 </div>
                 <div class="col-2">
                   <q-input dense dark color="red" outlined v-model="quantity" label="" type="number"
                     class="fit row wrap justify-center" />
                 </div>
                 <div class="col-2">
-                  <q-btn flat icon="add" color="white"></q-btn>
+                  <q-btn flat icon="add" color="white" @click="CounterPlus"></q-btn>
                 </div>
                 <div class="col-3 text-white text-h6">Цена:</div>
-                <div class="col-3 price">{{  parsePrice  }} р</div>
+                <div class="col-3 price">{{ parsePrice }} р</div>
               </div>
             </q-card-section>
           </q-card>
@@ -42,13 +42,13 @@
       <div class="col-9" style="color: white; font-size: 25px">
         Стоимость заказ:
       </div>
-      <div class="col-3 price">{{  parsePrice * Card.length  }} р</div>
+      <div class="col-3 price">{{ parsePrice * Card.length }} р</div>
     </div>
     <div class="fit row wrap items-end content-end justify-end">
       <div class="col-9 textGradient12" style="font-size: 22px">
         начислим бонусов:
       </div>
-      <div class="col-3 textGradient12" style="font-size: 22px">+ {{  Bonus  }}</div>
+      <div class="col-3 textGradient12" style="font-size: 22px">+ {{ Bonus }}</div>
     </div>
     <br />
 
@@ -93,7 +93,7 @@
           <q-card>
             <q-card-section class="bg-black">
               <img src="check_circle_outline_black_48dp.svg" alt="" class="fit row justify-center" />
-              <h5 style="color: white">Ваш заказ №{{  numberOrder  }} принят</h5>
+              <h5 style="color: white">Ваш заказ №{{ numberOrder }} принят</h5>
 
             </q-card-section>
           </q-card>
@@ -141,8 +141,7 @@ export default {
         localStorage.removeItem("Card");
       }
     }
-    this.menu = await this.$store.dispatch('fetchMenu')
-    //const categoires = await this.$store.dispatch('fetchMenu')
+
 
   },
   updated() {
@@ -181,8 +180,15 @@ export default {
     Close() {
       this.Open = false
     },
-    CounterPlus() { },
-    CounterMinus() { },
+    CounterPlus() {
+      this.quantity++
+    },
+    CounterMinus() {
+      this.quantity--
+      if (this.quantity == 0) {
+        this.deleteCard()
+      }
+    },
     OpdenOrder() {
 
     },
