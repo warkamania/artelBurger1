@@ -11,7 +11,7 @@
         <div class="row wrap justify-end items-end content-end">
           <div class="col-2">
             <q-btn size="md" flat icon="shopping_bag" to="CardApp">
-              <q-badge color="red" floating rounded>{{  Card.length  }}</q-badge>
+              <q-badge color="red" floating rounded>{{ Card.length }}</q-badge>
             </q-btn>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default defineComponent({
       Card: ref([])
     };
   },
-  async mounted() {
+  mounted() {
     if (localStorage.getItem("Card")) {
       try {
         this.Card = JSON.parse(localStorage.getItem("Card"));
@@ -61,7 +61,7 @@ export default defineComponent({
       console.log(newCard)
     }
   },
-  async beforeUpdate() {
+  beforeUpdate() {
     if (localStorage.getItem("Card")) {
       try {
         this.Card = JSON.parse(localStorage.getItem("Card"));
