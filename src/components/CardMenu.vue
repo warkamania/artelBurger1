@@ -11,10 +11,10 @@
           <img :src="Img[index]" alt="" class="img" @click="OpenDialog" />
         </q-responsive>
 
-        <span class="span-burger">{{  title[index]  }}</span>
+        <span class="span-burger" style="white-space: nowrap ;">{{ title[index] }}</span>
         <br />
         <div class="fit row wrap justify-between">
-          <div class="col-6 price" style="overflow: auto">{{  price[index]  }} Р</div>
+          <div class="col-6 price" style="overflow: auto">{{ price[index] }} Р</div>
           <div class="col-6" style="overflow: auto">
             <q-btn flat icon="add_box" @click="persist" v-show="!add"></q-btn>
             <q-btn flat icon="done" v-show="add" color="green"></q-btn>
@@ -32,7 +32,7 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none textGradient18">
-          {{  Structure[index]  }}
+          {{ Structure[index] }}
         </q-card-section>
 
         <q-card-actions align="right">
