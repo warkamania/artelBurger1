@@ -11,7 +11,7 @@
           <img :src="Img[index]" alt="" class="img" @click="OpenDialog" />
         </q-responsive>
 
-        <span class="span-burger" style="white-space: nowrap ;">{{ title[index] }}</span>
+        <span class="span-burger" style="white-space: nowrap;">{{ title[index] }}</span>
         <br />
         <div class="fit row wrap justify-between">
           <div class="col-6 price" style="overflow: auto">{{ price[index] }} Р</div>
