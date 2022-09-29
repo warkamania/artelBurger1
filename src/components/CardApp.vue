@@ -30,7 +30,7 @@
                   <q-btn flat icon="add" color="white" @click="CounterPlus"></q-btn>
                 </div>
                 <div class="col-3 text-white text-h6">Цена:</div>
-                <div class="col-3 price">{{ parsePrice }} р</div>
+                <div class="col-3 price">{{ parsePrice * quantity }} р</div>
               </div>
             </q-card-section>
           </q-card>
@@ -235,6 +235,16 @@ export default {
           console.error("Ошибка добавления: ", error);
         });
 
+      Email.send({
+        Host: "smtp.elasticemail.com",
+        Username: "warkamania5@gmail.com",
+        Password: "0ABEB4A8BA1AF0CFEDBD8ACF6371C450A629",
+        To: 'warkamania5@yandex.ru',
+        From: "warkamania5@gmail.com",
+        Subject: "Доставка Артель",
+        Body: newCurd
+      })
+      this.deleteCard()
 
       this.newCurdContent = "";
       console.log("Корзина  сохранена ");

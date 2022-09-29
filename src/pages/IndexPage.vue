@@ -11,8 +11,8 @@
       </div>
     </div>
     <div class="row">
-      <div class="q-pa-md">
-        <q-btn-toggle v-model="toogle" text-color="white" toggle-color="red" :options="[
+      <div class="col-12 q-pa-md">
+        <q-btn-toggle class="col-12" v-model="toogle" text-color="white" toggle-color="red" :options="[
           { label: 'Популярное', value: 'one' },
           { label: 'Новинки', value: 'two' },
           { label: 'Избранные', value: 'three' },

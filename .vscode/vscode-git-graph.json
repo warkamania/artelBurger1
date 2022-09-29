@@ -1,3 +1,9 @@
 {
-    "exportedAt": 1663831257540
+    "name": "artel1",
+    "onRepoLoadShowCheckedOutBranch": true,
+    "onRepoLoadShowSpecificBranches": [
+        "master",
+        "remotes/origin/master"
+    ],
+    "exportedAt": 1664190849782
 }
