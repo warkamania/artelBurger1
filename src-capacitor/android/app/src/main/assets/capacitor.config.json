@@ -5,7 +5,7 @@
   "npmClient": "npm",
   "webDir": "www",
   "server": {
-    "url": "https://artel2.vercel.app/"
+    "url": "https://artel4.vercel.app/"
   }
 }
 

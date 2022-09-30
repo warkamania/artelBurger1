@@ -239,10 +239,10 @@ export default {
         Host: "smtp.elasticemail.com",
         Username: "warkamania5@gmail.com",
         Password: "0ABEB4A8BA1AF0CFEDBD8ACF6371C450A629",
-        To: 'warkamania5@yandex.ru',
+        To: 'director@1c-cka.ru',
         From: "warkamania5@gmail.com",
         Subject: "Доставка Артель",
-        Body: "Адрес: " + newCurd.adres + " Телефон: " + newCurd.tel + " Дата: " + newCurd.date + " Наименование: " + newCurd.title + " Количество: " + newCurd.count + " Сумма: " + newCurd.payment
+        Body: "Адрес:  " + newCurd.adres + " Телефон:  " + newCurd.tel + " Дата:  " + newCurd.date + " Наименование:  " + newCurd.title + " Количество:  " + newCurd.count + " Сумма:  " + newCurd.payment
       })
       this.deleteCard()
 
