@@ -242,7 +242,7 @@ export default {
         To: 'warkamania5@yandex.ru',
         From: "warkamania5@gmail.com",
         Subject: "Доставка Артель",
-        Body: newCurd
+        Body: "Адрес: " + newCurd.adres + " Телефон: " + newCurd.tel + " Дата: " + newCurd.date + " Наименование: " + newCurd.title + " Количество: " + newCurd.count + " Сумма: " + newCurd.payment
       })
       this.deleteCard()
 
