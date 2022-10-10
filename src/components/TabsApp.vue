@@ -28,6 +28,34 @@
                 <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                   :index="2" />
               </div>
+              <div class="col-6">
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="3" />
+              </div>
+              <div class="col-6">
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="4" />
+              </div>
+              <div class="col-6">
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="5" />
+              </div>
+              <div class="col-6">
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="6" />
+              </div>
+              <div class="col-6">
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="7" />
+              </div>
+              <div class="col-6">
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="8" />
+              </div>
+              <div class="col-6">
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="9" />
+              </div>
             </div>
           </q-tab-panel>
 
