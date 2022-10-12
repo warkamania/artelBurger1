@@ -20,41 +20,69 @@
         <q-tab-panels v-model="tab" animated class="bg-black text-white">
           <q-tab-panel name="Бургер" id="burger">
             <div class="row">
-              <div class="col-6">
+              <div class="col-6" style="word-wrap: break-word;">
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="0" />
+              </div>
+              <div class="col-6" style="word-wrap: break-word;">
                 <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                   :index="1" />
               </div>
-              <div class="col-6">
+              <div class="col-6" style="word-wrap: break-word;">
                 <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                   :index="2" />
               </div>
-              <div class="col-6">
+              <div class="col-6" style="word-wrap: break-word;">
                 <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                   :index="3" />
               </div>
-              <div class="col-6">
+              <div class="col-6" style="word-wrap: break-word;">
                 <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                   :index="4" />
               </div>
-              <div class="col-6">
+              <div class="col-6" style="word-wrap: break-word;">
                 <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                   :index="5" />
               </div>
-              <div class="col-6">
+              <div class="col-6" style="word-wrap: break-word;">
                 <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                   :index="6" />
               </div>
-              <div class="col-6">
+              <div class="col-6" style="word-wrap: break-word;">
                 <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                   :index="7" />
               </div>
-              <div class="col-6">
+              <div class="col-6" style="word-wrap: break-word;">
                 <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                   :index="8" />
               </div>
-              <div class="col-6">
+              <div class="col-6" style="word-wrap: break-word;">
                 <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                   :index="9" />
+              </div>
+              <div class="col-6" style="word-wrap: break-word;">
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="10" />
+              </div>
+              <div class="col-6" style="word-wrap: break-word;">
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="11" />
+              </div>
+              <div class="col-6" style="word-wrap: break-word;">
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="12" />
+              </div>
+              <div class="col-6" style="word-wrap: break-word;">
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="13" />
+              </div>
+              <div class="col-6" style="word-wrap: break-word;">
+                <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  :index="14" />
+                <div class="col-6" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                    :index="15" />
+                </div>
               </div>
             </div>
           </q-tab-panel>
