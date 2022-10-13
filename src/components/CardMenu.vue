@@ -7,7 +7,7 @@
       <q-btn v-show="star" @click="stars" flat icon="star " class="fit row wrap justify-end items-end content-end">
       </q-btn>
       <q-card-section>
-        <q-responsive :ratio="1" class="img">
+        <q-responsive :ratio="1" class="container">
           <img :src="Img[index]" alt="" @click="OpenDialog" />
         </q-responsive>
 
@@ -135,10 +135,15 @@ export default {
   width: 100%
   max-width: 250px
 </style>
-<style>
-.img {
+<style >
+.container {
   width: 150px;
   height: 150px;
+}
+
+.container img {
+  width: 100%;
+  height: auto;
 }
 
 .span-burger {

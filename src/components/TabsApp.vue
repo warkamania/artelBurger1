@@ -83,6 +83,30 @@
                   <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                     :index="15" />
                 </div>
+                <div class="col-6" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                    :index="16" />
+                </div>
+                <div class="col-6" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                    :index="17" />
+                </div>
+                <div class="col-6" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                    :index="18" />
+                </div>
+                <div class="col-6" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                    :index="19" />
+                </div>
+                <div class="col-6" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                    :index="20" />
+                </div>
+                <div class="col-6" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                    :index="21" />
+                </div>
               </div>
             </div>
           </q-tab-panel>
