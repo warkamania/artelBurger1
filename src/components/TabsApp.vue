@@ -164,6 +164,7 @@ export default {
     Structure: String,
     Category: String,
     Img: String,
+    quntity: Number,
   },
   setup() {
     return {

@@ -59,6 +59,7 @@
 //import DialogAppVue from "./DialogApp.vue";
 import { ref } from "vue";
 import { v4 as uuidv4 } from "uuid";
+import { useStore } from 'vuex'
 export default {
   props: {
     title: String,
@@ -70,6 +71,8 @@ export default {
     toogle: String,
   },
   setup() {
+    const $store = useStore()
+
     return {
       dialog: ref(false),
       id: ref(null),
@@ -116,10 +119,11 @@ export default {
     },
     CounterPlus() {
       this.quantity++
+      this.$store.commit('increment')
     },
     CounterMinus() {
       this.quantity--
-
+      this.$store.commit('dicrement')
     },
 
 
