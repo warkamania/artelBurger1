@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-page-container class="bg-grey-10">
-      <q-header class="bg-grey-10">
+      <q-header class="bg-grey-10" reveal :reveal-offset="20">
         <br />
         <div class="row">
           <div class="col-12 row wrap justify-center">
@@ -19,7 +19,7 @@
       <br />
 
       <slot>
-        <q-footer class="bg-grey-10">
+        <q-footer class="bg-grey-10" reveal>
           <div class="row full-width">
             <MenuApp class="col-12 self-center" />
           </div>
@@ -88,4 +88,8 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="sass" scoped></style>
+<style scoped>
+.header {
+  position: relative;
+}
+</style>

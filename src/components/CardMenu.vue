@@ -1,19 +1,24 @@
 <template>
-  <div class="q-pa-md row items-start q-gutter-md">
+  <div class="q-pa-xs row items-start q-gutter-xs">
     <!-- <q-intersection v-for="index in 2" :key="index" once transition="scale"> -->
     <q-card class="my-card bg-black text-white" @click="!dialog" v-model="id">
-      <q-btn v-show="!star" @click="stars" flat icon="star_border "
-        class="fit row wrap justify-end items-end content-end"></q-btn>
-      <q-btn v-show="star" @click="stars" flat icon="star " class="fit row wrap justify-end items-end content-end">
-      </q-btn>
+      <!-- <q-btn v-show="!star" @click="stars" flat icon="star_border "
+        class="fit row wrap justify-end items-end content-end"></q-btn> -->
+      <!-- <q-btn v-show="star" @click="stars" flat icon="star " class="fit row wrap justify-end items-end content-end">
+      </q-btn> -->
       <q-card-section>
-        <q-responsive :ratio="1" class="container">
-          <img :src="Img[index]" alt="" @click="OpenDialog" />
-        </q-responsive>
+        <div class="fit row wrap justify-center">
+          <div class="col-6">
+            <q-responsive :ratio="1" class="container">
+              <img :src="Img[index]" alt="" @click="OpenDialog" />
+            </q-responsive>
+          </div>
+          <div class="col-6">
+            <span class="span-burger" style="word-wrap: break-word;">{{ title[index] }}</span>
+          </div>
+        </div>
 
-        <span class="span-burger" style="word-wrap: break-word;">{{ title[index] }}</span>
-        <br />
-        <div class="fit row wrap justify-between">
+        <div class="fit row wrap">
           <div class="col-6 price" style="overflow: auto">{{ price[index] }} Р</div>
           <div class="col-6" style="overflow: auto">
             <q-btn flat icon="add_box" @click="persist" v-show="!add"></q-btn>
@@ -44,7 +49,14 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none textGradient18">
-          {{ Structure[index] }}
+          <div class="row">
+            <q-responsive :ratio="1" class="container">
+              <img :src="Img[index]" alt="" @click="OpenDialog" />
+            </q-responsive>
+          </div>
+          <div class="row">
+            {{ Structure[index] }}
+          </div>
         </q-card-section>
 
         <q-card-actions align="right">
@@ -137,17 +149,19 @@ export default {
 <style lang="sass" scoped>
 .my-card
   width: 100%
-  max-width: 250px
+  max-width: 450px
 </style>
 <style >
 .container {
-  width: 150px;
-  height: 150px;
+  width: 170px;
+  height: 170px;
+
 }
 
 .container img {
   width: 100%;
   height: auto;
+  border-radius: 10px;
 }
 
 .span-burger {

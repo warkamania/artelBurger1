@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-12">
         <q-input color="red" dark v-model="searchQuery" filled type="search" style="color: white" placeholder="Поиск">
           <template v-slot:append>
@@ -8,7 +8,7 @@
           </template>
         </q-input>
       </div>
-    </div>
+    </div> -->
     <br />
     <div class="row">
       <div class="col-12">
@@ -16,7 +16,10 @@
           :Category="parseCategory" />
       </div>
     </div>
-    <div style="color: white"></div>
+    <div style="color: white">
+
+    </div>
+
   </q-page>
 </template>
 
@@ -39,6 +42,7 @@ export default {
       img: ref(""),
       Category: ref(null),
       Structure: ref(""),
+      DocumentID: ref(""),
 
 
     };
@@ -96,9 +100,22 @@ export default {
       return _.map(this.menus, 'Category')
 
     },
-    parsedUidDoc() {
-      return _.map(this.menus, 'UidDoc')
+    parsePriceSnacks() {
+      return _.map(this.filterSnacks, 'price')
+
     },
+    parseStructureSnacks() {
+      return _.map(this.filterSnacks, 'structure')
+
+    },
+    parseImgSnacks() {
+      return _.map(this.filterSnacks, 'img')
+
+    },
+    parseTitleSnacks() {
+      return _.map(this.filterSnacks, 'title')
+    },
+
     parsedBurgerNew() {
       return _.map(this.menus, 'burgerNew')
     },
@@ -106,13 +123,13 @@ export default {
       return _.map(this.menus, 'burgerPop')
     },
     filterCategory() {
-      return _.filter(this.menus, { "Category": "Category" })
+      return _.filter(this.menus, ['Category', 'Category'])
     },
     filterBurger() {
-      return _.find(this.menus, ['Category', "Бургер"])
+      return _.filter(this.menus, ['Category', "Бургер"])
     },
     filterSnacks() {
-      return _.find(this.menus, ['Category', "Закуски"])
+      return _.filter(this.menus, ['Category', "Закуски"])
     },
 
 
@@ -139,4 +156,5 @@ export default {
 </script>
 
 <style>
+
 </style>

@@ -23,14 +23,14 @@
                   <q-btn flat icon="remove" color="white" @click="CounterMinus"></q-btn>
                 </div>
                 <div class="col-2">
-                  <q-input dense dark color="red" outlined v-model="quantity" label="" type="number"
+                  <q-input dense dark color="red" outlined v-model="quantitys" type="number"
                     class="fit row wrap justify-center" />
                 </div>
                 <div class="col-2">
                   <q-btn flat icon="add" color="white" @click="CounterPlus"></q-btn>
                 </div>
                 <div class="col-3 text-white text-h6">Цена:</div>
-                <div class="col-3 price">{{ parsePrice * quantity }} р</div>
+                <div class="col-3 price">{{ parsePrice * quantitys }} р</div>
               </div>
             </q-card-section>
           </q-card>
@@ -42,7 +42,7 @@
       <div class="col-9" style="color: white; font-size: 25px">
         Стоимость заказ:
       </div>
-      <div class="col-3 price">{{ parsePrice * Card.length }} р</div>
+      <div class="col-3 price">{{ parsePrice * Card.length*quantitys }} р</div>
     </div>
     <div class="fit row wrap items-end content-end justify-end">
       <div class="col-9 textGradient12" style="font-size: 22px">
@@ -107,8 +107,10 @@
 import { ref } from "vue";
 import { useQuasar } from "quasar";
 import db from 'src/boot/firebase';
+import { useStore } from 'vuex'
 export default {
   setup() {
+    const $store = useStore()
     const $q = useQuasar();
 
     return {
@@ -174,18 +176,23 @@ export default {
     },
     Bonus() {
       return Math.round((this.parsePrice * this.Card.length) * 0.03)
-    }
+    },
+    quantitys() {
+      return this.$store.state.quantity
+    },
   },
   methods: {
     Close() {
       this.Open = false
     },
     CounterPlus() {
-      this.quantity++
+
+      this.$store.commit('increment')
     },
     CounterMinus() {
-      this.quantity--
-      if (this.quantity == 0) {
+
+      this.$store.commit('dicrement')
+      if (this.quantitys == 0) {
         this.deleteCard()
       }
     },
@@ -237,13 +244,15 @@ export default {
 
       Email.send({
         Host: "smtp.elasticemail.com",
-        Username: "warkamania5@gmail.com",
-        Password: "0ABEB4A8BA1AF0CFEDBD8ACF6371C450A629",
-        To: 'director@1c-cka.ru',
-        From: "warkamania5@gmail.com",
+        Username: "artelburger446@gmail.com",
+        Password: "9C41CCEC554EE7F0452821764CF988178024",
+        To: 'warkamania5@yandex.ru',
+        From: "artelburger446@gmail.com",
         Subject: "Доставка Артель",
-        Body: "Адрес:  " + newCurd.adres + " Телефон:  " + newCurd.tel + " Дата:  " + newCurd.date + " Наименование:  " + newCurd.title + " Количество:  " + newCurd.count + " Сумма:  " + newCurd.payment
-      })
+        Body: "  Наименование:  " + newCurd.title + ",    Количество:  " + newCurd.count + ",    Адрес:  " + newCurd.adres + ",    Телефон:  " + newCurd.tel + ",    Дата:  " + newCurd.date + ",    Способ оплаты:  " + newCurd.payment
+      }).then(
+        message => alert(message)
+      );
       this.deleteCard()
 
       this.newCurdContent = "";
