@@ -7,7 +7,7 @@
       <!-- <q-btn v-show="star" @click="stars" flat icon="star " class="fit row wrap justify-end items-end content-end">
       </q-btn> -->
       <q-card-section>
-        <div class="fit row wrap justify-center">
+        <div class="fit row wrap inline justify-between">
           <div class="col-6">
             <q-responsive :ratio="1" class="container">
               <img :src="Img[index]" alt="" @click="OpenDialog" />
@@ -15,13 +15,21 @@
           </div>
           <div class="col-6">
             <span class="span-burger" style="word-wrap: break-word;">{{ title[index] }}</span>
+            <div class="col-6 price" style="overflow: auto">{{ price[index] }} Р</div>
+
+
+            <q-btn icon-right="add" @click="persist" v-show="!add" size="md" text-color="white" color="grey-9">
+              {{
+                  price[index]
+              }} P
+            </q-btn>
           </div>
         </div>
 
         <div class="fit row wrap">
-          <div class="col-6 price" style="overflow: auto">{{ price[index] }} Р</div>
+
           <div class="col-6" style="overflow: auto">
-            <q-btn flat icon="add_box" @click="persist" v-show="!add"></q-btn>
+
             <!-- <q-btn flat icon="done" v-show="add" color="green"></q-btn> -->
           </div>
           <div class="fit row wrap" v-show="add">
@@ -42,25 +50,75 @@
     <!-- </q-intersection> -->
   </div>
   <div class="q-pa-md q-gutter-sm ">
-    <q-dialog bg-white v-model="alert">
-      <q-card class="bg-white">
+    <q-dialog bg-black v-model="alert">
+      <q-card class="bg-black">
         <q-card-section bg-white>
-          <div class="text-h6 textGradient18">Состав</div>
+
         </q-card-section>
 
-        <q-card-section class="q-pt-none textGradient18">
-          <div class="row">
-            <q-responsive :ratio="1" class="container">
+        <q-card-section class="q-pt-none " style="color:white">
+          <div class=" fit row wrap justify-center">
+            <q-responsive :ratio="1" class="containerr">
               <img :src="Img[index]" alt="" @click="OpenDialog" />
             </q-responsive>
           </div>
+
+          <div class="text-h6 " style="color:white">Состав:</div>
+
           <div class="row">
             {{ Structure[index] }}
           </div>
         </q-card-section>
-
+        <q-card-section bg-white>
+          <div class="text-h6 " style="color:white">Добавки</div>
+          <div class="text">
+            <q-checkbox dark v-model="left" color="red" @click="addOptions">{{ $store.state.options[1] }}</q-checkbox>
+          </div>
+          <div class="text">
+            <q-checkbox dark v-model="left1" color="red" @click="addOptions">{{ $store.state.options[2] }}</q-checkbox>
+          </div>
+          <div class="text">
+            <q-checkbox dark v-model="left2" color="red" @click="addOptions">{{ $store.state.options[3] }}</q-checkbox>
+          </div>
+          <div class="text">
+            <q-checkbox dark v-model="left3" color="red" @click="addOptions">{{ $store.state.options[4] }}</q-checkbox>
+          </div>
+          <div class="text">
+            <q-checkbox dark v-model="left4" color="red" @click="addOptions">{{ $store.state.options[5] }}</q-checkbox>
+          </div>
+          <div class="text">
+            <q-checkbox dark v-model="left5" color="red" @click="addOptions">{{ $store.state.options[6] }}</q-checkbox>
+          </div>
+          <div class="text">
+            <q-checkbox dark v-model="left6" color="red" @click="addOptions">{{ $store.state.options[7] }}</q-checkbox>
+          </div>
+          <div class="text">
+            <q-checkbox dark v-model="left7" color="red" @click="addOptions">{{ $store.state.options[8] }}</q-checkbox>
+          </div>
+          <div class="text">
+            <q-checkbox dark v-model="left8" color="red" @click="addOptions">{{ $store.state.options[9] }}</q-checkbox>
+          </div>
+        </q-card-section>
         <q-card-actions align="right">
-          <q-btn flat label="OK" color="red" v-close-popup />
+          <div class="row fit justify-center">
+
+            <q-btn label="" icon-right="add" color="red" v-show="!add" @click="persist" style="width:300px">{{
+                price[index]
+            }} Р</q-btn>
+          </div>
+
+
+          <div class="fit row wrap" v-show="add">
+            <div class="col-2">
+              <q-btn flat icon="remove" color="red" @click="CounterMinus"></q-btn>
+            </div>
+            <div class="col-2">
+              <q-input dense color="red" outlined v-model="quantity" label="" type="number" dark />
+            </div>
+            <div class="col-2">
+              <q-btn flat icon="add" color="red" @click="CounterPlus"></q-btn>
+            </div>
+          </div>
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -96,6 +154,16 @@ export default {
       idfavourites: ref([]),
       add: ref(false),
       quantity: ref(1),
+      left: ref(false),
+      left1: ref(false),
+      left2: ref(false),
+      left3: ref(false),
+      left4: ref(false),
+      left5: ref(false),
+      left6: ref(false),
+      left7: ref(false),
+      left8: ref(false),
+      options: ref(""),
 
 
     };
@@ -110,6 +178,9 @@ export default {
     }
 
   },
+  computed: {
+
+  },
 
   methods: {
     OpenDialog() {
@@ -118,7 +189,7 @@ export default {
     persist() {
       this.add = true
       this.id = uuidv4();
-      this.Card.push({ title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index] });
+      this.Card.push({ title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options });
       this.saveCard();
     },
     saveCard() {
@@ -137,6 +208,39 @@ export default {
       this.quantity--
       this.$store.commit('dicrement')
     },
+    SumDop() {
+
+    },
+    addOptions() {
+      if (this.left) {
+        this.options = this.$store.state.options[1]
+      }
+      if (this.left1) {
+        this.options = this.options + " " + this.$store.state.options[2]
+      }
+      if (this.left2) {
+        this.options = this.options + " " + this.$store.state.options[3]
+      }
+      if (this.left3) {
+        this.options = this.options + " " + this.$store.state.options[4]
+      }
+      if (this.left4) {
+        this.options = this.options + " " + this.$store.state.options[5]
+      }
+      if (this.left5) {
+        this.options = this.options + " " + this.$store.state.options[6]
+      }
+      if (this.left6) {
+        this.options = this.options + " " + this.$store.state.options[7]
+      }
+      if (this.left7) {
+        this.options = this.options + " " + this.$store.state.options[8]
+      }
+      if (this.left8) {
+        this.options = this.options + " " + this.$store.state.options[9]
+      }
+
+    }
 
 
 
@@ -152,16 +256,15 @@ export default {
   max-width: 450px
 </style>
 <style >
-.container {
-  width: 170px;
-  height: 170px;
-
+.containerr {
+  width: 350px;
+  height: 300px;
 }
 
-.container img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
+img {
+  border-radius: 15px;
+  width: 170px;
+  height: 170px;
 }
 
 .span-burger {
@@ -171,6 +274,10 @@ export default {
 .price {
   color: red;
   font-size: 18px;
+}
+
+.text {
+  color: white;
 }
 
 .textGradient18 {

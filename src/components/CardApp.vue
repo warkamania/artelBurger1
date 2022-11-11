@@ -42,7 +42,7 @@
       <div class="col-9" style="color: white; font-size: 25px">
         Стоимость заказ:
       </div>
-      <div class="col-3 price">{{ parsePrice * Card.length*quantitys }} р</div>
+      <div class="col-3 price">{{ parsePrice * Card.length * quantitys }} р</div>
     </div>
     <div class="fit row wrap items-end content-end justify-end">
       <div class="col-9 textGradient12" style="font-size: 22px">
@@ -108,6 +108,8 @@ import { ref } from "vue";
 import { useQuasar } from "quasar";
 import db from 'src/boot/firebase';
 import { useStore } from 'vuex'
+import axios from 'axios';
+
 export default {
   setup() {
     const $store = useStore()
@@ -130,9 +132,6 @@ export default {
       Open: ref(true),
       Card: ref([]),
       date: ref(Date),
-
-
-
     };
   },
   async mounted() {
@@ -180,13 +179,15 @@ export default {
     quantitys() {
       return this.$store.state.quantity
     },
+    adds() {
+      return this.Card.length > 0 ? this.Card.options : "";
+    }
   },
   methods: {
     Close() {
       this.Open = false
     },
     CounterPlus() {
-
       this.$store.commit('increment')
     },
     CounterMinus() {
@@ -200,7 +201,7 @@ export default {
 
     },
     persist() {
-      this.Card.push({ tel: this.tel, adres: this.adres, payment: this.payment, quantity: this.quantity, numberOrder: this.numberOrder });
+      this.Card.push({ tel: this.tel, adres: this.adres, payment: this.payment, quantity: this.quantity, numberOrder: this.numberOrder, options: this.adds });
       this.saveCard();
 
       setTimeout(() => {
@@ -220,7 +221,7 @@ export default {
       this.Card = []
       this.Open = false
     },
-    addCard() {
+    async addCard() {
 
       let newCurd = {
         adres: this.adres,
@@ -229,9 +230,14 @@ export default {
         price: this.price,
         tel: this.tel,
         title: this.parseTitle,
-        date: this.DataNow
+        date: this.DataNow,
       };
 
+      const mailBody = "Наименование: " + this.parseTitle + "   Колличество: " + this.quantity + "   Оплата: " + this.payment + "    Адрес: " + this.adres + "   Телефон: " + this.tel + "   Сумма: " + this.price + "  Дата" + this.DataNow
+      let data = { to: "warkamania5@yandex.ru", subject: "Доставка", text: mailBody }
+      let res = await axios.post('http://localhost:3000/', data)
+      let data1 = res.data1
+      console.log(data1)
 
       db.collection("Card")
         .add(newCurd)
@@ -242,21 +248,14 @@ export default {
           console.error("Ошибка добавления: ", error);
         });
 
-      Email.send({
-        Host: "smtp.elasticemail.com",
-        Username: "artelburger446@gmail.com",
-        Password: "9C41CCEC554EE7F0452821764CF988178024",
-        To: 'warkamania5@yandex.ru',
-        From: "artelburger446@gmail.com",
-        Subject: "Доставка Артель",
-        Body: "  Наименование:  " + newCurd.title + ",    Количество:  " + newCurd.count + ",    Адрес:  " + newCurd.adres + ",    Телефон:  " + newCurd.tel + ",    Дата:  " + newCurd.date + ",    Способ оплаты:  " + newCurd.payment
-      }).then(
-        message => alert(message)
-      );
+
+
       this.deleteCard()
 
+
+
       this.newCurdContent = "";
-      console.log("Корзина  сохранена ");
+      console.log("Корзина  сохранена");
       this.Order = true;
       this.alert = false;
     },
@@ -265,14 +264,6 @@ export default {
       Console.log(this.Card.length[-1])
 
     }
-
-
-
-
-
-
-
-
   },
 };
 </script>

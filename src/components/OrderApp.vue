@@ -15,10 +15,15 @@
         <TabsApp :title="parseTitle" :price="parsePrice" :Img="parseImg" :Structure="parseStructure"
           :Category="parseCategory" />
       </div>
-    </div>
-    <div style="color: white">
 
     </div>
+    <div class="row justify-center" v-show="Card != 0">
+
+      <q-btn icon="shopping_bag" label="Корзина" color="red" style="width:300px" to="CardApp">
+
+      </q-btn>
+    </div>
+
 
   </q-page>
 </template>

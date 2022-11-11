@@ -19,11 +19,21 @@
       <br />
 
       <slot>
+        <q-footer class="white">
+          <div class="row full-width justify-center" v-show="Card != 0">
+            <q-btn icon="shopping_bag" label="  Корзина     " style="width:350px" to="CardApp" class="btn">
+              {{ " " + " " + parsePrice * Card.length + " Р"}}
+            </q-btn>
+          </div>
+          <br />
+        </q-footer>
+
         <q-footer class="bg-grey-10" reveal>
           <div class="row full-width">
             <MenuApp class="col-12 self-center" />
           </div>
         </q-footer>
+
       </slot>
 
       <router-view />
@@ -76,7 +86,11 @@ export default defineComponent({
         JSON.parse(localStorage.getItem("Card"));
       }
       return JSON.parse(localStorage.getItem("Card"))
-    }
+    },
+    parsePrice() {
+      return Math.floor(this.Card.length > 0 ? this.Card[0].price : "");
+    },
+
   },
 
 
@@ -91,5 +105,13 @@ export default defineComponent({
 <style scoped>
 .header {
   position: relative;
+}
+
+.btn {
+  background-color: rgba(240, 22, 22, 0.9)
+}
+
+.white {
+  background-color: rgba(255, 255, 255, 0);
 }
 </style>
