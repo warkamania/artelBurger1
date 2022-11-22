@@ -235,14 +235,14 @@ export default {
 
       const mailBody = "Наименование: " + this.parseTitle + "   Колличество: " + this.quantity + "   Оплата: " + this.payment + "    Адрес: " + this.adres + "   Телефон: " + this.tel + "   Сумма: " + this.price + "  Дата" + this.DataNow
       let data = { to: "warkamania5@yandex.ru", subject: "Доставка", text: mailBody }
-      let res = await axios.post('http://localhost:3000/', data)
+      let res = await axios.post('http://localhost:3000/send-email', data)
       let data1 = res.data1
       console.log(data1)
 
       db.collection("Card")
         .add(newCurd)
         .then(docRef => {
-          console.log("Document written with ID: ", docRef.id);
+          console.log("Document written with ID:", docRef.id);
         })
         .catch(error => {
           console.error("Ошибка добавления: ", error);

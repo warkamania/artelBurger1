@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md">
-    <q-carousel v-model="slide" swipeable animated :navigation-position="navPos" navigation padding height="200px"
+    <q-carousel v-model="slide" swipeable animated :navigation-position="navPos" navigation padding height="500px"
       class="bg-white text-black rounded-borders">
       <q-carousel-slide name="style" class="column no-wrap flex-center">
         <q-icon name="style" size="56px" />
@@ -23,7 +23,7 @@
       <q-carousel-slide name="map" class="column no-wrap flex-center">
         <q-icon name="terrain" size="56px" />
         <div class="q-mt-md text-center">
-          {{ textt[3] }}
+          {{ textt[3]}}
         </div>
       </q-carousel-slide>
     </q-carousel>

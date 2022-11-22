@@ -1,28 +1,23 @@
 <template>
   <q-page>
-    <!-- <div class="row">
-      <div class="col-12">
-        <q-input color="red" dark v-model="searchQuery" filled type="search" style="color: white" placeholder="Поиск">
-          <template v-slot:append>
-            <q-icon name="search" style="color: white" />
-          </template>
-        </q-input>
-      </div>
-    </div> -->
-    <br />
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 q-pa-xs fix">
+        <q-btn-toggle class="col-12" v-model="toogle" text-color="white" size="md" toggle-color="red" :options="[
+          { label: 'Доставка', value: 'one' },
+          { label: 'Самовывоз', value: 'two' },
+          { label: 'В ресторане', value: 'three' },
+        ]" />
+      </div>
+    </div>
+
+    <div class="row fix">
+      <div class="col-12 fix">
         <TabsApp :title="parseTitle" :price="parsePrice" :Img="parseImg" :Structure="parseStructure"
-          :Category="parseCategory" />
+          :Category="parseCategory" class="fix" />
       </div>
 
     </div>
-    <div class="row justify-center" v-show="Card != 0">
 
-      <q-btn icon="shopping_bag" label="Корзина" color="red" style="width:300px" to="CardApp">
-
-      </q-btn>
-    </div>
 
 
   </q-page>
@@ -48,6 +43,8 @@ export default {
       Category: ref(null),
       Structure: ref(""),
       DocumentID: ref(""),
+      toogle: ref("one"),
+      value: ref(""),
 
 
     };
@@ -161,5 +158,8 @@ export default {
 </script>
 
 <style>
-
+.fix {
+  position: sticky;
+  top: 0px;
+}
 </style>

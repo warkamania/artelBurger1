@@ -10,7 +10,7 @@
         <NewsPanel :textt="newsText" :img="newsImg" :index="1" />
       </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-12 q-pa-md">
         <q-btn-toggle class="col-12" v-model="toogle" text-color="white" toggle-color="red" :options="[
           { label: 'Популярное', value: 'one' },
@@ -32,7 +32,7 @@
         <DialogApp v-show="!Dialog" />
       </div>
 
-    </div>
+    </div> -->
 
   </q-page>
 </template>
@@ -48,7 +48,7 @@ import _ from "lodash"
 export default defineComponent({
 
   name: "IndexPage",
-  components: { NewsPanel, CardMenu, DialogApp },
+  components: { NewsPanel, },
   setup() {
     return {
       lorem: "Бургер",

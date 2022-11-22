@@ -2,29 +2,11 @@
   <div>
     <div class="q-pa-md">
       <q-toolbar class="bg-white text-black shadow-2 rounded-borders">
-        <q-btn
-          flat
-          toggle-color="yellow"
-          icon="house"
-          outline="true"
-          label="Главная"
-          to="/"
-        />
-        <q-btn
-          flat
-          icon="percent"
-          outline="true"
-          label="Акции"
-          to="PromotionApp"
-        />
-        <q-btn
-          flat
-          icon="lunch_dining"
-          outline="true"
-          label="Заказ"
-          to="OrderApp"
-        />
-        <q-btn flat icon="more_horiz" outline="true" label="Ещё" to="MoreApp" />
+        <q-btn flat toggle-color="yellow" icon="house" outline="true" label="Главная" to="/" size="sm" />
+        <q-btn flat icon="percent" outline="true" label="Акции" to="PromotionApp" size="sm" />
+        <q-btn flat icon="lunch_dining" outline="true" label="Меню" to="OrderApp" size="sm" @click="clickOrder" />
+        <q-btn flat icon="shopping_bag" outline="true" label="Корзина" to="CardApp" size="sm" />
+        <q-btn flat icon="more_horiz" outline="true" label="Ещё" to="MoreApp" size="sm" />
         <q-space />
       </q-toolbar>
     </div>
@@ -32,11 +14,25 @@
 </template>
 
 <script>
+import { ref } from "vue";
+import { useStore } from 'vuex'
 export default {
   setup() {
-    return {};
+    return {
+      click: ref("")
+    };
   },
+
+  methods: {
+    clickOrder() {
+      this.click = "Меню"
+      this.$store.state.menu = this.click
+      console.log("Click")
+    }
+  }
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

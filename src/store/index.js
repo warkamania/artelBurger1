@@ -16,6 +16,7 @@ export default store(function (/* { ssrContext } */) {
         8: "бекон (+70 ₽)",
         9: "соус шрирача (+50 ₽)",
       },
+      menu: "",
     },
     mutations: {
       increment(state) {
@@ -23,6 +24,9 @@ export default store(function (/* { ssrContext } */) {
       },
       dicrement(state) {
         state.quantity--;
+      },
+      clickMenu(state) {
+        state.menu = "Меню";
       },
     },
     strict: process.env.DEBUGGING,

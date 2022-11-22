@@ -8,31 +8,51 @@
             <img src="logo.png" alt="logo" @click="clickHome" style=" width: 140px; height: 120px" />
           </div>
         </div>
-        <div class="row wrap justify-end items-end content-end">
+        <!-- <div class="row wrap justify-end items-end content-end">
           <div class="col-2">
             <q-btn size="md" flat icon="shopping_bag" to="CardApp">
               <q-badge color="red" floating rounded>{{ Card.length }}</q-badge>
             </q-btn>
           </div>
-        </div>
+        </div> -->
       </q-header>
       <br />
 
       <slot>
-        <q-footer class="white">
-          <div class="row full-width justify-center" v-show="Card != 0">
-            <q-btn icon="shopping_bag" label="  Корзина     " style="width:350px" to="CardApp" class="btn">
-              {{ " " + " " + parsePrice * Card.length + " Р"}}
-            </q-btn>
-          </div>
-          <br />
-        </q-footer>
 
-        <q-footer class="bg-grey-10" reveal>
+
+
+        <div class="row ">
+          <div class="">
+            <q-footer class="white col-10">
+              <div class="row full-width " v-show="Card != 0">
+                <q-btn icon="shopping_bag" label="  Корзина     " style="width: 280px" to="CardApp" class="btn"
+                  @click="click">
+                  {{ " " + " " + parsePrice * Card.length + " Р" }}
+                </q-btn>
+              </div>
+              <br />
+            </q-footer>
+          </div>
+          <div class="">
+            <q-footer class="white col-2" v-show="menu">
+              <div class="row justify-end">
+                <q-btn to="/" icon="house" outline="true" color="red" @click="deleteMenu"></q-btn>
+              </div>
+              <br />
+            </q-footer>
+          </div>
+
+        </div>
+        <q-footer class="bg-grey-10" reveal v-show="!menu">
           <div class="row full-width">
             <MenuApp class="col-12 self-center" />
           </div>
+
         </q-footer>
+
+
+
 
       </slot>
 
@@ -44,14 +64,15 @@
 <script>
 import { defineComponent, ref } from "vue";
 import MenuApp from "src/components/MenuApp.vue";
-
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: "MainLayout",
   components: { MenuApp },
   setup() {
     return {
-      Card: ref([])
+      Card: ref([]),
+      menus: ref(false)
     };
   },
   mounted() {
@@ -69,7 +90,13 @@ export default defineComponent({
     card(newCard) {
       localStorage.Card = newCard;
       console.log(newCard)
-    }
+    },
+    url() {
+      Url.getPath('http://localhost:8080/#/OrderApp')
+    },
+
+
+
   },
   beforeUpdate() {
     if (localStorage.getItem("Card")) {
@@ -90,6 +117,12 @@ export default defineComponent({
     parsePrice() {
       return Math.floor(this.Card.length > 0 ? this.Card[0].price : "");
     },
+    orderApp() {
+      return u = Url.getPath('http://localhost:8080/#/OrderApp')
+    },
+    menu() {
+      return this.$store.state.menu
+    },
 
   },
 
@@ -99,6 +132,14 @@ export default defineComponent({
     clickHome() {
       this.$router.push("/");
     },
+    deleteMenu() {
+      this.$store.state.menu = ""
+    },
+    click() {
+      console.log("click")
+    }
+
+
   },
 });
 </script>

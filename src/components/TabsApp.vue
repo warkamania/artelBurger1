@@ -1,9 +1,9 @@
 <template>
   <div class="q-pa-xs">
-    <div class="q-gutter-y-xs">
+    <div class="q-gutter-y-md">
       <q-card class="bg-black text-white">
-        <q-tabs v-model="tab" dense class="text-grey bg-black" active-color="red" indicator-color="red" align="justify"
-          narrow-indicator>
+        <q-tabs v-model="tab" dense class="text-grey bg-black fix" active-color="red" indicator-color="red"
+          align="justify" narrow-indicator>
           <q-tab name="Бургер" label="Бургеры" />
           <q-tab name="Горячие Закуски" label="Горячие Закуски" />
           <q-tab name="Салаты" label="Салаты" />
@@ -17,7 +17,7 @@
 
         <q-separator />
 
-        <q-tab-panels v-model="tab" animated class="bg-black text-white">
+        <q-tab-panels v-model="tab" animated class="bg-black text-white ">
           <q-tab-panel name="Бургер" id="burger">
             <div class="row">
               <div class="col-12" style="word-wrap: break-word;">
@@ -274,3 +274,11 @@ export default {
   components: { CardMenuVue },
 };
 </script>
+<style>
+.fix {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+</style>
