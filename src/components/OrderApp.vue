@@ -2,24 +2,43 @@
   <q-page>
     <div class="row">
       <div class="col-12 q-pa-xs fix">
-        <q-btn-toggle class="col-12" v-model="toogle" text-color="white" size="md" toggle-color="red" :options="[
-          { label: 'Доставка', value: 'one' },
-          { label: 'Самовывоз', value: 'two' },
-          { label: 'В ресторане', value: 'three' },
-        ]" />
+        <q-btn-toggle class="col-12" v-model="toogle" text-color="white" size="md" toggle-color="red"
+          @click="alert = true" :options="[
+            { label: 'Доставка', value: 'Доставка' },
+            { label: 'Самовывоз', value: 'Самовывоз' },
+            { label: 'В ресторане', value: 'В ресторане' },
+          ]" />
       </div>
+    </div>
+
+    <div class="q-pa-md q-gutter-sm ">
+      <q-dialog bg-white v-model="alert">
+        <q-card class="bg-black">
+          <q-card-section bg-black>
+            <div class="text-h6" style="color:white">{{ toogle }}</div>
+          </q-card-section>
+
+          <q-card-section class="q-pt-none text-white" style="color: white">
+            Вы изменили способ получения заказа
+            <div class="q-pa-md">
+              <q-option-group :options="rest" type="radio" v-model="group" dark />
+            </div>
+          </q-card-section>
+
+
+          <q-card-actions align="right">
+            <q-btn flat label="OK" color="red" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </div>
 
     <div class="row fix">
       <div class="col-12 fix">
         <TabsApp :title="parseTitle" :price="parsePrice" :Img="parseImg" :Structure="parseStructure"
-          :Category="parseCategory" class="fix" />
+          :Category="parseCategory" :option="toogle" class="fix" />
       </div>
-
     </div>
-
-
-
   </q-page>
 </template>
 
@@ -43,8 +62,16 @@ export default {
       Category: ref(null),
       Structure: ref(""),
       DocumentID: ref(""),
-      toogle: ref("one"),
+      toogle: ref("Доставка"),
       value: ref(""),
+      alert: ref(false),
+      group: ref(null),
+
+      rest: [
+        { label: 'улица 2-я Новоселовка 64 А ', value: 'боевка' },
+        { label: 'Новый ресторан', value: 'новосёловка', color: 'green' },
+
+      ]
 
 
     };
@@ -140,7 +167,7 @@ export default {
   },
   methods: {
     persist() {
-      this.Card.push({ id: this.id, title: this.title, price: this.price });
+      this.Card.push({ id: this.id, title: this.title, price: this.price, option: this.toogle });
       this.saveCard();
     },
     saveCard() {

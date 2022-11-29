@@ -139,6 +139,7 @@ export default {
     Img: String,
     index: Number,
     toogle: String,
+    option: String,
   },
   setup() {
     const $store = useStore()
@@ -189,7 +190,7 @@ export default {
     persist() {
       this.add = true
       this.id = uuidv4();
-      this.Card.push({ title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options });
+      this.Card.push({ title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options, option: this.option });
       this.saveCard();
     },
     saveCard() {

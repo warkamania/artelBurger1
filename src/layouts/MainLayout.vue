@@ -22,12 +22,11 @@
 
 
 
-        <div class="row ">
+        <div class="row " @click="clickCard">
           <div class="">
             <q-footer class="white col-10">
               <div class="row full-width " v-show="Card != 0">
-                <q-btn icon="shopping_bag" label="  Корзина     " style="width: 280px" to="CardApp" class="btn"
-                  @click="click">
+                <q-btn icon="shopping_bag" label="  Корзина     " style="width: 280px; height:40px ;" class="btn">
                   {{ " " + " " + parsePrice * Card.length + " Р" }}
                 </q-btn>
               </div>
@@ -37,7 +36,7 @@
           <div class="">
             <q-footer class="white col-2" v-show="menu">
               <div class="row justify-end">
-                <q-btn to="/" icon="house" outline="true" color="red" @click="deleteMenu"></q-btn>
+                <q-btn to="/" icon="house" outline="true" color="red" @click="deleteMenu" style="height:40px"></q-btn>
               </div>
               <br />
             </q-footer>
@@ -137,6 +136,9 @@ export default defineComponent({
     },
     click() {
       console.log("click")
+    },
+    clickCard() {
+      this.$router.push("CardApp")
     }
 
 

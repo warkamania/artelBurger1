@@ -181,7 +181,11 @@ export default {
     },
     adds() {
       return this.Card.length > 0 ? this.Card.options : "";
+    },
+    option() {
+      return this.Card.length > 0 ? this.Card[0].option : "";
     }
+
   },
   methods: {
     Close() {
@@ -231,6 +235,8 @@ export default {
         tel: this.tel,
         title: this.parseTitle,
         date: this.DataNow,
+        option: this.option,
+        options: this.adds
       };
 
       const mailBody = "Наименование: " + this.parseTitle + "   Колличество: " + this.quantity + "   Оплата: " + this.payment + "    Адрес: " + this.adres + "   Телефон: " + this.tel + "   Сумма: " + this.price + "  Дата" + this.DataNow
