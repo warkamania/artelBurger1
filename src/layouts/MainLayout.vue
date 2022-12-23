@@ -143,6 +143,8 @@ export default defineComponent({
     },
     clickCard() {
       this.$router.push("CardApp")
+      this.store.menu = ""
+
     }
 
 
