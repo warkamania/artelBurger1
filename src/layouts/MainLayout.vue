@@ -36,7 +36,8 @@
 
           <q-footer class="white col-2 " v-show="menu">
             <div class="">
-              <q-btn to="/" icon="house" outline="true" color="red" @click="deleteMenu" style="height:50px"></q-btn>
+              <q-btn to="/" icon="house" outline="true" @click="deleteMenu" style="height:50px; margin-left: 300px;"
+                class="btn"></q-btn>
             </div>
             <br />
           </q-footer>
