@@ -109,11 +109,13 @@ import { useQuasar } from "quasar";
 import db from 'src/boot/firebase';
 import { useStore } from 'vuex'
 import axios from 'axios';
+import { useCounterStore } from 'stores/Store';
 
 export default {
   setup() {
-    const $store = useStore()
-    const $q = useQuasar();
+    const store = useCounterStore();
+    const incrementCount = () => store.increment()
+    const decrementCount = () => store.dicrement()
 
     return {
       alert: ref(false),
@@ -132,6 +134,9 @@ export default {
       Open: ref(true),
       Card: ref([]),
       date: ref(Date),
+      store,
+      incrementCount,
+      decrementCount
     };
   },
   async mounted() {
@@ -177,7 +182,7 @@ export default {
       return Math.round((this.parsePrice * this.Card.length) * 0.03)
     },
     quantitys() {
-      return this.$store.state.quantity
+      return this.store.quantity
     },
     adds() {
       return this.Card.length > 0 ? this.Card.options : "";
@@ -192,11 +197,11 @@ export default {
       this.Open = false
     },
     CounterPlus() {
-      this.$store.commit('increment')
+      this.incrementCount
     },
     CounterMinus() {
 
-      this.$store.commit('dicrement')
+      this.decrementCount
       if (this.quantitys == 0) {
         this.deleteCard()
       }

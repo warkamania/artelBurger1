@@ -15,18 +15,25 @@
 
 <script>
 import { ref } from "vue";
-import { useStore } from 'vuex'
+import { useCounterStore } from 'stores/Store';
+
 export default {
   setup() {
+    const store = useCounterStore();
+    console.log("!!!!!!!!!!!!!!!")
+    console.log(store)
     return {
-      click: ref("")
+      click: ref(""),
+      store
+
     };
   },
 
   methods: {
     clickOrder() {
+
       this.click = "Меню"
-      this.$store.state.menu = this.click
+      this.store.menu = this.click
       console.log("Click")
     }
   }

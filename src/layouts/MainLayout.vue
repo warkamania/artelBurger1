@@ -22,25 +22,25 @@
 
 
 
-        <div class="row " @click="clickCard">
-          <div class="">
-            <q-footer class="white col-10">
-              <div class="row full-width " v-show="Card != 0">
-                <q-btn icon="shopping_bag" label="  Корзина     " style="width: 280px; height:40px ;" class="btn">
-                  {{ " " + " " + parsePrice * Card.length + " Р" }}
-                </q-btn>
-              </div>
-              <br />
-            </q-footer>
-          </div>
-          <div class="">
-            <q-footer class="white col-2" v-show="menu">
-              <div class="row justify-end">
-                <q-btn to="/" icon="house" outline="true" color="red" @click="deleteMenu" style="height:40px"></q-btn>
-              </div>
-              <br />
-            </q-footer>
-          </div>
+        <div class="fit row inline wrap justify-between" style="display: flex;">
+
+          <q-footer class="white col-10 full-width" v-show="Card != 0" @click="clickCard">
+            <div class="  ">
+              <q-btn icon="shopping_bag" label="  Корзина     " style="width: 280px; height:50px ;" class="btn">
+                {{ " " + " " + parsePrice * Card.length + " Р" }}
+              </q-btn>
+            </div>
+            <br />
+          </q-footer>
+
+
+          <q-footer class="white col-2 " v-show="menu">
+            <div class="">
+              <q-btn to="/" icon="house" outline="true" color="red" @click="deleteMenu" style="height:50px"></q-btn>
+            </div>
+            <br />
+          </q-footer>
+
 
         </div>
         <q-footer class="bg-grey-10" reveal v-show="!menu">
@@ -63,15 +63,18 @@
 <script>
 import { defineComponent, ref } from "vue";
 import MenuApp from "src/components/MenuApp.vue";
-import { useStore } from 'vuex'
+import { useCounterStore } from 'stores/Store';
 
 export default defineComponent({
   name: "MainLayout",
   components: { MenuApp },
   setup() {
+    const store = useCounterStore();
+    console.log(store)
     return {
       Card: ref([]),
-      menus: ref(false)
+      menus: ref(false),
+      store
     };
   },
   mounted() {
@@ -120,7 +123,7 @@ export default defineComponent({
       return u = Url.getPath('http://localhost:8080/#/OrderApp')
     },
     menu() {
-      return this.$store.state.menu
+      return this.store.menu
     },
 
   },
@@ -132,7 +135,7 @@ export default defineComponent({
       this.$router.push("/");
     },
     deleteMenu() {
-      this.$store.state.menu = ""
+      this.store.menu = ""
     },
     click() {
       console.log("click")

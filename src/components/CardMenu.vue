@@ -72,31 +72,31 @@
         <q-card-section bg-white>
           <div class="text-h6 " style="color:white">Добавки</div>
           <div class="text">
-            <q-checkbox dark v-model="left" color="red" @click="addOptions">{{ $store.state.options[1] }}</q-checkbox>
+            <q-checkbox dark v-model="left" color="red" @click="addOptions">{{ store.options[1] }}</q-checkbox>
           </div>
           <div class="text">
-            <q-checkbox dark v-model="left1" color="red" @click="addOptions">{{ $store.state.options[2] }}</q-checkbox>
+            <q-checkbox dark v-model="left1" color="red" @click="addOptions">{{ store.options[2] }}</q-checkbox>
           </div>
           <div class="text">
-            <q-checkbox dark v-model="left2" color="red" @click="addOptions">{{ $store.state.options[3] }}</q-checkbox>
+            <q-checkbox dark v-model="left2" color="red" @click="addOptions">{{ store.options[3] }}</q-checkbox>
           </div>
           <div class="text">
-            <q-checkbox dark v-model="left3" color="red" @click="addOptions">{{ $store.state.options[4] }}</q-checkbox>
+            <q-checkbox dark v-model="left3" color="red" @click="addOptions">{{ store.options[4] }}</q-checkbox>
           </div>
           <div class="text">
-            <q-checkbox dark v-model="left4" color="red" @click="addOptions">{{ $store.state.options[5] }}</q-checkbox>
+            <q-checkbox dark v-model="left4" color="red" @click="addOptions">{{ store.options[5] }}</q-checkbox>
           </div>
           <div class="text">
-            <q-checkbox dark v-model="left5" color="red" @click="addOptions">{{ $store.state.options[6] }}</q-checkbox>
+            <q-checkbox dark v-model="left5" color="red" @click="addOptions">{{ store.options[6] }}</q-checkbox>
           </div>
           <div class="text">
-            <q-checkbox dark v-model="left6" color="red" @click="addOptions">{{ $store.state.options[7] }}</q-checkbox>
+            <q-checkbox dark v-model="left6" color="red" @click="addOptions">{{ store.options[7] }}</q-checkbox>
           </div>
           <div class="text">
-            <q-checkbox dark v-model="left7" color="red" @click="addOptions">{{ $store.state.options[8] }}</q-checkbox>
+            <q-checkbox dark v-model="left7" color="red" @click="addOptions">{{ store.options[8] }}</q-checkbox>
           </div>
           <div class="text">
-            <q-checkbox dark v-model="left8" color="red" @click="addOptions">{{ $store.state.options[9] }}</q-checkbox>
+            <q-checkbox dark v-model="left8" color="red" @click="addOptions">{{ store.options[9] }}</q-checkbox>
           </div>
         </q-card-section>
         <q-card-actions align="right">
@@ -130,6 +130,7 @@
 import { ref } from "vue";
 import { v4 as uuidv4 } from "uuid";
 import { useStore } from 'vuex'
+import { useCounterStore } from 'stores/Store';
 export default {
   props: {
     title: String,
@@ -142,7 +143,7 @@ export default {
     option: String,
   },
   setup() {
-    const $store = useStore()
+    const store = useCounterStore();
 
     return {
       dialog: ref(false),
@@ -165,6 +166,7 @@ export default {
       left7: ref(false),
       left8: ref(false),
       options: ref(""),
+      store,
 
 
     };
@@ -203,42 +205,42 @@ export default {
     },
     CounterPlus() {
       this.quantity++
-      this.$store.commit('increment')
+      this.store.commit('increment')
     },
     CounterMinus() {
       this.quantity--
-      this.$store.commit('dicrement')
+      this.store.commit('dicrement')
     },
     SumDop() {
 
     },
     addOptions() {
       if (this.left) {
-        this.options = this.$store.state.options[1]
+        this.options = this.store.options[1]
       }
       if (this.left1) {
-        this.options = this.options + " " + this.$store.state.options[2]
+        this.options = this.options + " " + this.store.options[2]
       }
       if (this.left2) {
-        this.options = this.options + " " + this.$store.state.options[3]
+        this.options = this.options + " " + this.store.options[3]
       }
       if (this.left3) {
-        this.options = this.options + " " + this.$store.state.options[4]
+        this.options = this.options + " " + this.store.options[4]
       }
       if (this.left4) {
-        this.options = this.options + " " + this.$store.state.options[5]
+        this.options = this.options + " " + this.store.options[5]
       }
       if (this.left5) {
-        this.options = this.options + " " + this.$store.state.options[6]
+        this.options = this.options + " " + this.store.options[6]
       }
       if (this.left6) {
-        this.options = this.options + " " + this.$store.state.options[7]
+        this.options = this.options + " " + this.store.options[7]
       }
       if (this.left7) {
-        this.options = this.options + " " + this.$store.state.options[8]
+        this.options = this.options + " " + this.store.options[8]
       }
       if (this.left8) {
-        this.options = this.options + " " + this.$store.state.options[9]
+        this.options = this.options + " " + this.store.options[9]
       }
 
     }

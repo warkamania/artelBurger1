@@ -22,7 +22,7 @@
 
           <q-tab-panels v-model="tab" animated class="bg-black text-white fix" infinite>
             <q-tab-panel name="Бургер" id="burger">
-              <div class="row">
+              <div class="row" @scroll="scroll()">
                 <h7>Бургеры</h7>
                 <div class="col-12" style="word-wrap: break-word;">
                   <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
@@ -119,12 +119,10 @@
               <div class="text-h6">Горячие Закуску</div>
               <div class="row">
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="parseTitleSnacks" :price="parsePriceSnacks" :Img="parseImgSnack"
-                    :Structure="parseStructureSnacks" :index="0" />
+
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="parseTitleSnacks" :price="parsePriceSnacks" :Img="parseImgSnack"
-                    :Structure="parseStructureSnacks" :index="1" />
+
                 </div>
               </div>
             </q-tab-panel>
@@ -179,12 +177,14 @@ export default {
     Img: String,
     quntity: Number,
     option: String,
+    scrolling: Boolean,
   },
   setup() {
     return {
       tab: ref("Бургер"),
       menus: ref([]),
       CategoryClick: ref(""),
+
 
     };
   },
@@ -211,7 +211,7 @@ export default {
   },
   computed: {
     filterBurger() {
-      return _.find(this.menus, ['Category', this.tab])
+      return _.filter(this.menus, ['Category', "Бургер"])
     },
     filterSnacks() {
       return _.filter(this.menus, ['Category', "Закуски"])
@@ -271,11 +271,56 @@ export default {
 
 
   },
-  watch: {
-    CategoryClick() {
-
-    }
+  beforeUpdate() {
+    this.onTab();
+    this.Tab1()
+    this.Tab()
   },
+
+  methods: {
+    onTab() {
+      if (this.scrolling == true) {
+        this.tab = "Горячие Закуски"
+      }
+      !this.scrolling
+    },
+    Tab1() {
+      if (this.tab == "Горячие Закуски" && this.scrolling == true) {
+        this.tab = "Салаты"
+      }
+    },
+
+    Tab() {
+      const a = this.tab && this.scrolling
+
+      switch (a) {
+        case "Горячие Закуски":
+        case true:
+          this.tab = "Салаты"
+          break;
+        case "Салаты":
+        case true:
+          this.tab = "Первые Блюда"
+          break;
+        case "Первые Блюда":
+        case true:
+          this.tab = "Горячие Блюда"
+          break;
+        case "Горячие Блюда":
+        case true:
+          this.tab = "Десерты"
+          break;
+        case "Десерты":
+        case true:
+          this.tab = "Фирменные лимонады"
+          break;
+        default:
+          this.tab = "Бургер"
+      }
+    }
+
+  },
+
   components: { CardMenuVue },
 };
 </script>

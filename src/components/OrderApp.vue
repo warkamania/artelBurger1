@@ -36,9 +36,10 @@
     <div class="row fix">
       <div class="col-12 fix">
         <TabsApp :title="parseTitle" :price="parsePrice" :Img="parseImg" :Structure="parseStructure"
-          :Category="parseCategory" :option="toogle" class="fix" />
+          :Category="parseCategory" :option="toogle" :scrolling="scrolledToBottom" class="fix" />
       </div>
     </div>
+    {{"watch"+ this.onScrol }}
   </q-page>
 </template>
 
@@ -66,6 +67,7 @@ export default {
       value: ref(""),
       alert: ref(false),
       group: ref(null),
+      scrolledToBottom: false,
 
       rest: [
         { label: 'улица 2-я Новоселовка 64 А ', value: 'боевка' },
@@ -101,6 +103,7 @@ export default {
         }
       });
     });
+    this.scroll()
   },
   computed: {
     sortedMenus() {
@@ -160,6 +163,9 @@ export default {
     filterSnacks() {
       return _.filter(this.menus, ['Category', "Закуски"])
     },
+    scrolling(){
+     return this.scrolledToBottom
+    },
 
 
 
@@ -176,10 +182,25 @@ export default {
     },
     getId(id) {
       return db.collection('Burger').doc(id).get()
+    },
+    scroll() {
+      window.onscroll = () => {
+        let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight
+
+        if (bottomOfWindow) {
+          this.scrolledToBottom = true
+        }
+        console.log(bottomOfWindow)
+      }
     }
 
   },
-
+  watch:{
+    onScrol(){
+      this.scrolledToBottom
+      
+    }
+  },
   components: { TabsApp },
 };
 </script>

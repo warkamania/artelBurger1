@@ -40,9 +40,9 @@
 <script>
 import { defineComponent } from "vue";
 import NewsPanel from "../components/NewsPanel.vue";
-import CardMenu from "../components/CardMenu.vue";
+
 import { ref } from "vue";
-import DialogApp from "src/components/DialogApp.vue";
+
 import db from 'src/boot/firebase';
 import _ from "lodash"
 export default defineComponent({
