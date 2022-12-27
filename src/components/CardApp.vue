@@ -42,7 +42,7 @@
       <div class="col-9" style="color: white; font-size: 25px">
         Стоимость заказ:
       </div>
-      <div class="col-3 price">{{ parsePrice * Card.length * quantitys }} р</div>
+      <div class="col-3 price">{{ sum }} р</div>
     </div>
     <div class="fit row wrap items-end content-end justify-end">
       <div class="col-9 textGradient12" style="font-size: 22px">
@@ -147,6 +147,7 @@ export default {
         localStorage.removeItem("Card");
       }
     }
+    this.store.summa = this.sum
 
 
   },
@@ -157,6 +158,12 @@ export default {
       } catch (e) {
         localStorage.removeItem("Card");
       }
+    }
+    this.store.summa = this.sum
+  },
+  watch: {
+    sum(){
+      this.store.summa = this.sum
     }
   },
   computed: {
@@ -189,7 +196,11 @@ export default {
     },
     option() {
       return this.Card.length > 0 ? this.Card[0].option : "";
-    }
+    },
+    sum(){
+      return this.parsePrice * this.Card.length * this.quantitys
+    },
+
 
   },
   methods: {

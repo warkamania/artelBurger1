@@ -15,6 +15,7 @@ export const useCounterStore = defineStore("counter", {
       9: "соус шрирача (+50 ₽)",
     },
     menu: "",
+    summa: 0,
   }),
   actions: {
     increment(state) {

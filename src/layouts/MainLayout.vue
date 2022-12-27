@@ -27,7 +27,7 @@
           <q-footer class="white col-10 full-width" v-show="Card != 0" @click="clickCard">
             <div class="  ">
               <q-btn icon="shopping_bag" label="  Корзина     " style="width: 280px; height:50px ;" class="btn">
-                {{ " " + " " + parsePrice * Card.length + " Р" }}
+                {{summ + " "+ "P"}}
               </q-btn>
             </div>
             <br />
@@ -86,6 +86,7 @@ export default defineComponent({
         localStorage.removeItem("Card");
       }
     }
+    
 
 
   },
@@ -97,6 +98,10 @@ export default defineComponent({
     url() {
       Url.getPath('http://localhost:8080/#/OrderApp')
     },
+    // sum(){
+    //  this.store.summa = this.parsePrice * this.Card.length
+    // },
+   
 
 
 
@@ -110,6 +115,7 @@ export default defineComponent({
       }
     }
   },
+  
   computed: {
     cardd() {
       if (localStorage.getItem("Card")) {
@@ -125,6 +131,12 @@ export default defineComponent({
     },
     menu() {
       return this.store.menu
+    },
+    sum(){
+      return  this.parsePrice * this.Card.length 
+    },
+    summ(){
+     return this.store.summa
     },
 
   },
