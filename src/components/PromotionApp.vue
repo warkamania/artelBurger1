@@ -19,7 +19,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <NewsPanel :textt="parseTitle" :index="0" />
+        <PromoPanel :textt="parseTitle" :index="0" />
       </div>
     </div>
     <div class="row">
@@ -32,31 +32,32 @@
 
 <script>
 import { ref } from "vue";
-import NewsPanel from "./NewsPanel.vue";
+import PromoPanel from "./PromoPanel.vue";
 import db from 'src/boot/firebase';
 import _ from "lodash"
 export default {
   setup() {
     return {
       text: ref(""),
-      promo: ref([]),
+      Promotion: ref([]),
+
     };
   },
   mounted() {
     db.collection("Promotion").onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
 
-        const burgerChange = change.doc.data();
+        const PromotionChange = change.doc.data();
 
         if (change.type === "added") {
-          console.log("New promo: ", burgerChange);
-          this.promo.unshift(burgerChange);
+          console.log("New promo: ", PromotionChange);
+          this.Promotion.unshift(PromotionChange);
         }
         if (change.type === "modified") {
-          console.log("Modified promo: ", burgerChange);
+          console.log("Modified promo: ", PromotionChange);
         }
         if (change.type === "removed") {
-          console.log("Removed promo: ", burgerChange);
+          console.log("Removed promo: ", PromotionChange);
         }
       });
     });
@@ -64,11 +65,11 @@ export default {
   },
   computed: {
     parseTitle() {
-      return _.map(this.promo, 'textPromotion')
+      return _.map(this.Promotion, 'textPromotion')
 
     },
   },
-  components: { NewsPanel },
+  components: { PromoPanel },
 };
 </script>
 

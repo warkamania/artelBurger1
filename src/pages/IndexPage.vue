@@ -1,13 +1,13 @@
 <template>
   <q-page>
     <div class="row">
-      <div class="col-12 textGradient12" style="font-size: 22px">
+      <div class="col-12 " style="font-size: 22px; color: whitesmoke;">
         {{ Time }}
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <NewsPanel :textt="newsText" :img="newsImg" :index="1" />
+        <NewsPanel :textt="newsText" :img="newsImg" :index="0" />
       </div>
     </div>
     <!-- <div class="row">

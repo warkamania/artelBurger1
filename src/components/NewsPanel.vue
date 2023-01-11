@@ -1,18 +1,27 @@
 <template>
   <div class="q-pa-md">
-    <q-carousel v-model="slide" swipeable animated :navigation-position="navPos" navigation padding height="500px"
+    <q-carousel v-model="slide" swipeable animated :navigation-position="navPos" navigation padding height="550px"
       class="bg-white text-black rounded-borders">
-      <q-carousel-slide name="style" class="column no-wrap flex-center">
-        <q-icon name="style" size="56px" />
-        <div class="q-mt-md text-center">
-          {{ textt[index] }}
+      <q-carousel-slide name="style" class="column no-wrap flex-center row" :img-src="img[index]">
+        <img src="red.jpg" alt="" class="col-12">
+        <div class="absolute-bottom custom-caption">
+          <center>
+            <div class="text-h5">{{ textt[0] }}</div>
+          </center>
+
         </div>
       </q-carousel-slide>
-      <q-carousel-slide name="tv" class="column no-wrap flex-center">
-        <q-icon name="live_tv" size="56px" />
-        <div class="q-mt-md text-center">
-          {{ textt[0] }}
+      <q-carousel-slide name="tv" class="column no-wrap flex-center row">
+        <img src="artel.jpg" alt="" class="col-12">
+        <div class="absolute-bottom custom-caption">
+          <center>
+            <div class="text-h5">
+              {{ textt[1] }}
+            </div>
+          </center>
+
         </div>
+
       </q-carousel-slide>
       <q-carousel-slide name="layers" class="column no-wrap flex-center">
         <q-icon name="layers" size="56px" />
@@ -23,7 +32,7 @@
       <q-carousel-slide name="map" class="column no-wrap flex-center">
         <q-icon name="terrain" size="56px" />
         <div class="q-mt-md text-center">
-          {{ textt[3]}}
+          {{ textt[3] }}
         </div>
       </q-carousel-slide>
     </q-carousel>
