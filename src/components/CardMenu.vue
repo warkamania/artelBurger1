@@ -20,7 +20,7 @@
 
             <q-btn icon-right="add" @click="persist" v-show="!add" size="md" text-color="white" color="grey-9">
               {{
-                  price[index]
+  price[index]
               }} P
             </q-btn>
           </div>
@@ -50,7 +50,7 @@
     <!-- </q-intersection> -->
   </div>
   <div class="q-pa-md q-gutter-sm ">
-    <q-dialog bg-black v-model="alert">
+    <q-dialog bg-black v-model="alert" full-height full-width>
       <q-card class="bg-black">
         <q-card-section bg-white>
 
@@ -100,24 +100,28 @@
           </div>
         </q-card-section>
         <q-card-actions align="right">
-          <div class="row fit justify-center">
+          <div class="row fit  justify-between ">
 
-            <q-btn label="" icon-right="add" color="red" v-show="!add" @click="persist" style="width:300px">{{
-                price[index]
+            <div class=" row wrap red justify-between col-9 " v-show="add">
+              <div class="col-3">
+                <q-btn flat icon="remove" color="white" @click="CounterMinus"></q-btn>
+              </div>
+              <div class="col-2">
+                <q-input dense color="red" outlined v-model="quantity" label="" type="number" dark />
+              </div>
+              <div class="col-3">
+                <q-btn flat icon="add" color="white" @click="CounterPlus"></q-btn>
+              </div>
+            </div>
+            <q-btn label="" icon-right="add" color="red" v-show="!add" @click="persist" class="col-9">{{
+              price[index]
             }} Р</q-btn>
-          </div>
+            <br />
+            <q-btn label="" icon-right="shopping_bag" color="red" class="col-2" to="CardApp"></q-btn>
 
 
-          <div class="fit row wrap" v-show="add">
-            <div class="col-2">
-              <q-btn flat icon="remove" color="red" @click="CounterMinus"></q-btn>
-            </div>
-            <div class="col-2">
-              <q-input dense color="red" outlined v-model="quantity" label="" type="number" dark />
-            </div>
-            <div class="col-2">
-              <q-btn flat icon="add" color="red" @click="CounterPlus"></q-btn>
-            </div>
+
+
           </div>
         </q-card-actions>
       </q-card>
@@ -265,7 +269,7 @@ export default {
 }
 
 img {
-  border-radius: 15px;
+  border-radius: 5px;
   width: 170px;
   height: 170px;
 }
@@ -287,5 +291,9 @@ img {
   background-image: linear-gradient(to right, #553c9a 18%, #ee4b2b);
   color: transparent;
   background-clip: text;
+}
+
+.red {
+  background-color: red;
 }
 </style>

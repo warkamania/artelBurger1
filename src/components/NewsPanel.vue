@@ -1,9 +1,9 @@
 <template>
   <div class="q-pa-md">
-    <q-carousel v-model="slide" swipeable animated :navigation-position="navPos" navigation padding height="550px"
+    <q-carousel v-model="slide" swipeable animated :navigation-position="navPos" navigation padding height="460px"
       class="bg-white text-black rounded-borders">
       <q-carousel-slide name="style" class="column no-wrap flex-center row" :img-src="img[index]">
-        <img src="red.jpg" alt="" class="col-12">
+        <img src="red.jpg" alt="" class="col-12" />
         <div class="absolute-bottom custom-caption">
           <center>
             <div class="text-h5">{{ textt[0] }}</div>

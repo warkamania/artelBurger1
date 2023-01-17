@@ -8,6 +8,7 @@
           <q-tabs v-model="tab" dense class="text-grey bg-black fix" active-color="red" indicator-color="red"
             align="justify" narrow-indicator infinite>
             <q-tab name="Бургер" label="Бургеры" />
+            <q-tab name="Пицца" label="Пицца" />
             <q-tab name="Горячие Закуски" label="Горячие Закуски" />
             <q-tab name="Салаты" label="Салаты" />
             <q-tab name="Первые Блюда" label="Первые Блюда" />
@@ -68,10 +69,7 @@
                   <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                     :index="10" />
                 </div>
-                <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
-                    :index="11" />
-                </div>
+
                 <div class="col-12" style="word-wrap: break-word;">
                   <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
                     :index="12" />
@@ -113,6 +111,21 @@
                   </div>
                 </div>
               </div>
+            </q-tab-panel>
+            <q-tab-panel name="Пицца">
+              <div class="text-h6">Пицца</div>
+
+              <div class="row">
+                <div class="col-12" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterPizza"
+                    :index="11" />
+                </div>
+                <div class="col-12" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterPizza"
+                    :index="24" />
+                </div>
+              </div>
+
             </q-tab-panel>
 
             <q-tab-panel name="Горячие Закуски" id="snacks">
@@ -266,6 +279,9 @@ export default {
     },
     parseTitleFirst() {
       return _.map(this.filterFirst, 'title')
+    },
+    filterPizza() {
+      return _.filter(this.menus, ['Category', "Пицца"])
     },
 
 

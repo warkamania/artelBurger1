@@ -14,6 +14,10 @@ export const useCounterStore = defineStore("counter", {
       8: "бекон (+70 ₽)",
       9: "соус шрирача (+50 ₽)",
     },
+    Souse: {
+      1: "Томатный соус",
+      2: "Сливочный соус",
+    },
     menu: "",
     summa: 0,
   }),

@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md">
-    <q-carousel v-model="slide" swipeable animated :navigation-position="navPos" navigation padding height="500px"
+    <q-carousel v-model="slide" swipeable animated :navigation-position="navPos" navigation padding height="450px"
       class="bg-white text-black rounded-borders">
       <q-carousel-slide name="style" class="column no-wrap flex-center row">
         <img src="5.png" alt="" class="col-12">
