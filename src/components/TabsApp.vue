@@ -26,89 +26,98 @@
               <div class="row" @scroll="scroll()">
                 <h7>Бургеры</h7>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
-                    :index="0" />
-                </div>
-                <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
                     :index="1" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
                     :index="2" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
                     :index="3" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
                     :index="4" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
                     :index="5" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
                     :index="6" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
                     :index="7" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
                     :index="8" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
-                    :index="9" />
-                </div>
-                <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
                     :index="10" />
                 </div>
-
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
                     :index="12" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
                     :index="13" />
                 </div>
+
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterBurger"
-                    :index="14" />
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    :index="16" />
+                </div>
+                <div class="col-12" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    :index="17" />
+                </div>
+                <div class="col-12" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    :index="18" />
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure"
-                      :Category="filterBurger" :index="15" />
+                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                      :index="19" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure"
-                      :Category="filterBurger" :index="16" />
+                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                      :index="21" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure"
-                      :Category="filterBurger" :index="17" />
+                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                      :index="22" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure"
-                      :Category="filterBurger" :index="18" />
+                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                      :index="24" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure"
-                      :Category="filterBurger" :index="19" />
+                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                      :index="25" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure"
-                      :Category="filterBurger" :index="20" />
+                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                      :index="26" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure"
-                      :Category="filterBurger" :index="21" />
+                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                      :index="27" />
                   </div>
+                  <div class="col-12" style="word-wrap: break-word;">
+                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                      :index="28" />
+                  </div>
+                  <div class="col-12" style="word-wrap: break-word;">
+                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                      :index="29" />
+                  </div>
+
                 </div>
               </div>
             </q-tab-panel>
@@ -117,12 +126,44 @@
 
               <div class="row">
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterPizza"
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    :index="0" />
+                </div>
+                <div class="col-12" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    :index="9" />
+                </div>
+                <div class="col-12" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
                     :index="11" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="filterPizza"
-                    :index="24" />
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    :index="14" />
+                </div>
+                <div class="col-12" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    :index="15" />
+                </div>
+                <div class="col-12" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    :index="20" />
+                </div>
+                <div class="col-12" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    :index="23" />
+                </div>
+                <div class="col-12" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    :index="30" />
+                </div>
+                <div class="col-12" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    :index="31" />
+                </div>
+                <div class="col-12" style="word-wrap: break-word;">
+                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    :index="32" />
                 </div>
               </div>
 

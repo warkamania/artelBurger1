@@ -49,8 +49,8 @@
     </q-card>
     <!-- </q-intersection> -->
   </div>
-  <div class="q-pa-md q-gutter-sm ">
-    <q-dialog bg-black v-model="alert" full-height full-width>
+  <div>
+    <q-dialog bg-black v-model="alert" full-height full-width maximized>
       <q-card class="bg-black">
         <q-card-section bg-white>
 
@@ -69,7 +69,7 @@
             {{ Structure[index] }}
           </div>
         </q-card-section>
-        <q-card-section bg-white>
+        <q-card-section bg-white v-if="Category[index] == `Бургер`">
           <div class="text-h6 " style="color:white">Добавки</div>
           <div class="text">
             <q-checkbox dark v-model="left" color="red" @click="addOptions">{{ store.options[1] }}</q-checkbox>
@@ -99,6 +99,20 @@
             <q-checkbox dark v-model="left8" color="red" @click="addOptions">{{ store.options[9] }}</q-checkbox>
           </div>
         </q-card-section>
+        <q-card-section bg-white v-if="Category[index] == `Пицца`">
+          <div class="text-h6 " style="color:white">Соус</div>
+          <div class="text">
+            <q-checkbox dark v-model="sauce1" type="radio" color="red" @click="addsauce">{{
+              store.sauce[1]
+            }}</q-checkbox>
+          </div>
+          <div class="text">
+            <q-checkbox dark v-model="sauce2" type="radio" color="red" @click="addsauce">{{
+              store.sauce[2]
+            }}</q-checkbox>
+          </div>
+
+        </q-card-section>
         <q-card-actions align="right">
           <div class="row fit  justify-between ">
 
@@ -118,10 +132,6 @@
             }} Р</q-btn>
             <br />
             <q-btn label="" icon-right="shopping_bag" color="red" class="col-2" to="CardApp"></q-btn>
-
-
-
-
           </div>
         </q-card-actions>
       </q-card>
@@ -133,8 +143,9 @@
 //import DialogAppVue from "./DialogApp.vue";
 import { ref } from "vue";
 import { v4 as uuidv4 } from "uuid";
-import { useStore } from 'vuex'
+
 import { useCounterStore } from 'stores/Store';
+
 export default {
   props: {
     title: String,
@@ -169,6 +180,8 @@ export default {
       left6: ref(false),
       left7: ref(false),
       left8: ref(false),
+      sauce1: ref(false),
+      sauce2: ref(false),
       options: ref(""),
       store,
 
@@ -247,7 +260,16 @@ export default {
         this.options = this.options + " " + this.store.options[9]
       }
 
+    },
+    addsauce() {
+      if (this.sauce1) {
+        this.options = this.store.sauce[1]
+      }
+      if (this.sauce2) {
+        this.options = this.store.sauce[2]
+      }
     }
+
 
 
 
