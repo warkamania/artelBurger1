@@ -57,12 +57,13 @@
         </q-card-section>
 
         <q-card-section class="q-pt-none " style="color:white">
+
           <div class=" fit row wrap justify-center">
             <q-responsive :ratio="1" class="containerr">
               <img :src="Img[index]" alt="" @click="OpenDialog" />
             </q-responsive>
           </div>
-
+          <h5>{{ title[index]}}</h5>
           <div class="text-h6 " style="color:white">Состав:</div>
 
           <div class="row">
@@ -102,14 +103,14 @@
         <q-card-section bg-white v-if="Category[index] == `Пицца`">
           <div class="text-h6 " style="color:white">Соус</div>
           <div class="text">
-            <q-checkbox dark v-model="sauce1" type="radio" color="red" @click="addsauce">{{
+            <q-radio dark v-model="sauce1" val="line" color="red" @click="addsauce">{{
               store.sauce[1]
-            }}</q-checkbox>
+            }}</q-radio>
           </div>
           <div class="text">
-            <q-checkbox dark v-model="sauce2" type="radio" color="red" @click="addsauce">{{
+            <q-radio dark v-model="sauce1" val="rectangle" color="red" @click="addsauce">{{
               store.sauce[2]
-            }}</q-checkbox>
+            }}</q-radio>
           </div>
 
         </q-card-section>
@@ -180,7 +181,7 @@ export default {
       left6: ref(false),
       left7: ref(false),
       left8: ref(false),
-      sauce1: ref(false),
+      sauce1: ref('line'),
       sauce2: ref(false),
       options: ref(""),
       store,
