@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-xs row items-start q-gutter-xs">
     <!-- <q-intersection v-for="index in 2" :key="index" once transition="scale"> -->
-    <q-card class="my-card bg-black text-white" @click="!dialog" v-model="id">
+    <q-card class="my-card bg-black text-white" @click="!dialog">
       <!-- <q-btn v-show="!star" @click="stars" flat icon="star_border "
         class="fit row wrap justify-end items-end content-end"></q-btn> -->
       <!-- <q-btn v-show="star" @click="stars" flat icon="star " class="fit row wrap justify-end items-end content-end">
@@ -13,9 +13,10 @@
               <img :src="Img[index]" alt="" @click="OpenDialog" />
             </q-responsive>
           </div>
-          <div class="col-6">
+
+          <div class="col-5">
             <span class="span-burger" style="word-wrap: break-word;">{{ title[index] }}</span>
-            <div class="col-6 price" style="overflow: auto">{{ price[index] }} Р</div>
+            <div class="col-5 price" style="overflow: auto">{{ price[index] }} Р</div>
 
 
             <q-btn icon-right="add" @click="persist" v-show="!add" size="md" text-color="white" color="grey-9">
@@ -64,6 +65,7 @@
             </q-responsive>
           </div>
           <h5>{{ title[index]}}</h5>
+          <p> </p>
           <div class="text-h6 " style="color:white">Состав:</div>
 
           <div class="row">
@@ -157,13 +159,13 @@ export default {
     index: Number,
     toogle: String,
     option: String,
+    id: String,
   },
   setup() {
     const store = useCounterStore();
 
     return {
       dialog: ref(false),
-      id: ref(null),
       sum: ref(0),
       Card: ref([]),
       Menus: ref([]),
@@ -209,7 +211,7 @@ export default {
     },
     persist() {
       this.add = true
-      this.id = uuidv4();
+
       this.Card.push({ title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options, option: this.option });
       this.saveCard();
     },
@@ -223,11 +225,11 @@ export default {
     },
     CounterPlus() {
       this.quantity++
-      this.store.commit('increment')
+      this.store.quantity++
     },
     CounterMinus() {
       this.quantity--
-      this.store.commit('dicrement')
+      this.store.quantity--
     },
     SumDop() {
 

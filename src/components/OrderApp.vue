@@ -39,7 +39,7 @@
           :Category="parseCategory" :option="toogle" :scrolling="scrolledToBottom" class="fix" />
       </div>
     </div>
-    {{"watch"+ this.onScrol }}
+    {{ "watch"+ this.onScrol }}
   </q-page>
 </template>
 
@@ -92,14 +92,14 @@ export default {
         const burgerChange = change.doc.data();
 
         if (change.type === "added") {
-          console.log("New burger: ", burgerChange);
+          //console.log("New burger: ", burgerChange);
           this.menus.unshift(burgerChange);
         }
         if (change.type === "modified") {
-          console.log("Modified burger: ", burgerChange);
+          //console.log("Modified burger: ", burgerChange);
         }
         if (change.type === "removed") {
-          console.log("Removed burger: ", burgerChange);
+          //console.log("Removed burger: ", burgerChange);
         }
       });
     });
@@ -163,9 +163,12 @@ export default {
     filterSnacks() {
       return _.filter(this.menus, ['Category', "Закуски"])
     },
-    scrolling(){
-     return this.scrolledToBottom
+    scrolling() {
+      return this.scrolledToBottom
     },
+    cardMap() {
+      return _.map(this.Card, 'title')
+    }
 
 
 
@@ -192,13 +195,16 @@ export default {
         }
         console.log(bottomOfWindow)
       }
+    },
+    idd() {
+
     }
 
   },
-  watch:{
-    onScrol(){
+  watch: {
+    onScrol() {
       this.scrolledToBottom
-      
+
     }
   },
   components: { TabsApp },

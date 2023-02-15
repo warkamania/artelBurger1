@@ -66,14 +66,14 @@ export default {
         const burgerChange = change.doc.data();
 
         if (change.type === "added") {
-          console.log("New News: ", burgerChange);
+          //console.log("New News: ", burgerChange);
           this.News.unshift(burgerChange);
         }
         if (change.type === "modified") {
-          console.log("Modified News: ", burgerChange);
+          //console.log("Modified News: ", burgerChange);
         }
         if (change.type === "removed") {
-          console.log("Removed News: ", burgerChange);
+          // console.log("Removed News: ", burgerChange);
         }
       });
     });

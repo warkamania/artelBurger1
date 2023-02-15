@@ -50,14 +50,14 @@ export default {
         const PromotionChange = change.doc.data();
 
         if (change.type === "added") {
-          console.log("New promo: ", PromotionChange);
+          //console.log("New promo: ", PromotionChange);
           this.Promotion.unshift(PromotionChange);
         }
         if (change.type === "modified") {
-          console.log("Modified promo: ", PromotionChange);
+          //console.log("Modified promo: ", PromotionChange);
         }
         if (change.type === "removed") {
-          console.log("Removed promo: ", PromotionChange);
+          //console.log("Removed promo: ", PromotionChange);
         }
       });
     });

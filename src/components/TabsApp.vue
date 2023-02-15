@@ -25,6 +25,7 @@
             <q-tab-panel name="Бургер" id="burger">
               <div class="row" @scroll="scroll()">
                 <h7>Бургеры</h7>
+                {{ idd() }}
                 <div class="col-12" style="word-wrap: break-word;">
                   <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
                     :index="1" />
@@ -222,6 +223,8 @@ import { ref } from "vue";
 import _ from "lodash"
 import CardMenuVue from "./CardMenu.vue";
 import db from 'src/boot/firebase';
+import { v4 as uuidv4 } from "uuid";
+
 export default {
   props: {
     title: String,
@@ -238,6 +241,7 @@ export default {
       tab: ref("Бургер"),
       menus: ref([]),
       CategoryClick: ref(""),
+      id: ref(""),
 
 
     };
@@ -249,15 +253,15 @@ export default {
         const burgerChange = change.doc.data();
 
         if (change.type === "added") {
-          console.log("New burger: ", burgerChange);
+          //console.log("New burger: ", burgerChange);
           this.menus.unshift(burgerChange);
         }
         if (change.type === "modified") {
-          console.log("Modified burger: ", burgerChange);
+          // console.log("Modified burger: ", burgerChange);
           this.menus.unshift(burgerChange);
         }
         if (change.type === "removed") {
-          console.log("Removed burger: ", burgerChange);
+          //console.log("Removed burger: ", burgerChange);
           this.menus.unshift(burgerChange);
         }
       });
@@ -327,6 +331,7 @@ export default {
 
 
 
+
   },
   beforeUpdate() {
     this.onTab();
@@ -374,6 +379,9 @@ export default {
         default:
           this.tab = "Бургер"
       }
+    },
+    idd() {
+      this.id = uuidv4();
     }
 
   },

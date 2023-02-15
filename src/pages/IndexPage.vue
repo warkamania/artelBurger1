@@ -66,14 +66,14 @@ export default defineComponent({
         const burgerChange = change.doc.data();
 
         if (change.type === "added") {
-          console.log("New burger: ", burgerChange);
+          //console.log("New burger: ", burgerChange);
           this.menus.unshift(burgerChange);
         }
         if (change.type === "modified") {
-          console.log("Modified burger: ", burgerChange);
+          //console.log("Modified burger: ", burgerChange);
         }
         if (change.type === "removed") {
-          console.log("Removed burger: ", burgerChange);
+          //console.log("Removed burger: ", burgerChange);
         }
       });
     });
@@ -84,13 +84,13 @@ export default defineComponent({
 
         if (change.type === "added") {
           console.log("New News: ", newsChange);
-          this.News.unshift(newsChange);
+          //this.News.unshift(newsChange);
         }
         if (change.type === "modified") {
-          console.log("Modified News: ", newsChange);
+          //console.log("Modified News: ", newsChange);
         }
         if (change.type === "removed") {
-          console.log("Removed News: ", newsChange);
+          //console.log("Removed News: ", newsChange);
         }
       });
     });

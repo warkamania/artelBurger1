@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-side-effects-in-computed-properties -->
 <template>
   <q-page>
     <div class="q-pa-md row items-start">
@@ -14,9 +15,9 @@
             <q-card-section>
               <div class="row">
                 <div class="col-4">
-                  <img :src="parseImg" class="" alt="" />
+                  <img :src="mapImg[index]" class="" alt="" />
                 </div>
-                <div class="col-8 text-white text-h6">{{ parseTitle }}</div>
+                <div class="col-8 text-white text-h6">{{ mapTitles[index] }}</div>
               </div>
               <div class="row">
                 <div class="col-2">
@@ -30,7 +31,7 @@
                   <q-btn flat icon="add" color="white" @click="CounterPlus"></q-btn>
                 </div>
                 <div class="col-3 text-white text-h6">Цена:</div>
-                <div class="col-3 price">{{ parsePrice * quantitys }} р</div>
+                <div class="col-3 price">{{ mapPrice[index] * quantitys }} р</div>
               </div>
             </q-card-section>
           </q-card>
@@ -110,6 +111,8 @@ import db from 'src/boot/firebase';
 import { useStore } from 'vuex'
 import axios from 'axios';
 import { useCounterStore } from 'stores/Store';
+import { } from "qs"
+import _ from "lodash"
 
 export default {
   setup() {
@@ -162,7 +165,7 @@ export default {
     this.store.summa = this.sum
   },
   watch: {
-    sum(){
+    sum1() {
       this.store.summa = this.sum
     }
   },
@@ -193,26 +196,47 @@ export default {
     },
     adds() {
       return this.Card.length > 0 ? this.Card.options : "";
+
     },
     option() {
       return this.Card.length > 0 ? this.Card[0].option : "";
     },
-    sum(){
-      return this.parsePrice * this.Card.length * this.quantitys
+    sum() {
+      return this.mapPrice[1] * this.Card.length * this.quantitys
     },
 
 
+    indexx() {
+      for (const index = 0; this.Card[index].length > 5; index++) {
+        console.log(index)
+      }
+      return this.indexx
+
+    },
+    mapTitles() {
+      return _.map(this.Card, "title")
+    },
+    mapPrice() {
+      return _.map(this.Card, "price")
+    },
+    mapImg() {
+      return _.map(this.Card, "img")
+    }
+
   },
+
+
+
   methods: {
     Close() {
       this.Open = false
     },
     CounterPlus() {
-      this.incrementCount
+      this.store.quantity++
     },
     CounterMinus() {
 
-      this.decrementCount
+      this.store.quantity--
       if (this.quantitys == 0) {
         this.deleteCard()
       }
@@ -247,7 +271,7 @@ export default {
         adres: this.adres,
         count: this.quantity,
         payment: this.payment,
-        price: this.price,
+        price: this.sum,
         tel: this.tel,
         title: this.parseTitle,
         date: this.DataNow,
@@ -255,9 +279,19 @@ export default {
         options: this.adds
       };
 
-      const mailBody = "Наименование: " + this.parseTitle + "   Колличество: " + this.quantity + "   Оплата: " + this.payment + "    Адрес: " + this.adres + "   Телефон: " + this.tel + "   Сумма: " + this.price + "  Дата" + this.DataNow
-      let data = { to: "warkamania5@yandex.ru", subject: "Доставка", text: mailBody }
-      let res = await axios.post('http://localhost:3000/send-email', data)
+      const config = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+      const cross_domain_flag = true
+
+      const mailBody = "Наименование: " + this.parseTitle + ",   Колличество:  " + this.quantity +
+        "\nОплата:  " + this.payment + ",   Сумма:  " + this.sum + "\n Адрес:  " + this.adres + ",   Телефон:   " + this.tel + ",   Дата:   " + this.DataNow
+      let data = { to: "warkamania5@yandex.ru", subject: "Доставка", body: mailBody }
+      let res = await axios.post('http://80.240.250.157:1728/send-email', data, {
+        crossDomain: cross_domain_flag
+      })
       let data1 = res.data1
       console.log(data1)
 
@@ -272,6 +306,7 @@ export default {
 
 
 
+
       this.deleteCard()
 
 
@@ -281,11 +316,10 @@ export default {
       this.Order = true;
       this.alert = false;
     },
-    inddex() {
-
-      Console.log(this.Card.length[-1])
+    idd() {
 
     }
+
   },
 };
 </script>
