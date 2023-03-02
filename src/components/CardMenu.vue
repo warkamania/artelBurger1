@@ -1,11 +1,11 @@
 <template>
-  <div class="q-pa-xs row items-start q-gutter-xs">
+  <div class=" row items-start ">
     <!-- <q-intersection v-for="index in 2" :key="index" once transition="scale"> -->
     <q-card class="my-card bg-black text-white" @click="!dialog">
       <!-- <q-btn v-show="!star" @click="stars" flat icon="star_border "
-        class="fit row wrap justify-end items-end content-end"></q-btn> -->
+            class="fit row wrap justify-end items-end content-end"></q-btn> -->
       <!-- <q-btn v-show="star" @click="stars" flat icon="star " class="fit row wrap justify-end items-end content-end">
-      </q-btn> -->
+          </q-btn> -->
       <q-card-section>
         <div class="fit row wrap inline justify-between">
           <div class="col-6">
@@ -21,7 +21,7 @@
 
             <q-btn icon-right="add" @click="persist" v-show="!add" size="md" text-color="white" color="grey-9">
               {{
-  price[index]
+                price[index]
               }} P
             </q-btn>
           </div>
@@ -64,7 +64,7 @@
               <img :src="Img[index]" alt="" @click="OpenDialog" />
             </q-responsive>
           </div>
-          <h5>{{ title[index]}}</h5>
+          <h5>{{ title[index] }}</h5>
           <p> </p>
           <div class="text-h6 " style="color:white">Состав:</div>
 
@@ -186,6 +186,7 @@ export default {
       sauce1: ref('line'),
       sauce2: ref(false),
       options: ref(""),
+      count: ref(1),
       store,
 
 
@@ -211,23 +212,28 @@ export default {
     },
     persist() {
       this.add = true
+      let allCards = []
+      if (localStorage.getItem('Card'))
+        allCards = JSON.parse(localStorage.getItem('Card'));
 
-      this.Card.push({ title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options, option: this.option });
-      this.saveCard();
+      allCards.push({
+        title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options, option: this.option, count: this.count
+      });
+
+      localStorage.setItem("Card", JSON.stringify(allCards));
     },
-    saveCard() {
-      const parsed = JSON.stringify(this.Card);
-      localStorage.setItem("Card", parsed);
-    },
+
     stars() {
       this.star = !this.star
       this.idfavourites = { id: this.id }
     },
     CounterPlus() {
+      this.count++
       this.quantity++
       this.store.quantity++
     },
     CounterMinus() {
+      this.count--
       this.quantity--
       this.store.quantity--
     },

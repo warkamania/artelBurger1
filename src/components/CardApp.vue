@@ -3,10 +3,10 @@
   <q-page>
     <div class="q-pa-md row items-start">
       <div class="col-12" id="id">
-        <q-intersection v-for="index in Card.length" :key="index" once transition="scale">
+        <q-intersection v-for="Card, index in Cards" :key="Card" once transition="scale">
           <q-card class="my-card bg-black" v-show="Open">
             <div class="row">
-              <div class="col-10 text-white text-h6">{{ index }}</div>
+              <div class="col-10 text-white text-h6">{{ index + 1 }}</div>
               <div col-2>
                 <q-btn flat icon="close" class="items-end" color="white" @click="deleteCard"></q-btn>
               </div>
@@ -56,7 +56,7 @@
     <div class="fit row wrap justify-center items-end self-end">
       <q-btn color="red" @click="alert = true">Оформить заказ</q-btn>
     </div>
-
+    ``
     <q-dialog v-model="alert">
       <div class="row">
         <div class="col-12">
@@ -94,7 +94,7 @@
           <q-card>
             <q-card-section class="bg-black">
               <img src="check_circle_outline_black_48dp.svg" alt="" class="fit row justify-center" />
-              <h5 style="color: white">Ваш заказ №{{ numberOrder }} принят</h5>
+              <h5 style="color: white">Ваш заказ принят</h5>
 
             </q-card-section>
           </q-card>
@@ -106,9 +106,7 @@
 
 <script>
 import { ref } from "vue";
-import { useQuasar } from "quasar";
 import db from 'src/boot/firebase';
-import { useStore } from 'vuex'
 import axios from 'axios';
 import { useCounterStore } from 'stores/Store';
 import { } from "qs"
@@ -135,7 +133,7 @@ export default {
       id: ref(null),
       quantity: ref(1),
       Open: ref(true),
-      Card: ref([]),
+      Cards: ref([]),
       date: ref(Date),
       store,
       incrementCount,
@@ -145,7 +143,7 @@ export default {
   async mounted() {
     if (localStorage.getItem("Card")) {
       try {
-        this.Card = JSON.parse(localStorage.getItem("Card"));
+        this.Cards = JSON.parse(localStorage.getItem("Card"));
       } catch (e) {
         localStorage.removeItem("Card");
       }
@@ -157,7 +155,7 @@ export default {
   updated() {
     if (localStorage.getItem("Card")) {
       try {
-        this.Card = JSON.parse(localStorage.getItem("Card"));
+        this.Cards = JSON.parse(localStorage.getItem("Card"));
       } catch (e) {
         localStorage.removeItem("Card");
       }
@@ -177,50 +175,50 @@ export default {
       return numb
     },
     parseTitle() {
-      return this.Card.length > 0 ? this.Card[0].title : "";
+      return this.Cards.length > 0 ? this.Cards[0].title : "";
     },
     parseImg() {
-      return this.Card.length > 0 ? this.Card[0].img : "";
+      return this.Cards.length > 0 ? this.Cards[0].img : "";
     },
     parsePrice() {
-      return Math.floor(this.Card.length > 0 ? this.Card[0].price : "");
+      return Math.floor(this.Cards.length > 0 ? this.Cards[0].price : "");
     },
     DataNow() {
       return new Date().toLocaleString("ru-RU", { timeZone: 'Europe/Moscow' });
     },
     Bonus() {
-      return Math.round((this.parsePrice * this.Card.length) * 0.03)
+      return Math.round((this.parsePrice * this.Cards.length) * 0.03)
     },
     quantitys() {
       return this.store.quantity
     },
     adds() {
-      return this.Card.length > 0 ? this.Card.options : "";
+      return this.Cards.length > 0 ? this.Cards.options : "";
 
     },
     option() {
-      return this.Card.length > 0 ? this.Card[0].option : "";
+      return this.Cards.length > 0 ? this.Cards[0].option : "";
     },
     sum() {
-      return this.mapPrice[1] * this.Card.length * this.quantitys
+      return Math.floor(this.mapPrice[1] * this.Cards.length * this.quantitys)
     },
 
 
     indexx() {
-      for (const index = 0; this.Card[index].length > 5; index++) {
+      for (const index = 0; this.Cards[index].length > 5; index++) {
         console.log(index)
       }
       return this.indexx
 
     },
     mapTitles() {
-      return _.map(this.Card, "title")
+      return _.map(this.Cards, "title")
     },
     mapPrice() {
-      return _.map(this.Card, "price")
+      return _.map(this.Cards, "price")
     },
     mapImg() {
-      return _.map(this.Card, "img")
+      return _.map(this.Cards, "img")
     }
 
   },
@@ -245,7 +243,7 @@ export default {
 
     },
     persist() {
-      this.Card.push({ tel: this.tel, adres: this.adres, payment: this.payment, quantity: this.quantity, numberOrder: this.numberOrder, options: this.adds });
+      this.Cards.push({ tel: this.tel, adres: this.adres, payment: this.payment, quantity: this.quantity, numberOrder: this.numberOrder, options: this.adds });
       this.saveCard();
 
       setTimeout(() => {
@@ -254,15 +252,15 @@ export default {
 
     },
     saveCard() {
-      const parsed = JSON.stringify(this.Card);
+      const parsed = JSON.stringify(this.Cards);
       localStorage.setItem("Card", parsed);
 
 
     },
     deleteCard() {
-      const parsed = JSON.stringify(this.Card)
+      const parsed = JSON.stringify(this.Cards)
       localStorage.clear("Card", parsed)
-      this.Card = []
+      this.Cards = []
       this.Open = false
     },
     async addCard() {
@@ -295,14 +293,14 @@ export default {
       let data1 = res.data1
       console.log(data1)
 
-      db.collection("Card")
-        .add(newCurd)
-        .then(docRef => {
-          console.log("Document written with ID:", docRef.id);
-        })
-        .catch(error => {
-          console.error("Ошибка добавления: ", error);
-        });
+      // db.collection("Card")
+      //   .add(newCurd)
+      //   .then(docRef => {
+      //     console.log("Document written with ID:", docRef.id);
+      //   })
+      //   .catch(error => {
+      //     console.error("Ошибка добавления: ", error);
+      //   });
 
 
 
@@ -333,6 +331,7 @@ export default {
   color: red;
   font-size: 25px;
 }
+
 
 .textGradient12 {
   background-image: linear-gradient(to right, #553c9a 12%, #ee4b2b);
