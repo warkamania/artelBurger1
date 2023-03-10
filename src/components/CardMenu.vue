@@ -7,6 +7,7 @@
       <!-- <q-btn v-show="star" @click="stars" flat icon="star " class="fit row wrap justify-end items-end content-end">
           </q-btn> -->
       <q-card-section>
+        {{ idd() }}
         <div class="fit row wrap inline justify-between">
           <div class="col-6">
             <q-responsive :ratio="1" class="container">
@@ -159,7 +160,7 @@ export default {
     index: Number,
     toogle: String,
     option: String,
-    id: String,
+
   },
   setup() {
     const store = useCounterStore();
@@ -187,6 +188,7 @@ export default {
       sauce2: ref(false),
       options: ref(""),
       count: ref(1),
+      id: ref(""),
       store,
 
 
@@ -217,10 +219,15 @@ export default {
         allCards = JSON.parse(localStorage.getItem('Card'));
 
       allCards.push({
-        title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options, option: this.option, count: this.count
+        id: this.id, title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options, option: this.option, count: this.count
       });
 
       localStorage.setItem("Card", JSON.stringify(allCards));
+      const id = this.id;
+      let pool = { id: this.id, Count: { count: this.count } }
+      this.store.countId.push(pool)
+
+
     },
 
     stars() {
@@ -231,11 +238,16 @@ export default {
       this.count++
       this.quantity++
       this.store.quantity++
+      let pool = { id: this.id, count: this.count }
+      this.store.countId.push(pool)
+
     },
     CounterMinus() {
       this.count--
       this.quantity--
       this.store.quantity--
+      let pool = { id: this.id, count: this.count }
+      this.store.countId.push(pool)
     },
     SumDop() {
 
@@ -277,7 +289,11 @@ export default {
       if (this.sauce2) {
         this.options = this.store.sauce[2]
       }
+    },
+    idd() {
+      this.id = uuidv4()
     }
+
 
 
 

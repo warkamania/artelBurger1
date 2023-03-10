@@ -4,9 +4,12 @@
     <div class="q-pa-md row items-start">
       <div class="col-12" id="id">
         <q-intersection v-for="Card, index in Cards" :key="Card" once transition="scale">
+          {{ mapId[index] }}
           <q-card class="my-card bg-black" v-show="Open">
             <div class="row">
+
               <div class="col-10 text-white text-h6">{{ index + 1 }}</div>
+
               <div col-2>
                 <q-btn flat icon="close" class="items-end" color="white" @click="deleteCard"></q-btn>
               </div>
@@ -219,6 +222,9 @@ export default {
     },
     mapImg() {
       return _.map(this.Cards, "img")
+    },
+    mapId() {
+      return _.map(this.Cards, "id")
     }
 
   },

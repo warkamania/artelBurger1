@@ -20,6 +20,7 @@ export const useCounterStore = defineStore("counter", {
     },
     menu: "",
     summa: 0,
+    countId: [],
   }),
   actions: {
     increment(state) {
