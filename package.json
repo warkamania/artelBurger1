@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "@vueuse/core": "^9.13.0",
     "axios": "^0.21.4",
     "bootstrap": "^5.2.0-beta1",
     "bootstrap-icons": "^1.8.3",
@@ -31,6 +32,7 @@
     "uuid": "^8.3.2",
     "vue": "^3.0.0",
     "vue-i18n": "^9.0.0",
+    "vue-reactive-storage": "github:ropbla9/vue-reactive-storage",
     "vue-router": "^4.0.0",
     "vuex": "^4.0.2"
   },

@@ -125,7 +125,7 @@
                 <q-btn flat icon="remove" color="white" @click="CounterMinus"></q-btn>
               </div>
               <div class="col-2">
-                <q-input dense color="red" outlined v-model="quantity" label="" type="number" dark />
+                <q-input dense color="red" outlined v-model.number="quantity" label="" type="number" dark />
               </div>
               <div class="col-3">
                 <q-btn flat icon="add" color="white" @click="CounterPlus"></q-btn>
@@ -147,7 +147,8 @@
 //import DialogAppVue from "./DialogApp.vue";
 import { ref } from "vue";
 import { v4 as uuidv4 } from "uuid";
-
+import { useStorage } from '@vueuse/core'
+import _ from "lodash"
 import { useCounterStore } from 'stores/Store';
 
 export default {
@@ -190,6 +191,7 @@ export default {
       count: ref(1),
       id: ref(""),
       store,
+      localStorage: window.localStorage
 
 
     };
@@ -224,9 +226,14 @@ export default {
 
       localStorage.setItem("Card", JSON.stringify(allCards));
       const id = this.id;
-      let pool = { id: this.id, Count: { count: this.count } }
-      this.store.countId.push(pool)
+      let pool =
+        { id: this.id, Count: { count: this.count } }
+      this.store.Card.push({
+        id: this.id, title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options, option: this.option, count: this.count
+      })
 
+      // const store = useStorage('cards', allCards)
+      // const text = JSON.stringify(store)
 
     },
 
@@ -238,18 +245,24 @@ export default {
       this.count++
       this.quantity++
       this.store.quantity++
-      let pool = { id: this.id, count: this.count }
-      this.store.countId.push(pool)
+
+      this.store.Card[0].count++
+
+      // let pool = { id: this.id, count: this.count }
+      // this.store.countId.push(pool)
 
     },
     CounterMinus() {
       this.count--
       this.quantity--
       this.store.quantity--
+
       let pool = { id: this.id, count: this.count }
       this.store.countId.push(pool)
     },
     SumDop() {
+
+
 
     },
     addOptions() {
