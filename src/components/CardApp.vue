@@ -24,17 +24,17 @@
               </div>
               <div class="row">
                 <div class="col-2">
-                  <q-btn flat icon="remove" color="white" @click="CounterMinus"></q-btn>
+                  <q-btn flat icon="remove" color="white" @click="CounterMinus(index)"></q-btn>
                 </div>
                 <div class="col-2">
-                  <q-input dense dark color="red" outlined v-model="quantitys" type="number"
+                  <q-input dense dark color="red" outlined v-model="mapCount[index]" type="number"
                     class="fit row wrap justify-center" />
                 </div>
                 <div class="col-2">
-                  <q-btn flat icon="add" color="white" @click="CounterPlus"></q-btn>
+                  <q-btn flat icon="add" color="white" @click="CounterPlus(index)"></q-btn>
                 </div>
                 <div class="col-3 text-white text-h6">Цена:</div>
-                <div class="col-3 price">{{ mapPrice[index] * quantitys }} р</div>
+                <div class="col-3 price">{{ mapPrice[index] * mapCount[index] }} р</div>
               </div>
             </q-card-section>
           </q-card>
@@ -144,15 +144,9 @@ export default {
     };
   },
   async mounted() {
-    if (localStorage.getItem("Card")) {
-      try {
-        this.Cards = JSON.parse(localStorage.getItem("Card"));
-      } catch (e) {
-        localStorage.removeItem("Card");
-      }
-    }
+    this.Cards = this.store.Card
     this.store.summa = this.sum
-
+    localStorage.setItem("Card", JSON.stringify(this.Cards));
 
   },
   updated() {
@@ -225,6 +219,9 @@ export default {
     },
     mapId() {
       return _.map(this.Cards, "id")
+    },
+    mapCount() {
+      return _.map(this.Cards, "count")
     }
 
   },
@@ -235,12 +232,14 @@ export default {
     Close() {
       this.Open = false
     },
-    CounterPlus() {
+    CounterPlus(i) {
       this.store.quantity++
+      this.store.Card[i].count++
     },
-    CounterMinus() {
+    CounterMinus(i) {
 
       this.store.quantity--
+      this.store.Card[i].count--
       if (this.quantitys == 0) {
         this.deleteCard()
       }

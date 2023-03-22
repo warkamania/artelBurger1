@@ -7,7 +7,7 @@
       <!-- <q-btn v-show="star" @click="stars" flat icon="star " class="fit row wrap justify-end items-end content-end">
           </q-btn> -->
       <q-card-section>
-        {{ idd() }}
+
         <div class="fit row wrap inline justify-between">
           <div class="col-6">
             <q-responsive :ratio="1" class="container">
@@ -207,7 +207,12 @@ export default {
 
   },
   computed: {
-
+    mapId() {
+      return _.map(this.store.Card, "id")
+    },
+    filterId() {
+      return _.filter(this.store.Card, ['id', this.id])
+    },
   },
 
   methods: {
@@ -216,22 +221,20 @@ export default {
     },
     persist() {
       this.add = true
-      let allCards = []
-      if (localStorage.getItem('Card'))
-        allCards = JSON.parse(localStorage.getItem('Card'));
+      // let allCards = []
+      // if (localStorage.getItem('Card'))
+      //   allCards = JSON.parse(localStorage.getItem('Card'));
 
-      allCards.push({
-        id: this.id, title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options, option: this.option, count: this.count
-      });
+      // allCards.push({
+      //   id: this.id, title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options, option: this.option, count: this.count
+      // });
 
-      localStorage.setItem("Card", JSON.stringify(allCards));
-      const id = this.id;
-      let pool =
-        { id: this.id, Count: { count: this.count } }
+      // localStorage.setItem("Card", JSON.stringify(allCards));
+      this.id = uuidv4()
       this.store.Card.push({
         id: this.id, title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options, option: this.option, count: this.count
       })
-
+      this.Card = this.store.Card
       // const store = useStorage('cards', allCards)
       // const text = JSON.stringify(store)
 
@@ -248,8 +251,7 @@ export default {
 
       this.store.Card[0].count++
 
-      // let pool = { id: this.id, count: this.count }
-      // this.store.countId.push(pool)
+
 
     },
     CounterMinus() {
@@ -257,14 +259,9 @@ export default {
       this.quantity--
       this.store.quantity--
 
-      let pool = { id: this.id, count: this.count }
-      this.store.countId.push(pool)
+      this.store.Card[0].count--
     },
-    SumDop() {
 
-
-
-    },
     addOptions() {
       if (this.left) {
         this.options = this.store.options[1]
