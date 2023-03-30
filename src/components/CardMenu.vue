@@ -249,9 +249,8 @@ export default {
       this.quantity++
       this.store.quantity++
 
-      this.store.Card[0].count++
-
-
+      const a = this.store.Card.findIndex(item => item.id == this.id)
+      this.store.Card[a].count++
 
     },
     CounterMinus() {
@@ -259,7 +258,9 @@ export default {
       this.quantity--
       this.store.quantity--
 
-      this.store.Card[0].count--
+      const a = this.store.Card.findIndex(item => item.id == this.id)
+      this.store.Card[a].count--
+
     },
 
     addOptions() {

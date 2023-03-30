@@ -4,7 +4,6 @@
     <div class="q-pa-md row items-start">
       <div class="col-12" id="id">
         <q-intersection v-for="Card, index in Cards" :key="Card" once transition="scale">
-          {{ mapId[index] }}
           <q-card class="my-card bg-black" v-show="Open">
             <div class="row">
 
@@ -138,6 +137,7 @@ export default {
       Open: ref(true),
       Cards: ref([]),
       date: ref(Date),
+      result: [],
       store,
       incrementCount,
       decrementCount
@@ -150,13 +150,9 @@ export default {
 
   },
   updated() {
-    if (localStorage.getItem("Card")) {
-      try {
-        this.Cards = JSON.parse(localStorage.getItem("Card"));
-      } catch (e) {
-        localStorage.removeItem("Card");
-      }
-    }
+
+    this.Cards = JSON.parse(localStorage.getItem("Card"));
+
     this.store.summa = this.sum
   },
   watch: {
@@ -197,17 +193,29 @@ export default {
       return this.Cards.length > 0 ? this.Cards[0].option : "";
     },
     sum() {
-      return Math.floor(this.mapPrice[1] * this.Cards.length * this.quantitys)
+
+
+      return this.mapPrice[1] * this.Cards.length * this.quantitys
+
+
+
     },
-
-
-    indexx() {
-      for (const index = 0; this.Cards[index].length > 5; index++) {
-        console.log(index)
+    totalPrice() {
+      let result = []
+      if (this.Cards.length) {
+        for (let index of this.Cards) {
+          result.push(this.mapPrice[index] * this.mapCount[index])
+        }
+        result = result.reduce(function (sum, el) {
+          return sum + el;
+        })
+        return result;
+      } else {
+        return 0
       }
-      return this.indexx
-
     },
+
+
     mapTitles() {
       return _.map(this.Cards, "title")
     },
@@ -265,6 +273,7 @@ export default {
     deleteCard() {
       const parsed = JSON.stringify(this.Cards)
       localStorage.clear("Card", parsed)
+      this.store.Card.length = 0
       this.Cards = []
       this.Open = false
     },
