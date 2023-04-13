@@ -97,7 +97,8 @@
             <q-checkbox dark v-model="left6" color="red" @click="addOptions">{{ store.options[7] }}</q-checkbox>
           </div>
           <div class="text">
-            <q-checkbox dark v-model="left7" color="red" @click="addOptions">{{ store.options[8] }}</q-checkbox>
+            <q-checkbox dark v-model="left7" color="red" @click="addOptions">{{ store.options[8]
+            }}</q-checkbox>
           </div>
           <div class="text">
             <q-checkbox dark v-model="left8" color="red" @click="addOptions">{{ store.options[9] }}</q-checkbox>
@@ -131,10 +132,16 @@
                 <q-btn flat icon="add" color="white" @click="CounterPlus"></q-btn>
               </div>
             </div>
-            <q-btn label="" icon-right="add" color="red" v-show="!add" @click="persist" class="col-9">{{
-              price[index]
-            }} Р</q-btn>
+            <q-btn label="" icon-right="add" color="red" v-show="!add && !this.options.length" @click="persist"
+              class="col-9">{{
+                price[index]
+              }} Р</q-btn>
+            <q-btn label="" icon-right="add" color="red" v-show="!add && this.options.length" @click="persistOptions"
+              class="col-9">{{
+                sumOption
+              }} Р</q-btn>
             <br />
+
             <q-btn label="" icon-right="shopping_bag" color="red" class="col-2" to="CardApp"></q-btn>
           </div>
         </q-card-actions>
@@ -213,6 +220,46 @@ export default {
     filterId() {
       return _.filter(this.store.Card, ['id', this.id])
     },
+    sumOption() {
+      return Number(this.price[this.index]) + this.optionsPrice
+    },
+    optionsPrice() {
+      let result = []
+      if (this.left) {
+        result.push(this.store.optionsPrice[1])
+      }
+      if (this.left1) {
+        result.push(this.store.optionsPrice[2])
+      }
+      if (this.left2) {
+        result.push(this.store.optionsPrice[3])
+      }
+      if (this.left3) {
+        result.push(this.store.optionsPrice[4])
+      }
+      if (this.left4) {
+        result.push(this.store.optionsPrice[5])
+      }
+      if (this.left5) {
+        result.push(this.store.optionsPrice[6])
+      }
+      if (this.left6) {
+        result.push(this.store.optionsPrice[7])
+      }
+      if (this.left7) {
+        result.push(this.store.optionsPrice[8])
+      }
+      if (this.left8) {
+        result.push(this.store.optionsPrice[9])
+      }
+      result = result.reduce((sum, el) => {
+        return sum + el
+      })
+
+      return result;
+
+    }
+
   },
 
   methods: {
@@ -233,6 +280,26 @@ export default {
       this.id = uuidv4()
       this.store.Card.push({
         id: this.id, title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options, option: this.option, count: this.count
+      })
+      this.Card = this.store.Card
+      // const store = useStorage('cards', allCards)
+      // const text = JSON.stringify(store)
+
+    },
+    persistOptions() {
+      this.add = true
+      // let allCards = []
+      // if (localStorage.getItem('Card'))
+      //   allCards = JSON.parse(localStorage.getItem('Card'));
+
+      // allCards.push({
+      //   id: this.id, title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options, option: this.option, count: this.count
+      // });
+
+      // localStorage.setItem("Card", JSON.stringify(allCards));
+      this.id = uuidv4()
+      this.store.Card.push({
+        id: this.id, title: this.title[this.index], price: this.sumOption, img: this.Img[this.index], options: this.options, option: this.option, count: this.count
       })
       this.Card = this.store.Card
       // const store = useStorage('cards', allCards)
@@ -299,11 +366,15 @@ export default {
       }
       if (this.sauce2) {
         this.options = this.store.sauce[2]
+
       }
     },
     idd() {
       this.id = uuidv4()
-    }
+    },
+
+
+
 
 
 

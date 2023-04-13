@@ -10,7 +10,7 @@
               <div class="col-10 text-white text-h6">{{ index + 1 }}</div>
 
               <div col-2>
-                <q-btn flat icon="close" class="items-end" color="white" @click="deleteCard"></q-btn>
+                <q-btn flat icon="close" class="items-end" color="white" @click="deleteCard(index)"></q-btn>
               </div>
             </div>
 
@@ -45,7 +45,7 @@
       <div class="col-9" style="color: white; font-size: 25px">
         Стоимость заказ:
       </div>
-      <div class="col-3 price">{{ sum }} р</div>
+      <div class="col-3 price">{{ totalPrice }} р</div>
     </div>
     <div class="fit row wrap items-end content-end justify-end">
       <div class="col-9 textGradient12" style="font-size: 22px">
@@ -145,7 +145,7 @@ export default {
   },
   async mounted() {
     this.Cards = this.store.Card
-    this.store.summa = this.sum
+    this.store.summa = this.totalPrice
     localStorage.setItem("Card", JSON.stringify(this.Cards));
 
   },
@@ -153,11 +153,11 @@ export default {
 
     this.Cards = JSON.parse(localStorage.getItem("Card"));
 
-    this.store.summa = this.sum
+    this.store.summa = this.totalPrice
   },
   watch: {
     sum1() {
-      this.store.summa = this.sum
+      this.store.summa = this.totalPrice
     }
   },
   computed: {
@@ -173,14 +173,12 @@ export default {
     parseImg() {
       return this.Cards.length > 0 ? this.Cards[0].img : "";
     },
-    parsePrice() {
-      return Math.floor(this.Cards.length > 0 ? this.Cards[0].price : "");
-    },
+
     DataNow() {
       return new Date().toLocaleString("ru-RU", { timeZone: 'Europe/Moscow' });
     },
     Bonus() {
-      return Math.round((this.parsePrice * this.Cards.length) * 0.03)
+      return Math.round(this.totalPrice * 0.03)
     },
     quantitys() {
       return this.store.quantity
@@ -193,21 +191,19 @@ export default {
       return this.Cards.length > 0 ? this.Cards[0].option : "";
     },
     sum() {
-
-
-      return this.mapPrice[1] * this.Cards.length * this.quantitys
-
-
-
+      return this.mapPrice[0] * this.Cards.length * this.quantitys
     },
     totalPrice() {
       let result = []
       if (this.Cards.length) {
-        for (let index of this.Cards) {
+        for (let index in this.mapCount) {
           result.push(this.mapPrice[index] * this.mapCount[index])
+          console.log(index)
         }
-        result = result.reduce(function (sum, el) {
-          return sum + el;
+
+        console.log(result)
+        result = result.reduce((sum, el) => {
+          return sum + el
         })
         return result;
       } else {
@@ -249,7 +245,7 @@ export default {
       this.store.quantity--
       this.store.Card[i].count--
       if (this.quantitys == 0) {
-        this.deleteCard()
+        deleteCard(i)
       }
     },
     OpdenOrder() {
@@ -270,12 +266,9 @@ export default {
 
 
     },
-    deleteCard() {
-      const parsed = JSON.stringify(this.Cards)
-      localStorage.clear("Card", parsed)
-      this.store.Card.length = 0
-      this.Cards = []
-      this.Open = false
+    deleteCard(i) {
+      this.Cards.splice(i, 1)
+
     },
     async addCard() {
 
@@ -293,14 +286,14 @@ export default {
 
       const config = {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/x-www-form-urlencoded',
         }
       }
       const cross_domain_flag = true
 
       const mailBody = "Наименование: " + this.parseTitle + ",   Колличество:  " + this.quantity +
         "\nОплата:  " + this.payment + ",   Сумма:  " + this.sum + "\n Адрес:  " + this.adres + ",   Телефон:   " + this.tel + ",   Дата:   " + this.DataNow
-      let data = { to: "warkamania5@yandex.ru", subject: "Доставка", body: mailBody }
+      let data = { to: "warkamania5@yandex.ru", subject: "Доставка из мобильного приложения", body: mailBody }
       let res = await axios.post('http://80.240.250.157:1728/send-email', data, {
         crossDomain: cross_domain_flag
       })
@@ -328,9 +321,7 @@ export default {
       this.Order = true;
       this.alert = false;
     },
-    idd() {
 
-    }
 
   },
 };
