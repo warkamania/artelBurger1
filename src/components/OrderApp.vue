@@ -25,21 +25,29 @@
             </div>
           </q-card-section>
 
-
+          <div class="row">
+            <q-btn icon-right="qr_code_2" text-color="white" color="red" v-close-popup class="col-12" @click="qr = true"
+              label="Сканировать qr-код" push />
+          </div>
           <q-card-actions align="right">
             <q-btn flat label="OK" color="red" v-close-popup />
           </q-card-actions>
         </q-card>
       </q-dialog>
     </div>
-
+    <div v-show="qr">
+      <q-dialog bg-white v-model="qr">
+        <QrStream />
+      </q-dialog>
+    </div>
     <div class="row fix">
       <div class="col-12 fix">
         <TabsApp :title="parseTitle" :price="parsePrice" :Img="parseImg" :Structure="parseStructure"
           :Category="parseCategory" :option="toogle" :scrolling="scrolledToBottom" class="fix" />
       </div>
     </div>
-    {{ "watch"+ this.onScrol }}
+    {{ "watch" + this.onScrol }}
+
   </q-page>
 </template>
 
@@ -48,6 +56,7 @@ import { ref } from "vue";
 import TabsApp from "src/components/TabsApp.vue";
 import db from 'src/boot/firebase';
 import _ from "lodash"
+import QrStream from 'src/components/QrStream.vue';
 export default {
   setup() {
     return {
@@ -68,6 +77,8 @@ export default {
       alert: ref(false),
       group: ref(null),
       scrolledToBottom: false,
+      camera: ref('auto'),
+      qr: ref(false),
 
       rest: [
         { label: 'улица 2-я Новоселовка 64 А ', value: 'боевка' },
@@ -196,9 +207,7 @@ export default {
         console.log(bottomOfWindow)
       }
     },
-    idd() {
 
-    }
 
   },
   watch: {
@@ -207,7 +216,7 @@ export default {
 
     }
   },
-  components: { TabsApp },
+  components: { TabsApp, QrStream },
 };
 </script>
 

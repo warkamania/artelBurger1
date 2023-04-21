@@ -220,8 +220,6 @@ module.exports = configure(function (ctx) {
           .use(ESLintPlugin, [{ extensions: ["js"] }]);
       },
     },
-    bin: {
-      linuxAndroidStudio: "/home/stas/android-studio/bin/studio.sh",
-    },
+    bin: {},
   };
 });
