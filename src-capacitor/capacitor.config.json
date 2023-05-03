@@ -1,6 +1,6 @@
 {
   "appId": "org.capacitor.quasar.app",
-  "appName": "ARTELBURGER",
+  "appName": "Артель Бургер",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www"

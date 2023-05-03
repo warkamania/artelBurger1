@@ -71,7 +71,7 @@ export default defineComponent({
   components: { MenuApp },
   setup() {
     const store = useCounterStore();
-    console.log(store)
+
     return {
       Card: ref([]),
       menus: ref(false),
@@ -93,7 +93,7 @@ export default defineComponent({
   watch: {
     card(newCard) {
       localStorage.Card = newCard;
-      console.log(newCard)
+
     },
     url() {
       Url.getPath('http://localhost:8080/#/OrderApp')

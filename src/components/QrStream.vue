@@ -2,14 +2,18 @@
   <q-page>
     <div>
       <p class="error">{{ error }}</p>
-      <p class="decode-result">Last result: <b>{{ result }}</b></p>
-      <qrcode-stream @decode="onDecode" @init="onInit" :key="_uid" />
+      <p class="decode-result">Последний результат: <b>{{ result }}</b></p>
+      <qrcode-stream @decode="onDecode" :track="paintBoundingBox" @init="logErrors" :camera="camera">
+      </qrcode-stream>
+      <div v-if="validationSuccess" class="validation-success">
+        This is a URL
+      </div>
     </div>
   </q-page>
 </template>
 
 <script>
-import { QrcodeStream } from 'vue-qrcode-reader';
+import { QrcodeStream, QrcodeDropZone } from 'vue-qrcode-reader';
 
 export default {
 
@@ -18,48 +22,39 @@ export default {
   data() {
     const options = [
       { text: "nothing (default)", value: this.paintBoundingBox },
-      { text: "outline", value: this.paintOutline },
-      { text: "centered text", value: this.paintCenterText },
       { text: "bounding box", value: this.paintBoundingBox },
     ]
 
     const selected = options[1]
     return {
-      result: '',
+      result: null,
       error: '',
+      camera: 'auto',
+      isValid: undefined,
       selected,
       options
     }
   },
+  computed: {
+    validationSuccess() {
+      return this.isValid === true
+    },
+    validationFailure() {
+      return this.isValid === false
+    }
+  },
 
   methods: {
-    onDecode(result) {
-      this.result = result
+    async onDecode(content) {
+      this.result = content
+      this.turnCameraOff()
+      await this.timeout(3000)
+      this.isValid = result.startsWith('http')
+      await this.timeout(2000)
+      this.turnCameraOn()
     },
 
-    async onInit(promise) {
-      try {
-        await promise
-      } catch (error) {
-        if (error.name === 'NotAllowedError') {
-          this.error = "ERROR: you need to grant camera access permission"
-        } else if (error.name === 'NotFoundError') {
-          this.error = "ERROR: no camera on this device"
-        } else if (error.name === 'NotSupportedError') {
-          this.error = "ERROR: secure context required (HTTPS, localhost)"
-        } else if (error.name === 'NotReadableError') {
-          this.error = "ERROR: is the camera already in use?"
-        } else if (error.name === 'OverconstrainedError') {
-          this.error = "ERROR: installed cameras are not suitable"
-        } else if (error.name === 'StreamApiNotSupportedError') {
-          this.error = "ERROR: Stream API is not supported in this browser"
-        } else if (error.name === 'InsecureContextError') {
-          this.error = 'ERROR: Camera access is only permitted in secure context. Use HTTPS or localhost rather than HTTP.';
-        } else {
-          this.error = `ERROR: Camera error (${error.name})`;
-        }
-      }
-    },
+
     paintBoundingBox(detectedCodes, ctx) {
       for (const detectedCode of detectedCodes) {
         const { boundingBox: { x, y, width, height } } = detectedCode
@@ -69,6 +64,21 @@ export default {
         ctx.strokeRect(x, y, width, height)
       }
     },
+    logErrors(promise) {
+      promise.catch(console.error)
+    },
+    turnCameraOn() {
+      this.camera = 'auto'
+    },
+    turnCameraOff() {
+      this.camera = 'off'
+    },
+    timeout(ms) {
+      return new Promise(resolve => {
+        window.setTimeout(resolve, ms)
+      })
+    },
+
   }
 }
 </script>
@@ -77,6 +87,32 @@ export default {
 .error {
   font-weight: bold;
   color: rgb(255, 0, 0);
+}
+
+.validation-success,
+.validation-failure,
+.validation-pending {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(255, 255, 255, .8);
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.4rem;
+  padding: 10px;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
+.validation-success {
+  color: green;
+}
+
+.validation-failure {
+  color: red;
 }
 </style>
 

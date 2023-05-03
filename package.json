@@ -19,6 +19,7 @@
     "axios": "^0.21.4",
     "bootstrap": "^5.2.0-beta1",
     "bootstrap-icons": "^1.8.3",
+    "canvas": "^2.11.2",
     "core-js": "^3.6.5",
     "emailjs": "^4.0.1",
     "firebase": "^8.8.1",
@@ -31,10 +32,12 @@
     "store2": "^2.14.1",
     "uuid": "^8.3.2",
     "vue": "^3.0.0",
+    "vue-barcode-reader": "^1.0.3",
     "vue-i18n": "^9.0.0",
     "vue-qrcode-reader": "^3.1.5",
     "vue-reactive-storage": "github:ropbla9/vue-reactive-storage",
     "vue-router": "^4.0.0",
+    "vue3-qr-reader": "^1.0.0",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

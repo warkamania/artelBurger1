@@ -4,15 +4,15 @@
       <div class="col-12 q-pa-xs fix">
         <q-btn-toggle class="col-12" v-model="toogle" text-color="white" size="md" toggle-color="red"
           @click="alert = true" :options="[
-            { label: 'Доставка', value: 'Доставка' },
-            { label: 'Самовывоз', value: 'Самовывоз' },
-            { label: 'В ресторане', value: 'В ресторане' },
-          ]" />
+              { label: 'Доставка', value: 'Доставка' },
+              { label: 'Самовывоз', value: 'Самовывоз' },
+              { label: 'В ресторане', value: 'В ресторане' },
+            ]" />
       </div>
     </div>
 
     <div class="q-pa-md q-gutter-sm ">
-      <q-dialog bg-white v-model="alert">
+      <q-dialog bg-white v-model="alert" v-if="toogle != 'Доставка'">
         <q-card class="bg-black">
           <q-card-section bg-black>
             <div class="text-h6" style="color:white">{{ toogle }}</div>
@@ -26,8 +26,9 @@
           </q-card-section>
 
           <div class="row">
-            <q-btn icon-right="qr_code_2" text-color="white" color="red" v-close-popup class="col-12" @click="qr = true"
-              label="Сканировать qr-код" push />
+            <q-btn icon-right="qr_code_scanner" text-color="white" color="red" v-close-popup class="col-12" @click="turnCameraOn()
+
+              " label="Сканировать qr-код" push v-show="!showCamera" />
           </div>
           <q-card-actions align="right">
             <q-btn flat label="OK" color="red" v-close-popup />
@@ -35,9 +36,16 @@
         </q-card>
       </q-dialog>
     </div>
-    <div v-show="qr">
-      <q-dialog bg-white v-model="qr">
-        <QrStream />
+    <div v-show="showCamera">
+      <q-dialog bg-white v-model="showCamera">
+        <div class="stream">
+          <qr-stream @decode="onDecode" class="mb">
+            <div style="color: red;" class="frame"></div>
+          </qr-stream>
+        </div>
+        <div class="result">
+          Result: {{ data }}
+        </div>
       </q-dialog>
     </div>
     <div class="row fix">
@@ -56,10 +64,23 @@ import { ref } from "vue";
 import TabsApp from "src/components/TabsApp.vue";
 import db from 'src/boot/firebase';
 import _ from "lodash"
-import QrStream from 'src/components/QrStream.vue';
+import { reactive, toRefs } from 'vue'
+import { QrStream } from 'vue3-qr-reader';
 export default {
   setup() {
+    const state = reactive({
+      data: null
+    })
+    function onDecode(data) {
+      state.data = data
+    }
+
+
+
+
     return {
+      ...toRefs(state),
+      onDecode,
       searchQuery: ref(""),
       id: ref(""),
       title: ref(""),
@@ -79,6 +100,10 @@ export default {
       scrolledToBottom: false,
       camera: ref('auto'),
       qr: ref(false),
+      showCamera: ref(false),
+      isValid: ref(undefined),
+
+      result: ref(null),
 
       rest: [
         { label: 'улица 2-я Новоселовка 64 А ', value: 'боевка' },
@@ -179,6 +204,9 @@ export default {
     },
     cardMap() {
       return _.map(this.Card, 'title')
+    },
+    textInfo() {
+      return this.showCamera ? 'position the qrcode on the camera' : 'Press the button and scan a qrcode.'
     }
 
 
@@ -208,12 +236,20 @@ export default {
       }
     },
 
+    turnCameraOn() {
+      this.camera = 'auto'
+      this.showCamera = true
+    },
+    turnCameraOff() {
+      this.camera = 'off'
+      this.showCamera = false
+    }
+
 
   },
   watch: {
     onScrol() {
       this.scrolledToBottom
-
     }
   },
   components: { TabsApp, QrStream },
