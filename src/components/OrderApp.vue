@@ -74,10 +74,6 @@ export default {
     function onDecode(data) {
       state.data = data
     }
-
-
-
-
     return {
       ...toRefs(state),
       onDecode,
