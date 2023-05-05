@@ -4,10 +4,10 @@
       <div class="col-12 q-pa-xs fix">
         <q-btn-toggle class="col-12" v-model="toogle" text-color="white" size="md" toggle-color="red"
           @click="alert = true" :options="[
-              { label: 'Доставка', value: 'Доставка' },
-              { label: 'Самовывоз', value: 'Самовывоз' },
-              { label: 'В ресторане', value: 'В ресторане' },
-            ]" />
+            { label: 'Доставка', value: 'Доставка' },
+            { label: 'Самовывоз', value: 'Самовывоз' },
+            { label: 'В ресторане', value: 'В ресторане' },
+          ]" />
       </div>
     </div>
 
@@ -40,7 +40,7 @@
       <q-dialog bg-white v-model="showCamera">
         <div class="stream">
           <qr-stream @decode="onDecode" class="mb">
-            <div style="color: red;" class="frame"></div>
+            <div style="color: rgb(47, 0, 255);"></div>
           </qr-stream>
         </div>
         <div class="result">
@@ -54,7 +54,6 @@
           :Category="parseCategory" :option="toogle" :scrolling="scrolledToBottom" class="fix" />
       </div>
     </div>
-    {{ "watch" + this.onScrol }}
 
   </q-page>
 </template>
