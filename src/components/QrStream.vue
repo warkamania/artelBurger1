@@ -21,6 +21,7 @@ export default {
 
   data() {
     const options = [
+
       { text: "nothing (default)", value: this.paintBoundingBox },
       { text: "bounding box", value: this.paintBoundingBox },
     ]

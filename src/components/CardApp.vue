@@ -59,6 +59,8 @@
       <q-btn color="red" @click="alert = true">Оформить заказ</q-btn>
     </div>
     ``
+    <q-btn label="Токен" @click="paymentRendered()" color="red" />
+    <div id="payment-form" v-show="pay = true"></div>
     <q-dialog v-model="alert">
       <div class="row">
         <div class="col-12">
@@ -83,13 +85,14 @@
               <q-select dark v-model="payment" :options="options" label="Способ оплаты" color="red" />
               <br />
               <div class="fit row wrap justify-center items-end self-end">
-                <q-btn color="red" @click="addCard">Отправить</q-btn>
+                <q-btn color="red" @click="addCard">Оплатить</q-btn>
               </div>
             </q-card-section>
           </q-card>
         </div>
       </div>
     </q-dialog>
+
     <q-dialog v-model="Order">
       <div class="row">
         <div class="col-12">
@@ -113,6 +116,7 @@ import axios from 'axios';
 import { useCounterStore } from 'stores/Store';
 import { } from "qs"
 import _ from "lodash"
+import Peyments from "src/Peyments.json"
 
 export default {
   setup() {
@@ -137,7 +141,9 @@ export default {
       Open: ref(true),
       Cards: ref([]),
       date: ref(Date),
+      pay: ref(false),
       result: [],
+      token: ref(""),
       store,
       incrementCount,
       decrementCount
@@ -321,6 +327,50 @@ export default {
       this.Order = true;
       this.alert = false;
     },
+    Payment() {
+      const checkout = YooMoneyCheckout(317549);
+      checkout.tokenize({
+        number: "4793128161644804",
+        cvc: "333",
+        month: "01",
+        year: "30"
+      }).then(response => {
+        if (response.status === 'success') {
+          const { paymentToken } = response.data.response;
+          this.token = paymentToken
+          console.log(paymentToken)
+          // eyJlbmNyeXB0ZWRNZXNzYWdlIjoiWlc...
+          return paymentToken;
+
+        }
+
+
+      });
+    },
+    paymentRendered() {
+      this.Payment()
+      const checkout = new window.YooMoneyCheckoutWidget({
+        confirmation_token: this.token, //Токен, который перед проведением оплаты нужно получить от ЮKassa
+        return_url: 'https://example.com', //Ссылка на страницу завершения оплаты
+        error_callback: function (error) {
+          console.log(error)
+        }
+      });
+      this.pay = true
+
+      //Отображение платежной формы в контейнере
+      checkout.render('payment-form')
+
+
+    },
+
+    Confirmation() {
+
+      // let pay = JSON.parse(Peyments)
+      // pay = _map(pay, 'confirmation')
+      // JSON.stringify(pay.push("confirmation_token", this.Payment))
+      // console.log(pay)
+    }
 
 
   },
