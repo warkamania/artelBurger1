@@ -86,7 +86,7 @@
               <q-select dark v-model="payment" :options="options" label="Способ оплаты" color="red" />
               <br />
               <div class="fit row wrap justify-center items-end self-end">
-                <q-btn color="red" @click="addCard, Confirmation()">Оплатить</q-btn>
+                <q-btn color="red" @click="addCard, paymentRendered()">Оплатить</q-btn>
               </div>
             </q-card-section>
           </q-card>
@@ -405,7 +405,7 @@ export default {
       const token = axios.post("http://localhost:1728/pay", data, config,
       ).then((response) => {
         this.confrimToken = response.data
-        console.log("лог" + this.confrimToken)
+        console.log(this.confrimToken)
       }).catch((error) => {
         console.log(error);
       })
