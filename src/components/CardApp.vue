@@ -402,7 +402,7 @@ export default {
           "currency": "RUB"
         },
       }
-      const token = axios.post("http://localhost:1728/pay", data, config,
+      const token = axios.post("http://80.240.250.157:1728/pay", data, config,
       ).then((response) => {
         this.confrimToken = response.data
         console.log(this.confrimToken)
