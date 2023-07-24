@@ -5,20 +5,20 @@
       <q-carousel-slide name="style" class="column no-wrap flex-center row">
         <img src="5.png" alt="" class="col-12">
         <div class="absolute-bottom custom-caption">
-          <center>
-            <div class="text-h5">{{ textt[0] }}</div>
-          </center>
+
+          <div class="text-h5">{{ textt[0] }}</div>
+
 
         </div>
       </q-carousel-slide>
       <q-carousel-slide name="tv" class="column no-wrap flex-center row">
         <img src="10.jpg" alt="" class="col-12">
         <div class="absolute-bottom custom-caption">
-          <center>
-            <div class="text-h5">
-              {{ textt[1] }}
-            </div>
-          </center>
+
+          <div class="text-h5">
+            {{ textt[1] }}
+          </div>
+
 
         </div>
 
@@ -40,22 +40,22 @@
 </template>
 
 <script>
-import { ref } from "vue";
+
 import db from 'src/boot/firebase';
 export default {
-  props: {
-    textt: String,
-    img: String,
-    index: Number,
-  },
-  setup() {
+  props: [
+    "textt",
+    "img",
+    "index",
+  ],
+  data() {
     return {
-      navPos: ref("bottom"),
+      navPos: "bottom",
       navigationPositions: [{ value: "bottom", label: "bottom (default)" }],
 
-      slide: ref("style"),
+      slide: "style",
       lorem: "НОВОСТИ",
-      News: ref([])
+      news: []
     };
 
   },
@@ -67,7 +67,7 @@ export default {
 
         if (change.type === "added") {
           //console.log("New News: ", burgerChange);
-          this.News.unshift(burgerChange);
+          this.news.unshift(burgerChange);
         }
         if (change.type === "modified") {
           //console.log("Modified News: ", burgerChange);

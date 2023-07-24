@@ -4,8 +4,8 @@
   <q-page>
     <div class="q-pa-md row items-start">
       <div class="col-12" id="id">
-        <q-intersection v-for="Card, index in Cards" :key="Card" once transition="scale">
-          <q-card class="my-card bg-black" v-show="Open">
+        <q-intersection v-for="card, index in cards" :key="card" once transition="scale">
+          <q-card class="my-card bg-black" v-show="open">
             <div class="row">
 
               <div class="col-10 text-white text-h6">{{ index + 1 }}</div>
@@ -53,7 +53,7 @@
       <div class="col-9 textGradient12" style="font-size: 22px">
         начислим бонусов:
       </div>
-      <div class="col-3 textGradient12" style="font-size: 22px">+ {{ Bonus }}</div>
+      <div class="col-3 textGradient12" style="font-size: 22px">+ {{ bonus }}</div>
     </div>
     <br />
 
@@ -86,7 +86,7 @@
               <q-select dark v-model="payment" :options="options" label="Способ оплаты" color="red" />
               <br />
               <div class="fit row wrap justify-center items-end self-end">
-                <q-btn color="red" @click="addCard, paymentRendered()">Оплатить</q-btn>
+                <q-btn color="red" @click="addCard(), paymentRendered()">Оплатить</q-btn>
               </div>
             </q-card-section>
           </q-card>
@@ -96,7 +96,7 @@
     <q-dialog v-model="pay">
       <div id="payment-form"></div>
     </q-dialog>
-    <q-dialog v-model="Order">
+    <q-dialog v-model="order">
       <div class="row">
         <div class="col-12">
           <q-card>
@@ -113,44 +113,42 @@
 </template>
 
 <script>
-import { ref, render } from "vue";
+//import { render } from "vue";
 import db from 'src/boot/firebase';
 import axios from 'axios';
 import { useCounterStore } from 'stores/Store';
-import { parse } from "qs"
-import _ from "lodash"
-import Peyments from "src/Peyments.json"
-import { v4 as uuidv4 } from 'uuid'
-import currencyFilter from "src/filters/currency.filter";
+import { map } from "underscore"
+//import { v4 as uuidv4 } from 'uuid'
+
 
 export default {
-  setup() {
+  data() {
     const store = useCounterStore();
     const incrementCount = () => store.increment()
     const decrementCount = () => store.dicrement()
 
     return {
-      alert: ref(false),
-      payment: ref(""),
+      alert: false,
+      payment: "",
       options: ["Онлайн", "Картой при получении", "Наличными при получении"],
-      Order: ref(false),
-      tel: ref(""),
-      adres: ref(""),
-      menu: ref([]),
-      count: ref(null),
-      number: ref(0),
-      title: ref(""),
-      price: ref(null),
-      id: ref(null),
-      quantity: ref(1),
-      Open: ref(true),
-      Cards: ref([]),
-      date: ref(Date),
-      pay: ref(false),
+      order: false,
+      tel: "",
+      adres: "",
+      menu: [],
+      count: null,
+      number: 0,
+      title: "",
+      price: null,
+      id: null,
+      quantity: 1,
+      open: true,
+      cards: [],
+      date: Date(),
+      pay: false,
       result: [],
-      Confrimm: ref(null),
-      confrimToken: ref(null),
-      url: ref(""),
+      confrimm: null,
+      confrimToken: null,
+      url: "",
 
       store,
       incrementCount,
@@ -158,14 +156,14 @@ export default {
     };
   },
   async mounted() {
-    this.Cards = this.store.Card
+    this.cards = this.store.Card
     this.store.summa = this.totalPrice
-    localStorage.setItem("Card", JSON.stringify(this.Cards));
+    localStorage.setItem("Card", JSON.stringify(this.cards));
 
   },
   updated() {
 
-    this.Cards = JSON.parse(localStorage.getItem("Card"));
+    this.cards = JSON.parse(localStorage.getItem("Card"));
 
     this.store.summa = this.totalPrice
   },
@@ -182,34 +180,34 @@ export default {
       return numb
     },
     parseTitle() {
-      return this.Cards.length > 0 ? this.Cards[0].title : "";
+      return this.cards.length > 0 ? this.cards[0].title : "";
     },
     parseImg() {
-      return this.Cards.length > 0 ? this.Cards[0].img : "";
+      return this.cards.length > 0 ? this.cards[0].img : "";
     },
 
-    DataNow() {
+    dataNow() {
       return new Date().toLocaleString("ru-RU", { timeZone: 'Europe/Moscow' });
     },
-    Bonus() {
+    bonus() {
       return Math.round(this.totalPrice * 0.03)
     },
     quantitys() {
       return this.store.quantity
     },
     adds() {
-      return this.Cards.length > 0 ? this.Cards.options : "";
+      return this.cards.length > 0 ? this.cards.options : "";
 
     },
     option() {
-      return this.Cards.length > 0 ? this.Cards[0].option : "";
+      return this.cards.length > 0 ? this.cards[0].option : "";
     },
     sum() {
-      return this.mapPrice[0] * this.Cards.length * this.quantitys
+      return this.mapPrice[0] * this.cards.length * this.quantitys
     },
     totalPrice() {
       let result = []
-      if (this.Cards.length) {
+      if (this.cards.length) {
         for (let index in this.mapCount) {
           result.push(this.mapPrice[index] * this.mapCount[index])
 
@@ -227,23 +225,21 @@ export default {
 
 
     mapTitles() {
-      return _.map(this.Cards, "title")
+      return map(this.cards, x => x.title)
     },
     mapPrice() {
-      return _.map(this.Cards, "price")
+      return map(this.cards, x => x.price)
     },
     mapImg() {
-      return _.map(this.Cards, "img")
+      return map(this.cards, x => x.img)
     },
     mapId() {
-      return _.map(this.Cards, "id")
+      return map(this.cards, x => x.id)
     },
     mapCount() {
-      return _.map(this.Cards, "count")
+      return map(this.cards, x => x.count)
     },
-    IdempotenceKey() {
-      return uuidv4()
-    },
+
 
 
   },
@@ -251,14 +247,14 @@ export default {
 
 
   methods: {
-    Close() {
-      this.Open = false
+    close() {
+      this.open = false
     },
-    CounterPlus(i) {
+    counterPlus(i) {
       this.store.quantity++
       this.store.Card[i].count++
     },
-    CounterMinus(i) {
+    counterMinus(i) {
 
       this.store.quantity--
       this.store.Card[i].count--
@@ -266,11 +262,9 @@ export default {
         deleteCard(i)
       }
     },
-    OpdenOrder() {
 
-    },
     persist() {
-      this.Cards.push({ tel: this.tel, adres: this.adres, payment: this.payment, quantity: this.quantity, numberOrder: this.numberOrder, options: this.adds });
+      this.cards.push({ tel: this.tel, adres: this.adres, payment: this.payment, quantity: this.quantity, numberOrder: this.numberOrder, options: this.adds });
       this.saveCard();
 
       setTimeout(() => {
@@ -279,13 +273,13 @@ export default {
 
     },
     saveCard() {
-      const parsed = JSON.stringify(this.Cards);
+      const parsed = JSON.stringify(this.cards);
       localStorage.setItem("Card", parsed);
 
 
     },
     deleteCard(i) {
-      this.Cards.splice(i, 1)
+      this.cards.splice(i, 1)
 
     },
     async addCard() {
@@ -297,7 +291,7 @@ export default {
         price: this.sum,
         tel: this.tel,
         title: this.parseTitle,
-        date: this.DataNow,
+        date: this.dataNow,
         option: this.option,
         options: this.adds
       };
@@ -310,7 +304,7 @@ export default {
       const cross_domain_flag = true
 
       const mailBody = "Наименование: " + this.parseTitle + ",   Колличество:  " + this.quantity +
-        "\nОплата:  " + this.payment + ",   Сумма:  " + this.sum + "\n Адрес:  " + this.adres + ",   Телефон:   " + this.tel + ",   Дата:   " + this.DataNow
+        "\nОплата:  " + this.payment + ",   Сумма:  " + this.sum + "\n Адрес:  " + this.adres + ",   Телефон:   " + this.tel + ",   Дата:   " + this.dataNow
       let data = { to: "warkamania5@yandex.ru", subject: "Доставка из мобильного приложения", body: mailBody }
       let res = await axios.post('http://80.240.250.157:1728/send-email', data, {
         crossDomain: cross_domain_flag
@@ -336,10 +330,10 @@ export default {
 
       this.newCurdContent = "";
       console.log("Корзина  сохранена");
-      this.Order = true;
+      // this.order = true;
       this.alert = false;
     },
-    Paymentt() {
+    paymentt() {
       const checkout = YooMoneyCheckout(317549);
       checkout.tokenize({
         number: "4793128161644804",
@@ -363,7 +357,7 @@ export default {
     paymentRendered() {
       this.alert = false;
       this.pay = true;
-      this.Confirmation()
+      this.confirmation()
       setTimeout(() => {
         const checkout = new window.YooMoneyCheckoutWidget({
           confirmation_token: this.confrimToken, //Токен, который перед проведением оплаты нужно получить от ЮKassa
@@ -382,7 +376,7 @@ export default {
 
     },
 
-    Confirmation() {
+    confirmation() {
       const cross_domain_flag = true
       let config = {
         headers: {

@@ -11,7 +11,7 @@
         <div class="fit row wrap inline justify-between">
           <div class="col-6">
             <q-responsive :ratio="1" class="container">
-              <img :src="Img[index]" alt="" @click="OpenDialog" />
+              <img :src="img[index]" alt="" @click="openDialog" />
             </q-responsive>
           </div>
 
@@ -23,7 +23,7 @@
             <q-btn icon-right="add" @click="persist" v-show="!add" size="md" text-color="white" color="grey-9">
               {{
                 price[index]
-              }} P
+              }}
             </q-btn>
           </div>
         </div>
@@ -36,13 +36,13 @@
           </div>
           <div class="fit row wrap" v-show="add">
             <div class="col-4">
-              <q-btn flat icon="remove" color="white" @click="CounterMinus"></q-btn>
+              <q-btn flat icon="remove" color="white" @click="counterMinus"></q-btn>
             </div>
             <div class="col-3">
               <q-input dense dark color="red" outlined v-model="quantity" label="" type="number" />
             </div>
             <div class="col-2">
-              <q-btn flat icon="add" color="white" @click="CounterPlus"></q-btn>
+              <q-btn flat icon="add" color="white" @click="counterPlus"></q-btn>
             </div>
           </div>
 
@@ -62,7 +62,7 @@
 
           <div class=" fit row wrap justify-center">
             <q-responsive :ratio="1" class="containerr">
-              <img :src="Img[index]" alt="" @click="OpenDialog" />
+              <img :src="img[index]" alt="" @click="openDialog" />
             </q-responsive>
           </div>
           <h5>{{ title[index] }}</h5>
@@ -70,10 +70,10 @@
           <div class="text-h6 " style="color:white">Состав:</div>
 
           <div class="row">
-            {{ Structure[index] }}
+            {{ structure[index] }}
           </div>
         </q-card-section>
-        <q-card-section bg-white v-if="Category[index] == `Бургер`">
+        <q-card-section bg-white v-if="category[index] == `Бургер`">
           <div class="text-h6 " style="color:white">Добавки</div>
           <div class="text">
             <q-checkbox dark v-model="left" color="red" @click="addOptions">{{ store.options[1] }}</q-checkbox>
@@ -104,7 +104,7 @@
             <q-checkbox dark v-model="left8" color="red" @click="addOptions">{{ store.options[9] }}</q-checkbox>
           </div>
         </q-card-section>
-        <q-card-section bg-white v-if="Category[index] == `Пицца`">
+        <q-card-section bg-white v-if="category[index] == `Пицца`">
           <div class="text-h6 " style="color:white">Соус</div>
           <div class="text">
             <q-radio dark v-model="sauce1" val="line" color="red" @click="addsauce">{{
@@ -123,13 +123,13 @@
 
             <div class=" row wrap red justify-between col-9 " v-show="add">
               <div class="col-3">
-                <q-btn flat icon="remove" color="white" @click="CounterMinus"></q-btn>
+                <q-btn flat icon="remove" color="white" @click="counterMinus"></q-btn>
               </div>
               <div class="col-2">
                 <q-input dense color="red" outlined v-model.number="quantity" label="" type="number" dark />
               </div>
               <div class="col-3">
-                <q-btn flat icon="add" color="white" @click="CounterPlus"></q-btn>
+                <q-btn flat icon="add" color="white" @click="counterPlus"></q-btn>
               </div>
             </div>
             <q-btn label="" icon-right="add" color="red" v-show="!add && !this.options.length" @click="persist"
@@ -152,51 +152,50 @@
 
 <script>
 //import DialogAppVue from "./DialogApp.vue";
-import { ref } from "vue";
+
 import { v4 as uuidv4 } from "uuid";
-import { useStorage } from '@vueuse/core'
-import _ from "lodash"
+import { map, filter } from "underscore"
 import { useCounterStore } from 'stores/Store';
 
 export default {
-  props: {
-    title: String,
-    price: String,
-    Structure: String,
-    Category: String,
-    Img: String,
-    index: Number,
-    toogle: String,
-    option: String,
+  props: [
+    "title",
+    "price",
+    "structure",
+    "category",
+    "img",
+    "index",
+    "toogle",
+    "option",
 
-  },
-  setup() {
+  ],
+  data() {
     const store = useCounterStore();
 
     return {
-      dialog: ref(false),
-      sum: ref(0),
-      Card: ref([]),
-      Menus: ref([]),
-      star: ref(false),
-      alert: ref(false),
-      idfavourites: ref([]),
-      add: ref(false),
-      quantity: ref(1),
-      left: ref(false),
-      left1: ref(false),
-      left2: ref(false),
-      left3: ref(false),
-      left4: ref(false),
-      left5: ref(false),
-      left6: ref(false),
-      left7: ref(false),
-      left8: ref(false),
-      sauce1: ref('line'),
-      sauce2: ref(false),
-      options: ref(""),
-      count: ref(1),
-      id: ref(""),
+      dialog: false,
+      sum: 0,
+      card: [],
+      menus: [],
+      star: false,
+      alert: false,
+      idfavourites: [],
+      add: false,
+      quantity: 1,
+      left: false,
+      left1: false,
+      left2: false,
+      left3: false,
+      left4: false,
+      left5: false,
+      left6: false,
+      left7: false,
+      left8: false,
+      sauce1: 'line',
+      sauce2: false,
+      options: "",
+      count: 1,
+      id: "",
       store,
       localStorage: window.localStorage
 
@@ -206,7 +205,7 @@ export default {
   async mounted() {
     if (localStorage.getItem("Card")) {
       try {
-        this.Card = JSON.parse(localStorage.getItem("Card"));
+        this.card = JSON.parse(localStorage.getItem("Card"));
       } catch (e) {
         localStorage.removeItem("Card");
       }
@@ -215,10 +214,10 @@ export default {
   },
   computed: {
     mapId() {
-      return _.map(this.store.Card, "id")
+      return map(this.store.Card, x => x.id)
     },
     filterId() {
-      return _.filter(this.store.Card, ['id', this.id])
+      return filter(this.store.Card, x => x.id == this.id)
     },
     sumOption() {
       return Number(this.price[this.index]) + this.optionsPrice
@@ -252,18 +251,24 @@ export default {
       if (this.left8) {
         result.push(this.store.optionsPrice[9])
       }
-      result = result.reduce((sum, el) => {
-        return sum + el
-      })
+      let sumeResult = 0;
 
-      return result;
+      if (result.length > 0) {
+        sumeResult = result.reduce((sum, el) => {
+          return sum + el
+        })
+      }
+
+
+
+      return sumeResult;
 
     }
 
   },
 
   methods: {
-    OpenDialog() {
+    openDialog() {
       this.alert = !this.alert
     },
     persist() {
@@ -279,9 +284,9 @@ export default {
       // localStorage.setItem("Card", JSON.stringify(allCards));
       this.id = uuidv4()
       this.store.Card.push({
-        id: this.id, title: this.title[this.index], price: this.price[this.index], img: this.Img[this.index], options: this.options, option: this.option, count: this.count
+        id: this.id, title: this.title[this.index], price: this.price[this.index], img: this.img[this.index], options: this.options, option: this.option, count: this.count
       })
-      this.Card = this.store.Card
+      this.card = this.store.Card
       // const store = useStorage('cards', allCards)
       // const text = JSON.stringify(store)
 
@@ -299,9 +304,9 @@ export default {
       // localStorage.setItem("Card", JSON.stringify(allCards));
       this.id = uuidv4()
       this.store.Card.push({
-        id: this.id, title: this.title[this.index], price: this.sumOption, img: this.Img[this.index], options: this.options, option: this.option, count: this.count
+        id: this.id, title: this.title[this.index], price: this.sumOption, img: this.img[this.index], options: this.options, option: this.option, count: this.count
       })
-      this.Card = this.store.Card
+      this.card = this.store.Card
       // const store = useStorage('cards', allCards)
       // const text = JSON.stringify(store)
 
@@ -311,7 +316,7 @@ export default {
       this.star = !this.star
       this.idfavourites = { id: this.id }
     },
-    CounterPlus() {
+    counterPlus() {
       this.count++
       this.quantity++
       this.store.quantity++
@@ -320,7 +325,7 @@ export default {
       this.store.Card[a].count++
 
     },
-    CounterMinus() {
+    counterMinus() {
       this.count--
       this.quantity--
       this.store.quantity--
@@ -382,7 +387,7 @@ export default {
 
 
   },
-  components: {},
+
 };
 </script>
 

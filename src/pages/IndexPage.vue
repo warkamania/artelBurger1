@@ -2,14 +2,16 @@
   <q-page>
     <div class="row">
       <div class="col-12 " style="font-size: 22px; color: whitesmoke;">
-        {{ Time }}
+        <!-- {{ Time }} -->
+
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <NewsPanel :textt="newsText" :img="newsImg" :index="0" />
+        <NewsPanel :textt="newsText" :img="newsImg" :index=0 />
       </div>
     </div>
+
     <!-- <div class="row">
       <div class="col-12 q-pa-md">
         <q-btn-toggle class="col-12" v-model="toogle" text-color="white" toggle-color="red" :options="[
@@ -38,67 +40,31 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { map } from 'underscore'
 import NewsPanel from "../components/NewsPanel.vue";
 
-import { ref } from "vue";
-
-import db from 'src/boot/firebase';
-import _ from "lodash"
-export default defineComponent({
+export default {
 
   name: "IndexPage",
   components: { NewsPanel, },
-  setup() {
+
+  data() {
     return {
       lorem: "Бургер",
-      toogle: ref("one"),
-      value: ref(""),
-      Dialog: ref(false),
-      menus: ref([]),
-      News: ref([])
+      toogle: "one",
+      value: "",
+      dialog: false,
+      menus: [],
+      news: []
     };
-  },
-  mounted() {
-    db.collection("Burger").onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
 
-        const burgerChange = change.doc.data();
-
-        if (change.type === "added") {
-          //console.log("New burger: ", burgerChange);
-          this.menus.unshift(burgerChange);
-        }
-        if (change.type === "modified") {
-          //console.log("Modified burger: ", burgerChange);
-        }
-        if (change.type === "removed") {
-          //console.log("Removed burger: ", burgerChange);
-        }
-      });
-    });
-    db.collection("News").onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
-
-        const newsChange = change.doc.data();
-
-        if (change.type === "added") {
-          console.log("New News: ", newsChange);
-          //this.News.unshift(newsChange);
-        }
-        if (change.type === "modified") {
-          //console.log("Modified News: ", newsChange);
-        }
-        if (change.type === "removed") {
-          //console.log("Removed News: ", newsChange);
-        }
-      });
-    });
 
   },
+
 
   computed: {
-    Time() {
+
+    time() {
       let date = new Date();
       let dateHours = date.getHours();
       let day = "Доброе утро!";
@@ -112,44 +78,46 @@ export default defineComponent({
       return day;
     },
     parseTitle() {
-      return _.map(this.menus, 'title')
+      return map(this.menus, x => x.title)
 
     },
     parsePrice() {
-      return _.map(this.menus, 'price')
+      return map(this.menus, x => x.price)
 
     },
     parseStructure() {
-      return _.map(this.menus, 'structure')
+      return map(this.menus, x => x.structure)
 
     },
     parseImg() {
-      return _.map(this.menus, 'img')
+      return map(this.menus, x => x.img)
 
     },
     parseCategory() {
-      return _.map(this.menus, 'Category')
+      return map(this.menus, x => x.Category)
 
     },
     newsText() {
-      return _.map(this.News, 'textNews')
+      return map(this.news, x => x.textNews)
     },
     newsImg() {
-      return _.map(this.News, 'img')
+      return map(this.news, x => x.img)
     }
-  },
-  methods: {
-    openDialog() {
-      this.Dialog = !this.Dialog
-    }
-  },
-});
+
+
+  }
+
+
+
+
+
+
+
+
+};
+
 </script>
-<style lang="sass" scoped>
-.my-card
-  width: 100%
-  max-width: 250px
-</style>
+
 <style>
 .textGradient12 {
   background-image: linear-gradient(to right, #553c9a 8%, #ee4b2b);

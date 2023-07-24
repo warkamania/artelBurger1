@@ -19,7 +19,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <PromoPanel :textt="parseTitle" :index="0" />
+        <PromoPanel :textt="parseTitle" :index=0 />
       </div>
     </div>
     <div class="row">
@@ -31,15 +31,15 @@
 </template>
 
 <script>
-import { ref } from "vue";
+
 import PromoPanel from "./PromoPanel.vue";
 import db from 'src/boot/firebase';
-import _ from "lodash"
+import { map } from 'underscore'
 export default {
-  setup() {
+  data() {
     return {
-      text: ref(""),
-      Promotion: ref([]),
+      text: "",
+      promotion: [],
 
     };
   },
@@ -65,7 +65,7 @@ export default {
   },
   computed: {
     parseTitle() {
-      return _.map(this.Promotion, 'textPromotion')
+      return map(this.promotion, x => x.textPromotion)
 
     },
   },

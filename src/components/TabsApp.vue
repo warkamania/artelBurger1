@@ -17,6 +17,7 @@
             <q-tab name="Фирменные лимонады" label="Фирменные лимонады" />
             <q-tab name="Паста" label="Паста" />
             <q-tab name="Сендвичи" label="Сендвичи" />
+            <q-tab name="Блины" label="Блины" />
           </q-tabs>
 
           <q-separator />
@@ -24,98 +25,98 @@
           <q-tab-panels v-model="tab" animated class="bg-black text-white fix" infinite>
             <q-tab-panel name="Бургер" id="burger">
               <div class="row" @scroll="scroll()">
-                <h7>Бургеры</h7>
+                <h6>Бургеры</h6>
                 {{ idd() }}
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="1" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="2" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="3" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="4" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="5" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="6" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="7" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="8" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="10" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="12" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="13" />
                 </div>
 
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="16" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="17" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="18" />
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                       :index="19" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                       :index="21" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                       :index="22" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                       :index="24" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                       :index="25" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                       :index="26" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                       :index="27" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                       :index="28" />
                   </div>
                   <div class="col-12" style="word-wrap: break-word;">
-                    <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                    <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                       :index="29" />
                   </div>
 
@@ -127,43 +128,43 @@
 
               <div class="row">
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="0" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="9" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="11" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="14" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="15" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="20" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="23" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="30" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="31" />
                 </div>
                 <div class="col-12" style="word-wrap: break-word;">
-                  <CardMenuVue :title="title" :price="price" :Img="Img" :Structure="Structure" :Category="Category"
+                  <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category"
                     :index="32" />
                 </div>
               </div>
@@ -210,6 +211,12 @@
               <div class="text-h6">Сендвичи</div>
               Сендвичи
             </q-tab-panel>
+            <q-tab-panel name="Блины">
+              <div class="text-h6">Блины</div>
+              <div class="col-12" style="word-wrap: break-word;">
+                <CardMenuVue :title="title" :price="price" :img="img" :structure="structure" :category="category" />
+              </div>
+            </q-tab-panel>
           </q-tab-panels>
           <div style="color: white;"></div>
         </q-card>
@@ -219,30 +226,29 @@
 </template>
 
 <script>
-import { ref } from "vue";
-import _ from "lodash"
+
+import { map, filter } from "underscore"
 import CardMenuVue from "./CardMenu.vue";
 import db from 'src/boot/firebase';
 import { v4 as uuidv4 } from "uuid";
 
 export default {
-  props: {
-    title: String,
-    price: String,
-    Structure: String,
-    Category: String,
-    Img: String,
-    quntity: Number,
-    option: String,
-    scrolling: Boolean,
-  },
-  setup() {
+  props: [
+    "title",
+    "price",
+    "structure",
+    "category",
+    "img",
+    "quntity",
+    "option",
+    "scrolling",
+  ],
+  data() {
     return {
-      tab: ref("Бургер"),
-      menus: ref([]),
-      CategoryClick: ref(""),
-      id: ref(""),
-
+      tab: "Бургер",
+      menus: [],
+      categoryClick: "",
+      id: "",
 
     };
   },
@@ -269,64 +275,67 @@ export default {
   },
   computed: {
     filterBurger() {
-      return _.filter(this.menus, ['Category', "Бургер"])
+      return filter(this.menus, x => x.Category == "Бургер")
     },
     filterSnacks() {
-      return _.filter(this.menus, ['Category', "Закуски"])
+      return filter(this.menus, x => x.Category == "Закуски")
     },
     parsePriceSnacks() {
-      return _.map(this.filterSnacks, 'price')
+      return map(this.filterSnacks, x => x.price)
 
     },
     parseStructureSnacks() {
-      return _.map(this.filterSnacks, 'structure')
+      return map(this.filterSnacks, x => x.structure)
 
     },
     parseImgSnacks() {
-      return _.map(this.filterSnacks, 'img')
+      return map(this.filterSnacks, x => x.img)
 
     },
     parseTitleSnacks() {
-      return _.map(this.filterSnacks, 'title')
+      return map(this.filterSnacks, x => x.title)
     },
     filterSalats() {
-      return _.filter(this.menus, ['Category', "Салаты"])
+      return filter(this.menus, x => x.Category == "Салаты")
     },
     parsePriceSalats() {
-      return _.map(this.filterSalats, 'price')
+      return map(this.filterSalats, x => x.price)
 
     },
     parseStructureSalats() {
-      return _.map(this.filterSalats, 'structure')
+      return map(this.filterSalats, x => x.structure)
 
     },
     parseImgSalats() {
-      return _.map(this.filterSalats, 'img')
+      return map(this.filterSalats, x => x.img)
 
     },
     parseTitleSalats() {
-      return _.map(this.filterSalats, 'title')
+      return map(this.filterSalats, x => x.title)
     },
     filterFirst() {
-      return _.filter(this.menus, ['Category', "Первые Блюда"])
+      return filter(this.menus, x => x.Category == "Первые Блюда")
     },
     parsePriceFirst() {
-      return _.map(this.filterFirst, 'price')
+      return map(this.filterFirst, x => x.price)
 
     },
     parseStructureFirst() {
-      return _.map(this.filterFirst, 'structure')
+      return map(this.filterFirst, x => x.structure)
 
     },
     parseImgFirst() {
-      return _.map(this.filterFirst, 'img')
+      return map(this.filterFirst, x => x.img)
 
     },
     parseTitleFirst() {
-      return _.map(this.filterFirst, 'title')
+      return map(this.filterFirst, x => x.title)
     },
     filterPizza() {
-      return _.filter(this.menus, ['Category', "Пицца"])
+      return filter(this.menus, x => x.Category == "Пицца")
+    },
+    filterBlin() {
+      return filter(this.menus, x => x.Category == "Блины")
     },
 
 
@@ -334,25 +343,25 @@ export default {
 
   },
   beforeUpdate() {
-    this.onTab();
-    this.Tab1()
-    this.Tab()
+    // this.onTab();
+    // this.tab1()
+    this.tab_()
   },
 
   methods: {
-    onTab() {
-      if (this.scrolling == true) {
-        this.tab = "Горячие Закуски"
-      }
-      !this.scrolling
-    },
-    Tab1() {
-      if (this.tab == "Горячие Закуски" && this.scrolling == true) {
-        this.tab = "Салаты"
-      }
-    },
+    // onTab() {
+    //   if (this.scrolling == true) {
+    //     this.tab = "Горячие Закуски"
+    //   }
+    //   !this.scrolling
+    // },
+    // tab1() {
+    //   if (this.tab == "Горячие Закуски" && this.scrolling == true) {
+    //     this.tab = "Салаты"
+    //   }
+    // },
 
-    Tab() {
+    tab_() {
       const a = this.tab && this.scrolling
 
       switch (a) {

@@ -1,7 +1,7 @@
 <template>
   <q-page>
-    <div class="row">
-      <div class="col-12 q-pa-xs fix">
+    <div class="row justify-center items-center content-center">
+      <div class="col-12 q-pa-md fix">
         <q-btn-toggle class="col-12" v-model="toogle" text-color="white" size="md" toggle-color="red"
           @click="alert = true" :options="[
             { label: 'Доставка', value: 'Доставка' },
@@ -50,8 +50,8 @@
     </div>
     <div class="row fix">
       <div class="col-12 fix">
-        <TabsApp :title="parseTitle" :price="parsePrice" :Img="parseImg" :Structure="parseStructure"
-          :Category="parseCategory" :option="toogle" :scrolling="scrolledToBottom" class="fix" />
+        <TabsApp :title="parseTitle" :price="parsePrice" :img="parseImg" :structure="parseStructure"
+          :category="parseCategory" :option="toogle" :scrolling="scrolledToBottom" class="fix" />
       </div>
     </div>
 
@@ -59,14 +59,15 @@
 </template>
 
 <script>
-import { ref } from "vue";
+
+
 import TabsApp from "src/components/TabsApp.vue";
 import db from 'src/boot/firebase';
-import _ from "lodash"
+import { map, filter } from "underscore"
 import { reactive, toRefs } from 'vue'
 import { QrStream } from 'vue3-qr-reader';
 export default {
-  setup() {
+  data() {
     const state = reactive({
       data: null
     })
@@ -76,29 +77,29 @@ export default {
     return {
       ...toRefs(state),
       onDecode,
-      searchQuery: ref(""),
-      id: ref(""),
-      title: ref(""),
-      price: ref(""),
-      sum: ref(0),
-      Card: ref([]),
-      selectedSort: ref(""),
-      menus: ref([]),
-      img: ref(""),
-      Category: ref(null),
-      Structure: ref(""),
-      DocumentID: ref(""),
-      toogle: ref("Доставка"),
-      value: ref(""),
-      alert: ref(false),
-      group: ref(null),
+      searchQuery: "",
+      id: "",
+      title: "",
+      price: "",
+      sum: 0,
+      card: [],
+      selectedSort: "",
+      menus: [],
+      img: "",
+      category: null,
+      structure: "",
+      documentID: "",
+      toogle: "Доставка",
+      value: "",
+      alert: false,
+      group: null,
       scrolledToBottom: false,
-      camera: ref('auto'),
-      qr: ref(false),
-      showCamera: ref(false),
-      isValid: ref(undefined),
+      camera: 'auto',
+      qr: false,
+      showCamera: false,
+      isValid: undefined,
 
-      result: ref(null),
+      result: null,
 
       rest: [
         { label: 'улица 2-я Новоселовка 64 А ', value: 'боевка' },
@@ -112,7 +113,7 @@ export default {
   async mounted() {
     if (localStorage.getItem("Card")) {
       try {
-        this.Card = JSON.parse(localStorage.getItem("Card"));
+        this.card = JSON.parse(localStorage.getItem("Card"));
       } catch (e) {
         localStorage.removeItem("Card");
       }
@@ -134,7 +135,7 @@ export default {
         }
       });
     });
-    this.scroll()
+    // this.scroll()
   },
   computed: {
     sortedMenus() {
@@ -144,61 +145,61 @@ export default {
       return this.sortedMenus.filter(menu => menu.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
     },
     parseTitle() {
-      return _.map(this.menus, 'title')
+      return map(this.menus, x => x.title)
 
     },
     parsePrice() {
-      return _.map(this.menus, 'price')
+      return map(this.menus, x => x.price)
 
     },
     parseStructure() {
-      return _.map(this.menus, 'structure')
+      return map(this.menus, x => x.structure)
 
     },
     parseImg() {
-      return _.map(this.menus, 'img')
+      return map(this.menus, x => x.img)
 
     },
     parseCategory() {
-      return _.map(this.menus, 'Category')
+      return map(this.menus, x => x.Category)
 
     },
     parsePriceSnacks() {
-      return _.map(this.filterSnacks, 'price')
+      return map(this.filterSnacks, x => x.price)
 
     },
     parseStructureSnacks() {
-      return _.map(this.filterSnacks, 'structure')
+      return map(this.filterSnacks, x => x.structure)
 
     },
     parseImgSnacks() {
-      return _.map(this.filterSnacks, 'img')
+      return map(this.filterSnacks, x => x.img)
 
     },
     parseTitleSnacks() {
-      return _.map(this.filterSnacks, 'title')
+      return map(this.filterSnacks, x => x.title)
     },
 
     parsedBurgerNew() {
-      return _.map(this.menus, 'burgerNew')
+      return map(this.menus, x => x.burgerNew)
     },
     parsedBurgerPop() {
-      return _.map(this.menus, 'burgerPop')
+      return map(this.menus, x => x.burgerPop)
     },
     filterCategory() {
-      return _.filter(this.menus, ['Category', 'Category'])
+      return filter(this.menus, x => x.Category == 'Category')
     },
     filterBurger() {
-      return _.filter(this.menus, ['Category', "Бургер"])
+      return filter(this.menus, x => x.Category == "Бургер")
     },
     filterSnacks() {
-      return _.filter(this.menus, ['Category', "Закуски"])
+      return filter(this.menus, x => x.Category == "Закуски")
     },
     scrolling() {
       return this.scrolledToBottom
     },
     cardMap() {
-      return _.map(this.Card, 'title')
+      return map(this.card, x => x.title)
     },
     textInfo() {
       return this.showCamera ? 'position the qrcode on the camera' : 'Press the button and scan a qrcode.'
@@ -210,15 +211,15 @@ export default {
   },
   methods: {
     persist() {
-      this.Card.push({ id: this.id, title: this.title, price: this.price, option: this.toogle });
+      this.card.push({ id: this.id, title: this.title, price: this.price, option: this.toogle });
       this.saveCard();
     },
     saveCard() {
-      const parsed = JSON.stringify(this.Card);
+      const parsed = JSON.stringify(this.card);
       localStorage.setItem("Card", parsed);
     },
     getId(id) {
-      return db.collection('Burger').doc(id).get()
+      // return db.collection('Burger').doc(id).get()
     },
     scroll() {
       window.onscroll = () => {
@@ -243,12 +244,12 @@ export default {
 
   },
   watch: {
-    onScrol() {
-      this.scrolledToBottom
-    }
+    // onScrol() {
+    //   this.scrolledToBottom
+    // }
   },
-  components: { TabsApp, QrStream },
-};
+  components: { TabsApp, QrStream }
+}
 </script>
 
 <style>

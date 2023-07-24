@@ -7,7 +7,7 @@
         </div>
         <div class="q-pa-md col-12" style="max-width: 300px">
           <div class="">
-            <q-input v-model="Category" label="Категории" bg-color="white" color="red" />
+            <q-input v-model="category" label="Категории" bg-color="white" color="red" />
           </div>
         </div>
         <div class="q-pa-md col-12" style="max-width: 300px">
@@ -27,11 +27,10 @@
           </div>
           <br />
         </div>
-        <q-input color="red" bg-color="white" @update:model-value="
-          (val) => {
-            file = val[0];
-          }
-        " filled id="fileItem" type="file" Placeholder="Фотография блюда" v-model="img" />
+        <q-input color="red" bg-color="white" @update:model-value="(val) => {
+          file = val[0];
+        }
+          " filled id="fileItem" type="file" Placeholder="Фотография блюда" v-model="img" />
       </div>
       <div class="row justify-between q-pa-md">
         <div class="col-4">
@@ -65,11 +64,10 @@
           }" />
         </div>
         <br />
-        <q-input color="red" bg-color="white" @update:model-value="
-          (val) => {
-            file = val[0];
-          }
-        " filled type="file" hint="Картинка" v-model="imgNews" />
+        <q-input color="red" bg-color="white" @update:model-value="(val) => {
+          file = val[0];
+        }
+          " filled type="file" hint="Картинка" v-model="imgNews" />
       </div>
     </div>
     <div class="row justify-between q-pa-md">
@@ -95,11 +93,10 @@
           }" />
         </div>
         <br />
-        <q-input color="red" bg-color="white" @update:model-value="
-          (val) => {
-            file = val[0];
-          }
-        " filled type="file" hint="Картинка" v-model="imgPromo" />
+        <q-input color="red" bg-color="white" @update:model-value="(val) => {
+          file = val[0];
+        }
+          " filled type="file" hint="Картинка" v-model="imgPromo" />
         <br />
         <q-input v-model="promocod" label="Промокод" bg-color="white" color="red" />
         <br />
@@ -121,34 +118,34 @@
 </template>
 
 <script>
-import { ref } from "vue";
+
 import db from 'src/boot/firebase';
 import { Base64 } from 'js-base64';
 export default {
-  setup() {
+  data() {
     return {
 
-      model: ref(null),
-      price: ref(null),
-      title: ref(""),
+      model: null,
+      price: null,
+      title: "",
       options: [],
-      menu: ref(null),
-      news: ref(null),
-      promotion: ref(null),
-      Category: ref(""),
-      img: ref(null),
-      splitterModel: ref(50),
-      promocod: ref(""),
-      date: ref(null),
-      structure: ref(''),
-      textNews: ref(""),
-      imgNews: ref(null),
-      textPromotion: ref(""),
-      imgPromo: ref(null),
-      percent: ref(""),
-      imgbase64: ref(""),
-      burgerNew: ref(false),
-      burgerPop: ref(false),
+      menu: null,
+      news: null,
+      promotion: null,
+      category: "",
+      img: null,
+      splitterModel: 50,
+      promocod: "",
+      date: null,
+      structure: '',
+      textNews: "",
+      imgNews: null,
+      textPromotion: "",
+      imgPromo: null,
+      percent: "",
+      imgbase64: "",
+      burgerNew: false,
+      burgerPop: false,
 
     };
   },
@@ -194,6 +191,7 @@ export default {
           console.error("Ошибка добавления: ", error);
         });
 
+
       this.newPromotionContent = "";
       console.log("Промоакция сохранена ");
     },
@@ -202,8 +200,7 @@ export default {
       }
       let newBurger = {
 
-        Category: this.Category,
-        //img: this.img,
+        Category: this.category,
         price: this.price,
         structure: this.structure,
         title: this.title,
@@ -241,7 +238,7 @@ export default {
   deleteMenu() {
     console.log("Клик!!");
     //let menuId = MenuContent.id;
-    db.collection("Burger")
+    /* db.collection("Burger")
       .doc(menuId)
       .delete()
       .then(() => {
@@ -249,7 +246,7 @@ export default {
       })
       .catch(error => {
         console.error("Error removing document: ", error);
-      });
+      }); */
 
 
   },
@@ -263,6 +260,4 @@ export default {
 </script>
 
 
-<style>
-
-</style>
+<style></style>

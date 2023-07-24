@@ -36,16 +36,16 @@
 
 <script>
 import { useQuasar } from "quasar";
-import { ref } from "vue";
+
 
 export default {
-  setup() {
+  data() {
     const $q = useQuasar();
 
-    const name = ref(null);
-    const email = ref(null);
-    const password = ref(null);
-    const accept = ref(false);
+    const name = null;
+    const email = null;
+    const password = null;
+    const accept = false;
 
     return {
       name,
@@ -73,5 +73,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,5 +1,5 @@
 import { route } from "quasar/wrappers";
-import firebase from "firebase/app";
+//import firebase from "firebase/app";
 import {
   createRouter,
   createMemoryHistory,
@@ -23,13 +23,13 @@ export default route(function (/* { store, ssrContext } */) {
       process.env.MODE === "ssr" ? void 0 : process.env.VUE_ROUTER_BASE
     ),
   });
-  Router.beforeEach(async (to, from, next) => {
-    const auth = to.meta.requiresAuth;
-    if (auth && !(await firebase.getCurrentUser())) {
-      next("/");
-    } else {
-      next();
-    }
-  });
+  // Router.beforeEach(async (to, from, next) => {
+  //   const auth = to.meta.requiresAuth;
+  //   if (auth && !(await firebase.getCurrentUser())) {
+  //     next("/");
+  //   } else {
+  //     next();
+  //   }
+  // });
   return Router;
 });

@@ -6,7 +6,6 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [
       { path: "", component: () => import("pages/IndexPage.vue") },
-      { path: "OrderApp", component: () => import("components/OrderApp") },
       {
         path: "PromotionApp",
         component: () => import("components/PromotionApp"),
@@ -18,8 +17,18 @@ const routes = [
         component: () => import("components/RegistrApp"),
       },
       { path: "CardApp", component: () => import("components/CardApp") },
+      { path: "OrderApp", component: () => import("components/OrderApp") },
       { path: "AdminPanel", component: () => import("components/AdminPanel") },
+      /*
+
+
+
+
+
+
+
       { path: "OrderList", component: () => import("components/OrderList") },
+      */
     ],
   },
 

@@ -1,10 +1,7 @@
 {
-  "appId": "org.capacitor.quasar.app",
-  "appName": "Артель Бургер",
-  "bundledWebRuntime": true,
-  "npmClient": "npm",
-  "webDir": "www",
-  "server": {
-    "url": "https://artel5-9ggd.vercel.app/#/"
-  }
+	"appId": "org.capacitor.quasar.app.burger",
+	"appName": "Артель Бургер",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "www"
 }

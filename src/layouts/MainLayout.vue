@@ -8,13 +8,7 @@
             <img src="logo.png" alt="logo" @click="clickHome" style=" width: 140px; height: 120px" />
           </div>
         </div>
-        <!-- <div class="row wrap justify-end items-end content-end">
-          <div class="col-2">
-            <q-btn size="md" flat icon="shopping_bag" to="CardApp">
-              <q-badge color="red" floating rounded>{{ Card.length }}</q-badge>
-            </q-btn>
-          </div>
-        </div> -->
+
       </q-header>
       <br />
 
@@ -36,14 +30,15 @@
 
           <q-footer class="white col-2 " v-show="menu">
             <div class="">
-              <q-btn to="/" icon="house" outline="true" @click="deleteMenu" style="height:50px; margin-left: 300px;"
-                class="btn"></q-btn>
+              <q-btn to="/" icon="house" @click="deleteMenu" style="height:50px; margin-left: 300px;" class="btn"></q-btn>
             </div>
             <br />
           </q-footer>
 
 
         </div>
+
+
         <q-footer class="bg-grey-10" reveal v-show="!menu">
           <div class="row full-width">
             <MenuApp class="col-12 self-center" />
@@ -69,6 +64,9 @@ import { useCounterStore } from 'stores/Store';
 export default defineComponent({
   name: "MainLayout",
   components: { MenuApp },
+
+
+
   setup() {
     const store = useCounterStore();
 
@@ -78,6 +76,7 @@ export default defineComponent({
       store
     };
   },
+
   mounted() {
     if (localStorage.getItem("Card")) {
       try {
@@ -98,9 +97,9 @@ export default defineComponent({
     url() {
       Url.getPath('http://localhost:8080/#/OrderApp')
     },
-    // sum(){
-    //  this.store.summa = this.parsePrice * this.Card.length
-    // },
+    sum() {
+      this.store.summa = this.parsePrice * this.Card.length
+    },
 
 
 

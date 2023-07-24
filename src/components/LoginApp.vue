@@ -6,39 +6,18 @@
           <q-card-section>
             <div class="q-pa-md" style="max-width: 400px">
               <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
-                <q-input
-                  type="login"
-                  filled
-                  v-model="name"
-                  label="Логин"
-                  hint="Имя"
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val && val.length > 0) || 'Пожалуйста введите логин',
-                  ]"
-                />
+                <q-input type="login" filled v-model="name" label="Логин" hint="Имя" lazy-rules :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Пожалуйста введите логин',
+                ]" />
 
-                <q-input
-                  filled
-                  type="password"
-                  v-model="age"
-                  label="Пароль "
-                  lazy-rules
-                  :rules="[
-                    (val) => (val !== null && val !== '') || 'введите пароль',
-                  ]"
-                />
+                <q-input filled type="password" v-model="age" label="Пароль " lazy-rules :rules="[
+                  (val) => (val !== null && val !== '') || 'введите пароль',
+                ]" />
 
                 <div>
                   <q-btn label="Войти" type="submit" color="red" />
-                  <q-btn
-                    label="Сбросить"
-                    type="reset"
-                    color="red"
-                    flat
-                    class="q-ml-sm"
-                  />
+                  <q-btn label="Сбросить" type="reset" color="red" flat class="q-ml-sm" />
                 </div>
                 <router-link to="RegistrApp">Регистрация</router-link>
               </q-form>
@@ -52,15 +31,15 @@
 
 <script>
 import { useQuasar } from "quasar";
-import { ref } from "vue";
+
 
 export default {
-  setup() {
+  data() {
     const $q = useQuasar();
 
-    const name = ref(null);
-    const age = ref(null);
-    const accept = ref(false);
+    const name = null;
+    const age = null;
+    const accept = false;
 
     return {
       name,

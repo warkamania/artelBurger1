@@ -23,7 +23,8 @@ module.exports = configure(function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-webpack/boot-files
-    boot: ["i18n", "axios", "firebase"],
+    //boot: ["i18n", "axios", "firebase"],
+    boot: ["i18n", "firebase"],
 
     // https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-css
     css: ["app.scss"],
@@ -75,6 +76,15 @@ module.exports = configure(function (ctx) {
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-devServer
+
+    // Full list of options: https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-devServer
+    devServer: {
+      server: {
+        type: "http",
+      },
+      port: 8080,
+      open: true, // opens browser window automatically
+    },
 
     // https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-framework
     framework: {
@@ -220,6 +230,5 @@ module.exports = configure(function (ctx) {
           .use(ESLintPlugin, [{ extensions: ["js"] }]);
       },
     },
-    bin: {},
   };
 });
